@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+#  username: tu_usuario_postgres
+#  password: tu_contraseña_postgres
+#  host: localhost
+
+
+development:
+  <<: *default
+  database: arcanmotors_development
+
+test:
+  <<: *default
+  database: arcanmotors_test
+
+production:
+  <<: *default
+  database: arcanmotors_production
+  username: arcanmotors
+  password: <%= ENV["ARCANMOTORS_DATABASE_PASSWORD"] %>
