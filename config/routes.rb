@@ -3,8 +3,9 @@ Rails.application.routes.draw do
 
   resources :cars, only: [:index, :show], defaults: { format: :html }
 
-  get 'about', to: 'static_pages#about'
-  get 'contact', to: 'static_pages#contact'
+  get 'admin22', to: 'admin#index'
+  get 'about_us', to: 'static_pages#about_us'
+  get 'contact_us', to: 'static_pages#contact_us'
   root "static_pages#home"
 
   namespace :admin do
