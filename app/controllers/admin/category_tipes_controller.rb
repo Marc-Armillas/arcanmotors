@@ -1,5 +1,5 @@
 module Admin
-  class CategoryTypesController < ApplicationController
+  class CategoryTypesController < AdminController
     def index
       @category_types = CategoryType.all
     end

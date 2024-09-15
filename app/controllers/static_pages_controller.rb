@@ -1,7 +1,5 @@
 class StaticPagesController < ApplicationController
   def home
-    @categories = Category.all
-    @category_types = CategoryType.all
     @cars = Car.all
   end
 

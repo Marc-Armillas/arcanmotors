@@ -1,5 +1,5 @@
 module Admin
-  class CarsController < ApplicationController
+  class CarsController < AdminController
     def index
       @cars = Car.all
     end
@@ -13,7 +13,7 @@ module Admin
     end
 
     def new
-
+      @car = Car.new
     end
 
     def update
@@ -23,27 +23,27 @@ module Admin
       else
         render 'edit'
       end
+    end
 
-      def create
-        @car = Car.new(car_params)
-        if @car.save
-          redirect_to admin_car_path(@car)
-        else
-          render 'new'
-        end
-
-        def destroy
-          @car = Car.find(params[:id])
-          @car.destroy
-          redirect_to admin_cars_path
-        end
-
-        private
-
-        def car_params
-          params.require(:car).permit(:name, :price, :category_ids => [])
-        end
+    def create
+      @car = Car.new(car_params)
+      if @car.save
+        redirect_to admin_car_path(@car)
+      else
+        render 'new'
       end
+    end
+
+    def destroy
+      @car = Car.find(params[:id])
+      @car.destroy
+      redirect_to admin_cars_path
+    end
+
+    private
+
+    def car_params
+      params.require(:car).permit(:name, :price, :year, :kilometers, :description, images: [])
     end
   end
 end
