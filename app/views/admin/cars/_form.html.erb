@@ -1,0 +1,46 @@
+<%#= form_with model: @car, local: true, html: { multipart: true } do |form| %>
+<%= form_with model: [:admin, @car], local: true, html: { multipart: true } do |form| %>
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <!-- Nombre del coche -->
+    <div class="mb-4">
+      <%= form.label :name, "Nombre del Coche", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= form.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+    </div>
+
+    <!-- Precio del coche -->
+    <div class="mb-4">
+      <%= form.label :price, "Precio", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= form.number_field :price, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+    </div>
+
+    <!-- Año del coche -->
+    <div class="mb-4">
+      <%= form.label :year, "Año", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= form.number_field :year, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+    </div>
+
+    <!-- Kilómetros del coche -->
+    <div class="mb-4">
+      <%= form.label :kilometers, "Kilómetros", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= form.number_field :kilometers, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+    </div>
+
+    <!-- Descripción del coche -->
+    <div class="mb-4">
+      <%= form.label :description, "Descripción", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= form.text_area :description, rows: 5, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+    </div>
+
+    <!-- Adjuntar múltiples imágenes -->
+    <div class="mb-4">
+      <%= form.label :images, "Subir Imágenes del Coche", class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= form.file_field :images, multiple: true, class: "block w-full text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm cursor-pointer focus:outline-none" %>
+      <small class="text-gray-600">Puedes seleccionar múltiples imágenes.</small>
+    </div>
+
+    <!-- Botón para enviar -->
+    <div class="flex items-center justify-between">
+      <%= form.submit "Guardar Coche", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+    </div>
+  </div>
+<% end %>

@@ -1,4 +1,56 @@
-<h1>This is static#index</h1>
-<div class="bg-red-500 w-3/4 mx-auto p-4">
-  <p class="text-white text-2xl">Test test test</p>
+<!-- Banner con imagen del coche -->
+<div class="relative bg-cover bg-center" style="background-image: url('<%= asset_path("porsche_banner.png") %>'); height: 75vh;">
+
+  <div class="absolute inset-0 bg-black opacity-50"></div>
+  <div class="relative z-10 max-w-4xl mx-auto text-center py-20 text-white">
+    <h1 class="text-5xl font-bold mb-4">Bienvenido a Arcan Motors</h1>
+    <p class="text-lg leading-relaxed">
+      En Arcan Motors somos especialistas en vehículos Porsche. Con una amplia selección de coches de lujo nuevos y usados,
+      ofrecemos el máximo compromiso con la calidad y el servicio. Explora nuestro catálogo y encuentra el Porsche de tus sueños.
+    </p>
+    <a href="/cars" class="mt-8 inline-block bg-red-600 text-white py-3 px-6 rounded-md hover:bg-red-700">Ver nuestro catálogo</a>
+  </div>
+</div>
+
+<!-- Sección de bienvenida -->
+<div class="py-12 text-center max-w-4xl mx-auto">
+  <h2 class="text-3xl font-bold text-gray-900 mb-4">Nuestro Proceso de Selección, Revisión y Venta</h2>
+  <p class="text-lg leading-relaxed text-gray-700">
+    En <strong>Arcan Motors</strong>, nos enorgullecemos de ofrecer solo los mejores vehículos Porsche. Nuestro proceso comienza con una cuidadosa selección de coches, en la que analizamos minuciosamente cada vehículo para asegurarnos de que cumpla con nuestros exigentes estándares de calidad. Cada coche pasa por una rigurosa inspección técnica realizada por nuestros expertos, quienes revisan tanto los aspectos mecánicos como estéticos, garantizando que el coche esté en óptimas condiciones antes de salir a la venta.
+    <br><br>
+    La experiencia de compra en Arcan Motors es personalizada y enfocada en el cliente. Desde el momento en que elige su Porsche, nuestro equipo lo guía en cada paso del proceso, asegurando que reciba toda la información necesaria para tomar una decisión informada. Nos encargamos de todos los detalles, desde la financiación hasta los trámites, para que su experiencia de compra sea sencilla y sin preocupaciones.
+    <br><br>
+    Además, ofrecemos un servicio postventa excepcional, asegurándonos de que su Porsche continúe funcionando a la perfección mucho después de la compra. Nuestro equipo de especialistas en postventa está a su disposición para realizar el mantenimiento regular, reparaciones y cualquier otra necesidad que pueda surgir, garantizando que su vehículo mantenga el rendimiento y el valor que usted espera de un Porsche.
+  </p>
+</div>
+
+<!-- Sección de coches destacados -->
+<div class="py-12 bg-gray-100">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Nuestros coches destacados</h2>
+
+    <!-- Carrusel de coches -->
+    <div class="relative">
+      <!-- Flecha izquierda -->
+      <button class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full prev-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      <!-- Cards de coches -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 car-slider">
+        <% @cars.limit(3).each_with_index do |car| %>
+          <%= render partial: 'components/car_card', locals: { car: car } %>
+        <% end %>
+      </div>
+
+      <!-- Flecha derecha -->
+      <button class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full next-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+  </div>
 </div>
