@@ -16,6 +16,13 @@
 // const imagePath = (name) => images(name, true)
 
 
-import "@rails/ujs";
-import "turbolinks";
+// import "@rails/ujs";
+// import "turbolinks";
+// import "../stylesheets/application.scss";
+
+import Rails from "@rails/ujs";
+import Turbolinks from "turbolinks";
 import "../stylesheets/application.scss";
+
+Rails.start()
+Turbolinks.start();
