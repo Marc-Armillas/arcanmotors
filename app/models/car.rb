@@ -1,8 +1,14 @@
 class Car < ApplicationRecord
-  has_and_belongs_to_many :categories
+  belongs_to :categories
+  belongs_to :makes
+  belongs_to :country
 
   has_many_attached :images
   validate :image_count_within_limit
+
+  enum :condition => [:new, :used]
+  enum :fuel => [:diesel, :petrol, :electric, :hybrid_petrol, :hybrid_diesel, :lpg, :cng, :other]
+  enum :gearbox => [:manual, :automatic, :semi_automatic]
 
   def medium_image(image)
     image.variant(resize_to_limit: [300, 300], format: :jpg).processed
