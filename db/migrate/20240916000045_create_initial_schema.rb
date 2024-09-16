@@ -46,6 +46,7 @@ class CreateInitialSchema < ActiveRecord::Migration[7.2]
       t.index ["category_id"], name: "index_cars_on_category_id"
       t.index ["emission_sticker_id"], name: "index_cars_on_emission_sticker"
       t.index ["make_id"], name: "index_cars_on_make_id"
+      t.boolean 'in_home_page', default: false
     end
 
     create_table "categories", force: :cascade do |t|

@@ -6,7 +6,7 @@ class Car < ApplicationRecord
   has_many_attached :images
   validate :image_count_within_limit
 
-  enum :condition => [:new, :used]
+  enum :condition => [:km0, :used]
   enum :fuel => [:diesel, :petrol, :electric, :hybrid_petrol, :hybrid_diesel, :lpg, :cng, :other]
   enum :gearbox => [:manual, :automatic, :semi_automatic]
 
