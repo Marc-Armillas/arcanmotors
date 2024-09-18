@@ -9,6 +9,7 @@ class Car < ApplicationRecord
   enum :condition => [:km0, :used]
   enum :fuel => [:diesel, :petrol, :electric, :hybrid_petrol, :hybrid_diesel, :lpg, :cng, :other]
   enum :gearbox => [:manual, :automatic, :semi_automatic]
+  enum :transmission => [:front_wheel_drive, :rear_wheel_drive, :four_wheel_drive] # TODO: create column in db
 
   def medium_image(image)
     image.variant(resize_to_limit: [300, 300], format: :jpg).processed

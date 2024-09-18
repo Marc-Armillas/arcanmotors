@@ -14,6 +14,11 @@ module Admin
 
     def new
       @car = Car.new
+      # @categories = Category.all
+      # @makes = Make.all
+      # @emission_stickers = EmissionSticker.all
+      # @conditions = Car.conditions
+      # @transmissions = Car.transmition.keys
     end
 
     def update

@@ -1,46 +1,123 @@
-<%#= form_with model: @car, local: true, html: { multipart: true } do |form| %>
 <%= form_with model: [:admin, @car], local: true, html: { multipart: true } do |form| %>
-  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-    <!-- Nombre del coche -->
-    <div class="mb-4">
-      <%= form.label :name, "Nombre del Coche", class: "block text-gray-700 text-sm font-bold mb-2" %>
-      <%= form.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-    </div>
+  <div class="container mx-auto">
+      <!-- Título del formulario -->
+      <h1 class="text-3xl font-bold text-gray-800 text-center mt-12 mb-7">
+        Crear o Editar Coche
+      </h1>
 
-    <!-- Precio del coche -->
-    <div class="mb-4">
-      <%= form.label :price, "Precio", class: "block text-gray-700 text-sm font-bold mb-2" %>
-      <%= form.number_field :price, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-    </div>
+      <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <!-- Contenedor de dos columnas -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Nombre del coche -->
+          <div class="mb-4">
+            <%= form.label :name, "Nombre del Coche", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
 
-    <!-- Año del coche -->
-    <div class="mb-4">
-      <%= form.label :year, "Año", class: "block text-gray-700 text-sm font-bold mb-2" %>
-      <%= form.number_field :year, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-    </div>
+          <!-- Precio del coche -->
+          <div class="mb-4">
+            <%= form.label :price, "Precio", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.number_field :price, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
 
-    <!-- Kilómetros del coche -->
-    <div class="mb-4">
-      <%= form.label :kilometers, "Kilómetros", class: "block text-gray-700 text-sm font-bold mb-2" %>
-      <%= form.number_field :kilometers, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-    </div>
+          <!-- Año del coche -->
+          <div class="mb-4">
+            <%= form.label :year, "Año", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.select :year, options_for_select((1910..2024).to_a.reverse), {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
 
-    <!-- Descripción del coche -->
-    <div class="mb-4">
-      <%= form.label :description, "Descripción", class: "block text-gray-700 text-sm font-bold mb-2" %>
-      <%= form.text_area :description, rows: 5, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-    </div>
+          <!-- Kilómetros del coche -->
+          <div class="mb-4">
+            <%= form.label :kilometers, "Kilómetros", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.number_field :kilometers, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
 
-    <!-- Adjuntar múltiples imágenes -->
-    <div class="mb-4">
-      <%= form.label :images, "Subir Imágenes del Coche", class: "block text-gray-700 text-sm font-bold mb-2" %>
-      <%= form.file_field :images, multiple: true, class: "block w-full text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm cursor-pointer focus:outline-none" %>
-      <small class="text-gray-600">Puedes seleccionar múltiples imágenes.</small>
-    </div>
+          <!-- Categoría -->
+          <div class="mb-4">
+            <%= form.label :category_id, "Categoría", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.collection_select :category_id, @categories, :id, :name, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
 
-    <!-- Botón para enviar -->
-    <div class="flex items-center justify-between">
-      <%= form.submit "Guardar Coche", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
-    </div>
+          <!-- Marca (Make) -->
+          <div class="mb-4">
+            <%= form.label :make_id, "Marca", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.collection_select :make_id, @makes, :id, :name, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Emisión -->
+          <div class="mb-4">
+            <%= form.label :emission_sticker_id, "Etiqueta de Emisión", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%#= form.collection_select :emission_sticker_id, @stickers, :id, :name, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Condición -->
+          <div class="mb-4">
+            <%= form.label :condition, "Condición", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%#= form.collection_select :condition, @conditions, :id, :name, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Primera Matriculación -->
+          <div class="mb-4">
+            <%= form.label :first_registration, "Primera Matriculación", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.date_field :first_registration, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Descripción del Modelo con editor -->
+          <div class="mb-4 col-span-2">
+            <%= form.label :model_description, "Descripción del Modelo", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.text_area :model_description, rows: 5, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline wysiwyg" %>
+          </div>
+
+          <!-- Modelo -->
+          <div class="mb-4">
+            <%= form.label :model, "Modelo", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.text_field :model, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Capacidad Cilíndrica -->
+          <div class="mb-4">
+            <%= form.label :cubic_capacity, "Capacidad Cilíndrica", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.number_field :cubic_capacity, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Potencia -->
+          <div class="mb-4">
+            <%= form.label :power, "Potencia (CV)", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.number_field :power, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Dueños Previos -->
+          <div class="mb-4">
+            <%= form.label :previous_owners, "Número de Dueños Previos", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.number_field :previous_owners, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Tracción -->
+          <div class="mb-4">
+            <%= form.label :four_wheel_drive, "Tracción", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%#= form.select :four_wheel_drive, @transmissions.map { |k, v| [k, v] }, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- País -->
+          <div class="mb-4">
+            <%= form.label :country_id, "País de origen", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.select :country_id, Country.all.map {|c| [c.name, c.id]}, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+        </div>
+
+        <!-- Adjuntar múltiples imágenes con dropbox -->
+        <div class="mb-4">
+          <%= form.label :images, "Subir Imágenes del Coche", class: "block text-gray-700 text-sm font-bold mb-2" %>
+          <div class="w-full p-4 border-2 border-dashed border-gray-300 rounded-md text-center cursor-pointer" style="min-height: 10em; border-color: yellowgreen;">
+            <%= form.file_field :images, multiple: true, class: "w-full text-gray-700 bg-white border-none focus:outline-none" %>
+            <small class="text-gray-600">Arrastra y suelta archivos o haz clic para seleccionar múltiples imágenes.</small>
+          </div>
+        </div>
+
+        <!-- Botón para enviar -->
+        <div class="text-xl text-center mt-10">
+          <%= form.submit "Guardar Coche", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+        </div>
+      </div>
   </div>
 <% end %>
