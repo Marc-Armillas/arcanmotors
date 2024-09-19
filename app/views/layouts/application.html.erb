@@ -20,8 +20,9 @@
   </head>
 
   <body>
-    <%= render partial: 'components/header' %>
+    <%= render 'components/header' %>
     <%= yield %>
-    <%= render partial: 'components/footer' %>
+    <%= render 'components/whatsapp_button' %>
+    <%= render 'components/footer' %>
   </body>
 </html>
