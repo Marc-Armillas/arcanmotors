@@ -47,13 +47,13 @@
           <!-- Emisión -->
           <div class="mb-4">
             <%= form.label :emission_sticker_id, "Etiqueta de Emisión", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%#= form.collection_select :emission_sticker_id, @stickers, :id, :name, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+            <%= form.collection_select :emission_sticker_id, @emission_stickers, :id, :name, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
           <!-- Condición -->
           <div class="mb-4">
             <%= form.label :condition, "Condición", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%#= form.collection_select :condition, @conditions, :id, :name, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+            <%= form.select :condition, @conditions.keys.map { |k| [k.humanize, k] }, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
           <!-- Primera Matriculación -->
@@ -62,10 +62,22 @@
             <%= form.date_field :first_registration, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
-          <!-- Descripción del Modelo con editor -->
-          <div class="mb-4 col-span-2">
-            <%= form.label :model_description, "Descripción del Modelo", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.text_area :model_description, rows: 5, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline wysiwyg" %>
+          <!-- Tipo de Tracción -->
+          <div class="mb-4">
+            <%= form.label :transmission, "Tipo de Tracción", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.select :transmission, @transmissions.keys.map { |k| [k.humanize, k] }, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Tipo de Tracción -->
+          <div class="mb-4">
+            <%= form.label :transmission, "Caja de cambios", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.select :transmission, @gearboxes.keys.map { |k| [k.humanize, k] }, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Combustible -->
+          <div class="mb-4">
+            <%= form.label :fuel, "Tipo de Combustible", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.select :fuel, @fuels.keys.map { |k| [k.humanize, k] }, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
           <!-- Modelo -->
@@ -92,21 +104,21 @@
             <%= form.number_field :previous_owners, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
-          <!-- Tracción -->
-          <div class="mb-4">
-            <%= form.label :four_wheel_drive, "Tracción", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%#= form.select :four_wheel_drive, @transmissions.map { |k, v| [k, v] }, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
           <!-- País -->
           <div class="mb-4">
             <%= form.label :country_id, "País de origen", class: "block text-gray-700 text-sm font-bold mb-2" %>
             <%= form.select :country_id, Country.all.map {|c| [c.name, c.id]}, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
+
+          <!-- Descripción del Modelo con editor -->
+          <div class="mb-4 col-span-2">
+            <%= form.label :model_description, "Descripción del Modelo", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.text_area :model_description, rows: 5, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline wysiwyg" %>
+          </div>
         </div>
 
         <!-- Adjuntar múltiples imágenes con dropbox -->
-        <div class="mb-4">
+        <div class="mb-4 mt-6">
           <%= form.label :images, "Subir Imágenes del Coche", class: "block text-gray-700 text-sm font-bold mb-2" %>
           <div class="w-full p-4 border-2 border-dashed border-gray-300 rounded-md text-center cursor-pointer" style="min-height: 10em; border-color: yellowgreen;">
             <%= form.file_field :images, multiple: true, class: "w-full text-gray-700 bg-white border-none focus:outline-none" %>

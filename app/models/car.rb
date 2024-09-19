@@ -6,10 +6,10 @@ class Car < ApplicationRecord
   has_many_attached :images
   validate :image_count_within_limit
 
-  enum :condition => [:km0, :used]
-  enum :fuel => [:diesel, :petrol, :electric, :hybrid_petrol, :hybrid_diesel, :lpg, :cng, :other]
+  enum :condition => { km0: 0, used: 1 }
   enum :gearbox => [:manual, :automatic, :semi_automatic]
-  enum :transmission => [:front_wheel_drive, :rear_wheel_drive, :four_wheel_drive] # TODO: create column in db
+  enum transmission: { front_wheel_drive: 0, rear_wheel_drive: 1, four_wheel_drive: 2 }
+  enum fuel: { diesel: 0, petrol: 1, electric: 2, hybrid_petrol: 3, hybrid_diesel: 4, lpg: 5, cng: 6, other: 7 }
 
   def medium_image(image)
     image.variant(resize_to_limit: [300, 300], format: :jpg).processed

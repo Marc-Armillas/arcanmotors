@@ -10,15 +10,11 @@ module Admin
 
     def edit
       @car = Car.find(params[:id])
+      all_select_options
     end
 
     def new
-      @car = Car.new
-      # @categories = Category.all
-      # @makes = Make.all
-      # @emission_stickers = EmissionSticker.all
-      # @conditions = Car.conditions
-      # @transmissions = Car.transmition.keys
+      all_select_options
     end
 
     def update
@@ -49,6 +45,17 @@ module Admin
 
     def car_params
       params.require(:car).permit(:name, :price, :year, :kilometers, :description, images: [])
+    end
+
+    def all_select_options
+      @car = Car.new
+      @categories = Category.all.order(:name)
+      @makes = Make.all.order(:name)
+      @emission_stickers = EmissionSticker.all.order(:name)
+      @conditions = Car.conditions.sort_by { |key, _| key.to_s }.to_h
+      @fuels = Car.fuels.sort_by { |key, _| key.to_s }.to_h
+      @transmissions = Car.transmissions.sort_by { |key, _| key.to_s }.to_h
+      @gearboxes = Car.gearboxes.sort_by { |key, _| key.to_s }.to_h
     end
   end
 end
