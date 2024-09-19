@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { sessions: 'users/sessions' }
 
   resources :cars, only: [:index, :show], defaults: { format: :html }
 
-  get 'admin22', to: 'admin#index'
+  # get 'admin22', to: 'admin#index'
+  devise_scope :user do
+    get '/admin22', to: 'users/sessions#new'
+  end
+
+  get 'admin', to: 'admin#index'
   get 'about_us', to: 'static_pages#about_us'
   get 'contact_us', to: 'static_pages#contact_us'
   root "static_pages#home"
