@@ -43,6 +43,7 @@ class CreateInitialSchema < ActiveRecord::Migration[7.2]
       t.decimal "base_price"
       t.decimal "tax"
       t.decimal "total_price"
+      t.integer 'transmission'
       t.index ["category_id"], name: "index_cars_on_category_id"
       t.index ["emission_sticker_id"], name: "index_cars_on_emission_sticker"
       t.index ["make_id"], name: "index_cars_on_make_id"
