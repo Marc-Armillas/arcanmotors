@@ -114,5 +114,21 @@ if Country.find_by(code: 'AT').blank?
   }.each { |make, country_id| Make.create(name: make, country_id: country_id) }
 
   # Create Categories
-  %w[SUV EstateCar Saloon Convertible Coupe Van Pickup].each { |category| Category.create(name: category) }
+  %w[SmallCar SUV EstateCar Saloon Cabrio Sedan Convertible Coupe Van Pickup OffRoad Other].each do |name|
+    Category.create(name: name)
+  end
+
+  if Rails.env.development?
+    User.create(email: 'test@gmail.com', password: '123undostres', role: 1)
+  end
+
+  EmissionSticker.all.each do |s|
+    image_path = "tmp/emission_imgs/#{s.name}.jpg"
+
+    s.image.attach(
+      io: File.open(image_path),
+      filename: "#{s.name.downcase.gsub(' ', '_')}.jpg",
+      content_type: 'image/jpeg'
+    )
+  end
 end
