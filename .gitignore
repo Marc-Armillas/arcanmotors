@@ -43,3 +43,7 @@
 yarn-debug.log*
 .yarn-integrity
 .hours.txt
+
+# System specific files
+.DS_Store
+Thumbs.db
