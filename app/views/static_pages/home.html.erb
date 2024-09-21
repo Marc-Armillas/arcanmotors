@@ -40,7 +40,7 @@
 
       <!-- Cards de coches -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 car-slider">
-        <% @cars.limit(3).each_with_index do |car| %>
+        <% @cars.first(3).each_with_index do |car| %>
           <%= render partial: 'components/car_card', locals: { car: car } %>
         <% end %>
       </div>

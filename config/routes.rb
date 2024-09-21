@@ -14,7 +14,11 @@ Rails.application.routes.draw do
   root "static_pages#home"
 
   namespace :admin do
-    resources :cars
+    resources :cars do
+      member do
+        delete "remove_image/:image_id", to: "cars#remove_image", as: "remove_image"
+      end
+    end
     resources :categories
     resources :category_types
   end

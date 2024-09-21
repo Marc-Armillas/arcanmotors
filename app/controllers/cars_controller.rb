@@ -1,6 +1,6 @@
 class CarsController < ApplicationController
   def index
-    @cars = Car.all
+    @cars = Car.with_attached_images
   end
 
   def show

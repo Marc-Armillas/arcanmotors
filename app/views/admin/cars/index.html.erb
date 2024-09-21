@@ -1,0 +1,45 @@
+<!-- app/views/admin/cars/index.html.erb -->
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <h1 class="text-2xl font-bold mb-6">Listado de Coches</h1>
+
+  <div class="flex flex-col">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Precio</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Año</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kilómetros</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categoría</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Marca</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">País de origen</th>
+              <th scope="col" class="relative px-6 py-3">
+                <span class="sr-only">Editar</span>
+              </th>
+            </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+            <% @cars.each do |car| %>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><%= car.name %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= number_to_currency(car.price, unit: "€") %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= car.year %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= car.kilometers %> km</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= car.category.name if car.category %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= car.make.name if car.make %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= car.origin_country.name if car.origin_country %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <%= link_to 'Editar', edit_admin_car_path(car), class: 'text-indigo-600 hover:text-indigo-900' %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

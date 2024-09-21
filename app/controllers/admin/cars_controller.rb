@@ -9,8 +9,9 @@ module Admin
     end
 
     def edit
-      @car = Car.find(params[:id])
       all_select_options
+
+      @car = Car.find(params[:id])
     end
 
     def new
@@ -19,8 +20,13 @@ module Admin
 
     def update
       @car = Car.find(params[:id])
-      if @car.update(car_params)
-        redirect_to admin_car_path(@car)
+
+      if car_params[:images].present?
+        @car.images.attach(car_params[:images])
+      end
+
+      if @car.update(car_params.except(:images))
+        redirect_to admin_car_path(@car), notice: 'El coche se actualizó correctamente.'
       else
         render 'edit'
       end
@@ -31,7 +37,7 @@ module Admin
       if @car.save
         redirect_to admin_car_path(@car)
       else
-        render 'new'
+        render "new"
       end
     end
 
@@ -39,6 +45,13 @@ module Admin
       @car = Car.find(params[:id])
       @car.destroy
       redirect_to admin_cars_path
+    end
+
+    def remove_image
+      @car = Car.find(params[:id])
+      image = @car.images.find(params[:image_id])  # Busca la imagen por el ID
+      image.purge  # Elimina la imagen
+      redirect_to edit_admin_car_path(@car), notice: 'Imagen eliminada con éxito.'
     end
 
     private
