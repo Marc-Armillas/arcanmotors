@@ -62,6 +62,12 @@
             <%= form.date_field :first_registration, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
+          <!-- Siguiente Revisión -->
+          <div class="mb-4">
+            <%= form.label :next_inspection, "Próxima revisión", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.date_field :next_inspection, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
           <!-- Tipo de Tracción -->
           <div class="mb-4">
             <%= form.label :transmission, "Caja de cambios", class: "block text-gray-700 text-sm font-bold mb-2" %>
@@ -78,6 +84,48 @@
           <div class="mb-4">
             <%= form.label :model, "Modelo", class: "block text-gray-700 text-sm font-bold mb-2" %>
             <%= form.text_field :model, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Color Exterior -->
+          <div class="mb-4">
+            <%= form.label :exterior_color, "Color Exterior", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.text_field :exterior_color, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Referencia color fabricante -->
+          <div class="mb-4">
+            <%= form.label :manufacturer_color_name, "Referencia color fabricante", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.text_field :manufacturer_color_name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Número de puertas -->
+          <div class="mb-4">
+            <%= form.label :doors, "Número de puertas", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.select :doors, options_for_select((1..5).map { |n| [n, n] }), {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Número de asientos -->
+          <div class="mb-4">
+            <%= form.label :seats, "Número de asientos", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.select :seats, options_for_select((1..9).map { |n| [n, n] }), {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Color del interior -->
+          <div class="mb-4">
+            <%= form.label :interior_color, "Color del interior", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.text_field :interior_color, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Material del interior -->
+          <div class="mb-4">
+            <%= form.label :interior_material, "Material del interior", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.text_field :interior_material, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Código VIN -->
+          <div class="mb-4">
+            <%= form.label :vin, "Código VIN", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.text_field :vin, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
           <!-- Capacidad Cilíndrica -->
@@ -98,26 +146,92 @@
             <%= form.number_field :previous_owners, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
+          <!-- Consumo en ciudad -->
+          <div class="mb-4">
+            <%= form.label :consumption_city, "Consumo en Ciudad (l/100km)", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.number_field :consumption_city, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Consumo en suburbano -->
+          <div class="mb-4">
+            <%= form.label :consumption_suburban, "Consumo en Suburbano (l/100km)", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.number_field :consumption_suburban, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Consumo en carretera -->
+          <div class="mb-4">
+            <%= form.label :consumption_highway, "Consumo en Carretera (l/100km)", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.number_field :consumption_highway, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Consumo combinado -->
+          <div class="mb-4">
+            <%= form.label :consumption_combined, "Consumo Combinado (l/100km)", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.number_field :consumption_combined, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Precio base -->
+          <div class="mb-4">
+            <%= form.label :base_price, "Precio Base (€)", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.number_field :base_price, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Impuesto -->
+          <div class="mb-4">
+            <%= form.label :tax, "Impuesto (€)", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.number_field :tax, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Precio total -->
+          <div class="mb-4">
+            <%= form.label :total_price, "Precio Total (€)", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.number_field :total_price, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
           <!-- País -->
           <div class="mb-4">
             <%= form.label :origin_country_id, "País de origen", class: "block text-gray-700 text-sm font-bold mb-2" %>
             <%= form.select :origin_country_id, Country.all.map {|c| [c.name, c.id]}, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
-          <!-- Descripción del Modelo con editor -->
+          <!-- Mostrar en página principal -->
+          <div class="mb-4">
+            <%= form.label :in_home_page, "Mostrar en Página Principal", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.select :in_home_page, options_for_select([['No', false], ['Sí', true]]), {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
+          <!-- Descripción del Coche con editor -->
           <div class="mb-4 col-span-2">
-            <%= form.label :model_description, "Descripción del Modelo", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.label :model_description, "Descripción del Coche", class: "block text-gray-700 text-sm font-bold mb-2" %>
             <%= form.text_area :model_description, rows: 5, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline wysiwyg" %>
           </div>
         </div>
 
+        <!-- Mostrar imágenes existentes -->
+        <% if @car.images.any? %>
+          <div class="mb-4 mt-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2">Imágenes existentes</label>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <% @car.images.each do |image| %>
+                <div class="relative">
+                  <%= image_tag url_for(@car.medium_image(image)), alt: "Imagen del Coche", class: "w-full h-auto rounded" %>
+                  <!-- Botón para eliminar imagen -->
+                  <%= link_to 'Eliminar', remove_image_admin_car_path(@car, image.id), method: :delete, data: { confirm: '¿Estás seguro de eliminar esta imagen?' }, class: "absolute top-2 right-2 text-red-500 hover:text-red-700" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
         <!-- Adjuntar múltiples imágenes con dropbox -->
-        <div class="mb-4 mt-6">
+        <div class="mb-4 mt-6 relative">
           <%= form.label :images, "Subir Imágenes del Coche", class: "block text-gray-700 text-sm font-bold mb-2" %>
-          <div class="w-full p-4 border-2 border-dashed border-gray-300 rounded-md text-center cursor-pointer" style="min-height: 10em; border-color: yellowgreen;">
-            <%= form.file_field :images, multiple: true, class: "w-full text-gray-700 bg-white border-none focus:outline-none" %>
+          <div id="dropbox" class="w-full p-4 border-2 border-dashed border-gray-300 rounded-md text-center cursor-pointer" style="min-height: 10em; border-color: yellowgreen; position: relative;">
+            <%= form.file_field :images, multiple: true, class: "absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer", id: "image_input" %>
             <small class="text-gray-600">Arrastra y suelta archivos o haz clic para seleccionar múltiples imágenes.</small>
           </div>
+
+          <div id="file-list" class="mt-4 text-gray-600"></div>
         </div>
 
         <!-- Botón para enviar -->
@@ -127,3 +241,24 @@
       </div>
   </div>
 <% end %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const fileInput = document.getElementById("image_input");
+    const fileList = document.getElementById("file-list");
+
+    fileInput.addEventListener("change", function() {
+      fileList.innerHTML = "";
+
+      if (fileInput.files.length > 0) {
+        let fileNames = [];
+        for (let i = 0; i < fileInput.files.length; i++) {
+          fileNames.push(fileInput.files[i].name);
+        }
+        fileList.textContent = fileNames.join(", ");
+      } else {
+        fileList.innerHTML = "<p>No se seleccionaron archivos.</p>";
+      }
+    });
+  });
+</script>
