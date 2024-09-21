@@ -22,6 +22,7 @@
   <body>
     <%= render 'shared/header' %>
     <%= yield %>
+    <%= react_component("HelloWorld", { greeting: "hello world from react" }) %>
     <%= render 'components/whatsapp_button' %>
     <%= render 'shared/footer' %>
   </body>

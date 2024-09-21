@@ -24,5 +24,13 @@ import Rails from "@rails/ujs";
 import Turbolinks from "turbolinks";
 import "../stylesheets/application.scss";
 
-Rails.start()
+// Importa React y React UJS para gestionar el montaje automático de componentes
+import ReactRailsUJS from "react_ujs";
+
+// Inicializa Rails y Turbolinks
+Rails.start();
 Turbolinks.start();
+
+// Usa el contexto correcto para cargar los componentes React desde la carpeta "components"
+ReactRailsUJS.useContext(require.context("../components", true));
+

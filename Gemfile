@@ -36,6 +36,7 @@ gem 'pry'
 gem 'pry-byebug'
 gem 'awesome_print', require: 'ap'
 gem 'webpacker'
+gem 'react-rails'
 gem "image_processing", "~> 1.2"
 
 group :development, :test do
