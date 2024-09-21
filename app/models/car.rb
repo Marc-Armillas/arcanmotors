@@ -1,15 +1,19 @@
 class Car < ApplicationRecord
-  belongs_to :categories
-  belongs_to :makes
-  belongs_to :country
+  belongs_to :category
+  belongs_to :make
+  belongs_to :origin_country, class_name: "Country", foreign_key: "origin_country_id", optional: true
 
   has_many_attached :images
   validate :image_count_within_limit
 
-  enum :condition => { km0: 0, used: 1 }
-  enum :gearbox => [:manual, :automatic, :semi_automatic]
+  enum condition: { km0: 0, used: 1 }
+  enum gearbox: { manual: 0, automatic: 1, semi_automatic: 2 }
   enum transmission: { front_wheel_drive: 0, rear_wheel_drive: 1, four_wheel_drive: 2 }
   enum fuel: { diesel: 0, petrol: 1, electric: 2, hybrid_petrol: 3, hybrid_diesel: 4, lpg: 5, cng: 6, other: 7 }
+
+  def image_urls
+    images.map { |image| Rails.application.routes.url_helpers.url_for(image) }
+  end
 
   def medium_image(image)
     image.variant(resize_to_limit: [300, 300], format: :jpg).processed

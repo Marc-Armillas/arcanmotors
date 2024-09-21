@@ -53,7 +53,7 @@
           <!-- Condición -->
           <div class="mb-4">
             <%= form.label :condition, "Condición", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.select :condition, @conditions.keys.map { |k| [k.humanize, k] }, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+            <%= form.select :condition, @conditions.map { |k, v| [k.humanize, v] }, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
           <!-- Primera Matriculación -->
@@ -63,21 +63,21 @@
           </div>
 
           <!-- Tipo de Tracción -->
-          <div class="mb-4">
-            <%= form.label :transmission, "Tipo de Tracción", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.select :transmission, @transmissions.keys.map { |k| [k.humanize, k] }, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
+<!--          <div class="mb-4">-->
+            <%#= form.label :transmission, "Tipo de Tracción", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%#= form.select :transmission, @transmissions.map { |k, v| [k.humanize, v] }, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+<!--          </div>-->
 
           <!-- Tipo de Tracción -->
           <div class="mb-4">
             <%= form.label :transmission, "Caja de cambios", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.select :transmission, @gearboxes.keys.map { |k| [k.humanize, k] }, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+            <%= form.select :transmission, @gearboxes.map { |k, v| [k.humanize, v] }, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
           <!-- Combustible -->
           <div class="mb-4">
             <%= form.label :fuel, "Tipo de Combustible", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.select :fuel, @fuels.keys.map { |k| [k.humanize, k] }, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+            <%= form.select :fuel, @fuels.map { |k, v| [k.humanize, v] }, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
           <!-- Modelo -->
@@ -106,8 +106,8 @@
 
           <!-- País -->
           <div class="mb-4">
-            <%= form.label :country_id, "País de origen", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.select :country_id, Country.all.map {|c| [c.name, c.id]}, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+            <%= form.label :origin_country_id, "País de origen", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.select :origin_country_id, Country.all.map {|c| [c.name, c.id]}, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
           <!-- Descripción del Modelo con editor -->
