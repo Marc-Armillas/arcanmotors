@@ -1,3 +1,5 @@
-<a href="https://wa.me/<%= Rails.application.credentials.dig(:whatsapp, :phone_number) %>" class="fixed bottom-14 right-14 z-50 w-20 h-20 bg-green-500 rounded-full shadow-lg flex items-center justify-center hover:bg-green-600 transition-colors duration-300" target="_blank">
-  <img src="<%= asset_path('whatsapp_logo.png') %>" alt="WhatsApp" class="w-12 h-12">
+<a href="https://wa.me/<%= Rails.application.credentials.dig(:whatsapp, :phone_number) %>"
+   class="fixed bottom-4 right-4 lg:bottom-14 lg:right-14 z-50 w-12 h-12 lg:w-20 lg:h-20 bg-green-500 rounded-full shadow-lg flex items-center justify-center hover:bg-green-600 transition-colors duration-300"
+   target="_blank">
+  <img src="<%= asset_path('whatsapp_logo.png') %>" alt="WhatsApp" class="w-8 h-8 lg:w-12 lg:h-12">
 </a>
