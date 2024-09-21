@@ -36,6 +36,11 @@ gem 'pry'
 gem 'pry-byebug'
 gem 'awesome_print', require: 'ap'
 gem 'webpacker'
+
+# install in the server for img processing
+# brew install vips
+# sudo apt-get update install
+# sudo apt-get install -y libvips
 gem "image_processing", "~> 1.2"
 
 group :development, :test do
