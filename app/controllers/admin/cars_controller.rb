@@ -44,7 +44,16 @@ module Admin
     private
 
     def car_params
-      params.require(:car).permit(:name, :price, :year, :kilometers, :description, images: [])
+      params.require(:car).permit(
+        :category_id, :make_id, :emission_sticker_id, :condition, :first_registration, :transmission, :fuel, :model,
+        :cubic_capacity, :power, :previous_owners, :origin_country_id,:model_description, :name, :price, :year, :kilometers,
+        :description, images: []
+      ).tap do |p|
+        p[:condition] = p[:condition].to_i if p[:condition].present?
+        p[:gearbox] = p[:gearbox].to_i if p[:gearbox].present?
+        p[:transmission] = p[:transmission].to_i if p[:transmission].present?
+        p[:fuel] = p[:fuel].to_i if p[:fuel].present?
+      end
     end
 
     def all_select_options

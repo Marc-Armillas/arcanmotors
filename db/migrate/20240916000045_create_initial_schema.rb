@@ -17,6 +17,7 @@ class CreateInitialSchema < ActiveRecord::Migration[7.2]
       t.bigint "category_id"
       t.bigint "make_id"
       t.bigint "emission_sticker_id"
+      t.bigint "origin_country_id"
       t.integer "condition"
       t.date "first_registration"
       t.date "next_inspection"
@@ -82,6 +83,8 @@ class CreateInitialSchema < ActiveRecord::Migration[7.2]
 
     add_foreign_key "cars", "categories"
     add_foreign_key "cars", "emission_stickers", column: "emission_sticker_id"
+    add_foreign_key "cars", "makes"
+    add_foreign_key "cars", "countries", column: "origin_country_id"
     add_foreign_key "makes", "countries"
   end
 end
