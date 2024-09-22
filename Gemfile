@@ -32,10 +32,10 @@ gem "bootsnap", require: false
 
 # Users gem
 gem "devise"
-gem 'pry'
-gem 'pry-byebug'
-gem 'awesome_print', require: 'ap'
-gem 'webpacker'
+gem "pry"
+gem "pry-byebug"
+gem "awesome_print", require: "ap"
+gem "webpacker"
 
 # install in the server for img processing
 # brew install vips
@@ -51,10 +51,10 @@ group :development, :test do
   gem "brakeman", require: false
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
-  gem 'rubocop', require: false
+  gem "rubocop", require: false
   gem "rubocop-rails-omakase", require: false
 
-  gem 'faker'
+  gem "faker"
 end
 
 group :development do

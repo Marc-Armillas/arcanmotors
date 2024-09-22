@@ -2,7 +2,7 @@
   <h1 class="text-3xl font-bold text-gray-900 mb-8 text-center">Nuestros Coches</h1>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-    <% @cars.each_with_index do |car, idx| %>
+    <% @cars.each do |car| %>
       <%= render partial: 'components/car_card', locals: { car: car } %>
     <% end %>
   </div>
