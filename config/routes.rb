@@ -8,9 +8,11 @@ Rails.application.routes.draw do
     get '/admin22', to: 'users/sessions#new'
   end
 
-  get 'admin', to: 'admin#index'
-  get 'about_us', to: 'static_pages#about_us'
-  get 'contact_us', to: 'static_pages#contact_us'
+  get "admin", to: "admin#index"
+  get "about_us", to: "static_pages#about_us"
+  get "contacto", to: "static_pages#contact_us"
+  get "cookies_policy", to: "static_pages#cookies_policy"
+  get "legal", to: "static_pages#legal"
   root "static_pages#home"
 
   namespace :admin do
