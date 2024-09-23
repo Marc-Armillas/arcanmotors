@@ -14,15 +14,24 @@
     <link rel="icon" href="/arcan_logo.png" type="image/png">
     <link rel="/arcan_logo.png" href="/arcan_logo.png">
     <%#= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
+    <%= stylesheet_pack_tag "application", "data-turbolinks-track": "reload" %>
+    <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
   </head>
 
-  <body>
-    <%= render 'shared/header' %>
-    <%= yield %>
-    <%= render 'components/whatsapp_button' %>
-    <%= render 'shared/footer' %>
+  <body class="bg-gray-100">
+    <%= render "shared/header" %>
+
+    <% if controller_name == 'static_pages' && action_name == 'home' %>
+      <%=  render "shared/banner" %>
+    <% end %>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <%= yield %>
+    </div>
+
+    <%= render "shared/whatsapp_button" %>
+
+    <%= render "shared/footer" %>
   </body>
 </html>

@@ -1,16 +1,3 @@
-<!-- Banner con imagen del coche -->
-<div class="relative bg-cover bg-center" style="background-image: url('<%= asset_path("porsche_banner.png") %>'); height: 75vh;">
-
-  <div class="absolute inset-0 bg-black opacity-50"></div>
-  <div class="relative z-10 max-w-4xl mx-auto text-center py-20 text-white">
-    <h1 class="text-5xl font-bold mb-4">Bienvenido a ArCan Motors</h1>
-    <p class="text-lg leading-relaxed">
-      En ArCan Motors somos especialistas en vehículos Porsche. Con una amplia selección de coches de lujo nuevos y usados segunda mano de alta gama, ofrecemos el máximo compromiso con la calidad y el servicio. Explora nuestro catálogo y encuentra el Porsche vehículo de tus sueños.
-    </p>
-    <a href="/cars" class="mt-8 inline-block bg-red-600 text-white py-3 px-6 rounded-md hover:bg-red-700">Ver nuestro catálogo</a>
-  </div>
-</div>
-
 <!-- Sección de bienvenida -->
 <div class="py-12 text-center max-w-4xl mx-auto">
   <h2 class="text-3xl font-bold text-gray-900 mb-4">Historia de ArCan Motors</h2>
@@ -20,32 +7,30 @@
 </div>
 
 <!-- Sección de coches destacados -->
-<div class="py-12 bg-gray-100">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Nuestros coches destacados</h2>
+<div class="pb-12">
+  <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Nuestros coches destacados</h2>
 
-    <!-- Carrusel de coches -->
-    <div class="relative">
-      <!-- Flecha izquierda -->
-      <button class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full prev-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
+  <!-- Carrusel de coches -->
+  <div class="relative">
+    <!-- Flecha izquierda -->
+    <button class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full prev-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
 
-      <!-- Cards de coches -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 car-slider">
-        <% @cars.first(3).each_with_index do |car| %>
-          <%= render partial: 'components/car_card', locals: { car: car } %>
-        <% end %>
-      </div>
-
-      <!-- Flecha derecha -->
-      <button class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full next-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
+    <!-- Cards de coches -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 car-slider">
+      <% @cars.first(3).each_with_index do |car| %>
+        <%= render partial: 'components/car_card', locals: { car: car } %>
+      <% end %>
     </div>
+
+    <!-- Flecha derecha -->
+    <button class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full next-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
   </div>
 </div>
