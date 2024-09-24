@@ -1,31 +1,129 @@
-# README
+# Arcan Motors
 
-* Ruby version
-3.3.0
+Arcan Motors is a web application built with Ruby on Rails. It provides a platform for managing motor-related services and products.
 
-* System dependencies
-rails version 7.2.1
-node version 18.20.4
-For installing the img processor run: `brew install vips`
+## Prerequisites
+
+- Ruby 3.3.0
+- Rails 7.2.1
+- PostgreSQL
+- Node.js
+- Yarn
+
+## Getting Started
+
+### Installation
+
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/Marc-Armillas/arcan-motors.git
+    cd arcan-motors
+    ```
+
+2. Install dependencies:
+    ```sh
+    bundle install
+    yarn install
+    ```
+
+3. Set up the database:
+    ```sh
+    rails db:create
+    rails db:migrate
+    rails db:seed
+    ```
+
+4. Set up credentials:
+    ```sh
+    EDITOR="vim" bin/rails credentials:edit
+    ```
+
+    Add your WhatsApp phone number under `whatsapp`:
+    ```yaml
+    whatsapp:
+      phone_number: 'your_phone_number'
+    ```
+
+5. Set up environment variables:
+    ```sh
+    export ARCANMOTORS_DATABASE_PASSWORD='your_database_password'
+    ```
+
+### Running the Application
+
+1. Start the Rails server:
+    ```sh
+    rails server
+    ```
+
+2. Open your browser and navigate to `http://localhost:3000`.
+
+## Testing
+TODO:
 
 
-* Configuration
-  will need some credentials for AWS S3, ask the admin for it.
+# Arcan Motors
 
-* Database
-* On Mac
-  `brew install postgresql@15`
-  `$ brew services start postgresql@15`
-  `rake db: create`
-  `rake db:migrate`
-  `rake db:seed`
+Arcan Motors is a web application built with Ruby on Rails. It provides a platform for managing motor-related services and products.
 
-* How to run the test suite
+## Prerequisites
 
-* Services (job queues, cache servers, search engines, etc.)
-No queues or services for the moment
+- Ruby 3.3.0
+- Rails 7.2.1
+- PostgreSQL
+- Node.js
+- Yarn
 
-* Deployment instructions
-  Delpoys automatically from production branch with every merge or commit
+## Getting Started
 
-* ...
+### Installation
+
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/Marc-Armillas/arcan-motors.git
+    cd arcan-motors
+    ```
+
+2. Install dependencies:
+    ```sh
+    bundle install
+    yarn install
+    ```
+
+3. Set up the database:
+    ```sh
+    rails db:create
+    rails db:migrate
+    rails db:seed
+    ```
+
+4. Set up credentials:
+    ```sh
+    EDITOR="vim" bin/rails credentials:edit
+    ```
+
+    Add your WhatsApp phone number under `whatsapp`:
+    ```yaml
+    whatsapp:
+      phone_number: 'your_phone_number'
+    ```
+
+5. Set up environment variables:
+    ```sh
+    export ARCANMOTORS_DATABASE_PASSWORD='your_database_password'
+    ```
+
+### Running the Application
+
+1. Start the Rails server:
+    ```sh
+    rails server
+    ```
+
+2. Open your browser and navigate to `http://localhost:3000`.
+
+## Testing
+
+To run the test suite, execute:
+```sh
+rails test
