@@ -23,7 +23,9 @@
 import Rails from "@rails/ujs";
 import Turbolinks from "turbolinks";
 import "../stylesheets/application.scss";
+
 import './mobile_menu';
+import './car_card';
 
 Rails.start()
 Turbolinks.start();

@@ -1,6 +1,9 @@
 <!-- app/views/admin/cars/index.html.erb -->
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-  <h1 class="text-center text-2xl font-bold mb-6">Listado de Coches</h1>
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold">Listado de Coches</h1>
+    <%= link_to 'Crear Nuevo Coche', new_admin_car_path, class: 'inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:ring focus:ring-indigo-200 active:bg-indigo-600 disabled:opacity-25 transition' %>
+  </div>
 
   <div class="flex flex-col">
     <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -33,6 +36,8 @@
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= car.origin_country.name if car.origin_country %></td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <%= link_to 'Editar', edit_admin_car_path(car), class: 'text-indigo-600 hover:text-indigo-900' %>
+                  <span class="text-black"> / </span>
+                  <%= link_to 'Eliminar', admin_car_path(car), method: :delete, data: { confirm: '¿Estás seguro de que deseas eliminar este coche?' }, class: 'text-red-600 hover:text-red-900' %>
                 </td>
               </tr>
             <% end %>
