@@ -37,6 +37,7 @@ gem "pry"
 gem "pry-byebug"
 gem "awesome_print", require: "ap"
 gem "webpacker"
+gem "aws-sdk-s3", require: false
 
 # install in the server for img processing
 # brew install vips
