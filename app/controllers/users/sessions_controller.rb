@@ -7,8 +7,8 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def after_sign_in_path_for(resource)
-    if request.referer&.include?('/admin22') && current_user.admin?
-      admin_path
+    if current_user.admin?
+      admin_cars_path
     else
       root_path
     end
