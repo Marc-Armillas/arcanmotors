@@ -38,11 +38,11 @@ gem "pry-byebug"
 gem "awesome_print", require: "ap"
 gem "webpacker"
 gem "aws-sdk-s3", require: false
+gem "aws-sdk", "~> 3"
 
 # install in the server for img processing
-# brew install vips
-# sudo apt-get update install
-# sudo apt-get install -y libvips
+# brew install vips -> local
+# heroku buildpacks:add --index 1 https://github.com/brandoncc/heroku-buildpack-vips.git -> prod
 gem "image_processing", "~> 1.2"
 
 group :development, :test do
