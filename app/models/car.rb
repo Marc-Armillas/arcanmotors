@@ -9,10 +9,10 @@ class Car < ApplicationRecord
   validate :image_count_within_limit
   validates :vin, uniqueness: true, allow_nil: true
 
-  enum condition: { km0: 0, used: 1 }
-  enum gearbox: { manual: 0, automatic: 1, semi_automatic: 2 }
-  enum transmission: { front_wheel_drive: 0, rear_wheel_drive: 1, four_wheel_drive: 2 }
-  enum fuel: { diesel: 0, petrol: 1, electric: 2, hybrid_petrol: 3, hybrid_diesel: 4, lpg: 5, cng: 6, other: 7 }
+  enum :condition, { km0: 0, used: 1 }
+  enum :gearbox, { manual: 0, automatic: 1, semi_automatic: 2 }
+  enum :transmission, { front_wheel_drive: 0, rear_wheel_drive: 1, four_wheel_drive: 2 }
+  enum :fuel, { diesel: 0, petrol: 1, electric: 2, hybrid_petrol: 3, hybrid_diesel: 4, lpg: 5, cng: 6, other: 7 }
 
   def image_urls
     images.map { |image| Rails.application.routes.url_helpers.url_for(image) }
