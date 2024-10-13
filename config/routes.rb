@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: 'users/sessions' }
 
   resources :cars, only: [:index, :show], defaults: { format: :html }
-
   # get 'admin22', to: 'admin#index'
   devise_scope :user do
     get '/admin22', to: 'users/sessions#new'
@@ -10,7 +9,8 @@ Rails.application.routes.draw do
 
   get "admin", to: "admin#index"
   get "about_us", to: "static_pages#about_us"
-  get "contacto", to: "static_pages#contact_us"
+  get "contacto", to: "contact_requests#new", as: "contact_request"
+  post "contacto", to: "contact_requests#create"
   get "cookies_policy", to: "static_pages#cookies_policy"
   get "legal", to: "static_pages#legal"
   root "static_pages#home"
@@ -21,6 +21,8 @@ Rails.application.routes.draw do
         delete "remove_image/:image_id", to: "cars#remove_image", as: "remove_image"
       end
     end
+
+    resources :contact_requests, only: [:index, :show, :destroy]
     resources :categories
     resources :category_types
   end
