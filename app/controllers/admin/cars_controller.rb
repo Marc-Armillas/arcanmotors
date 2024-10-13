@@ -24,11 +24,11 @@ module Admin
       if car_params[:images].present?
         @car.images.attach(car_params[:images])
       end
-
+      binding.pry
       if @car.update(car_params.except(:images))
         redirect_to admin_car_path(@car), notice: 'El coche se actualizó correctamente.'
       else
-        render 'edit'
+        render "edit"
       end
     end
 
@@ -60,7 +60,9 @@ module Admin
       params.require(:car).permit(
         :category_id, :make_id, :emission_sticker_id, :condition, :first_registration, :transmission, :fuel, :model,
         :cubic_capacity, :power, :previous_owners, :origin_country_id,:model_description, :name, :price, :year, :kilometers,
-        :description, images: []
+        :description, :in_home_page, :next_inspection, :exterior_color, :manufacturer_color_name, :doors, :seats,
+        :interior_color, :interior_material, :vin, :consumption_city, :consumption_suburban, :consumption_highway,
+        :consumption_combined, :base_price, :tax, :total_price, images: []
       ).tap do |p|
         p[:condition] = p[:condition].to_i if p[:condition].present?
         p[:gearbox] = p[:gearbox].to_i if p[:gearbox].present?
