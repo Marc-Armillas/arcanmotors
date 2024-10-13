@@ -6,6 +6,7 @@ module Admin
 
     def show
       @car = Car.find(params[:id])
+      render template: "cars/show"
     end
 
     def edit
@@ -24,9 +25,9 @@ module Admin
       if car_params[:images].present?
         @car.images.attach(car_params[:images])
       end
-      binding.pry
+
       if @car.update(car_params.except(:images))
-        redirect_to admin_car_path(@car), notice: 'El coche se actualizó correctamente.'
+        redirect_to admin_car_path(@car), notice: "El coche se actualizó correctamente."
       else
         render "edit"
       end
@@ -51,7 +52,7 @@ module Admin
       @car = Car.find(params[:id])
       image = @car.images.find(params[:image_id])  # Busca la imagen por el ID
       image.purge  # Elimina la imagen
-      redirect_to edit_admin_car_path(@car), notice: 'Imagen eliminada con éxito.'
+      redirect_to edit_admin_car_path(@car), notice: "Imagen eliminada con éxito."
     end
 
     private

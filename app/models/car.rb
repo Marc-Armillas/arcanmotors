@@ -3,6 +3,8 @@ class Car < ApplicationRecord
   belongs_to :make
   belongs_to :origin_country, class_name: "Country", foreign_key: "origin_country_id", optional: true
 
+  has_many :contact_requests, dependent: :nullify
+
   has_many_attached :images
 
   validates :make, presence: true

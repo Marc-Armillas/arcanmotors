@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: 'users/sessions' }
 
-  resources :cars, only: [:index, :show], defaults: { format: :html }
+  resources :cars, only: [:index, :show], defaults: { format: :html }, path: 'coches'
   # get 'admin22', to: 'admin#index'
   devise_scope :user do
     get '/admin22', to: 'users/sessions#new'
@@ -22,7 +22,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :contact_requests, only: [:index, :show, :destroy]
+    resources :contact_requests, only: [:index, :update, :destroy]
     resources :categories
     resources :category_types
   end

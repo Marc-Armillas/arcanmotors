@@ -1,11 +1,15 @@
 <!-- app/views/cars/show.html.erb -->
+<% if in_admin_controller? %>
+  <div class="mt-8 flex justify-between">
+    <%= link_to 'Volver al listado anterior', 'javascript:history.back()', class: 'inline-block px-6 py-3 bg-gray-600 text-white text-lg font-medium rounded-md hover:bg-gray-700' %>
+    <%= link_to 'Editar este coche', edit_admin_car_path(@car), class: 'inline-block px-6 py-3 bg-indigo-600 text-white text-lg font-medium rounded-md hover:bg-indigo-700' %>
+  </div>
+<% end %>
+
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-  <!-- Título de la página con el nombre del coche -->
   <h1 class="text-center text-3xl font-bold mb-8"><%= @car.name %></h1>
 
-  <!-- Sección principal de información del coche -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-    <!-- Imagen destacada -->
     <div>
       <img src="<%= url_for(@car.images.first) %>" alt="<%= @car.name %>" class="w-full h-auto object-cover rounded-lg shadow-md">
       <!-- Añadir un slider si tiene más imágenes -->
@@ -16,7 +20,6 @@
       </div>
     </div>
 
-    <!-- Información detallada del coche -->
     <div>
       <div class="bg-white p-6 rounded-lg shadow-md">
         <h2 class="text-2xl font-semibold mb-4">Detalles del coche</h2>
@@ -48,12 +51,14 @@
         </dl>
       </div>
 
-      <!-- Botón de contacto o compra -->
       <div class="mt-8">
-        <%= link_to 'Contactar sobre este coche',
-                    contacto_path(car_id: @car.id),
-                    class: 'inline-block w-full text-center px-6 py-3 bg-indigo-600 text-white text-lg font-medium rounded-md hover:bg-indigo-700'
-        %>
+        <% if in_admin_controller? %>
+          <a href="javascript:void(0);" class="inline-block w-full text-center px-6 py-3 bg-gray-400 text-white text-lg font-medium rounded-md cursor-not-allowed" aria-disabled="true">
+            Contactar sobre este coche (Deshabilitado en Admin)
+          </a>
+        <% else %>
+          <%= link_to 'Contactar sobre este coche', contacto_path(car_id: @car.id), class: 'inline-block w-full text-center px-6 py-3 bg-indigo-600 text-white text-lg font-medium rounded-md hover:bg-indigo-700' %>
+        <% end %>
       </div>
     </div>
   </div>
@@ -61,6 +66,6 @@
   <!-- Descripción larga del coche -->
   <div class="mt-12 bg-white p-6 rounded-lg shadow-md">
     <h2 class="text-2xl font-semibold mb-4">Descripción</h2>
-    <p class="text-gray-700 leading-relaxed"><%= @car.description %></p>
+    <p class="text-gray-700 leading-relaxed"><%= @car.model_description %></p>
   </div>
 </div>

@@ -7,10 +7,10 @@ class ContactRequestsController < ApplicationController
   def create
     @contact_request = ContactRequest.new(contact_request_params)
     if @contact_request.save
-      flash[:success] = "Thank you for your message. We will contact you soon!"
+      flash[:success] = "Solicitud enviada correctamente, nos pondremos en contacto contigo lo antes posible."
       redirect_to root_path
     else
-      flash[:error] = "There was an error sending your message. Please try again."
+      flash[:error] = "Error al enviar la solicitud."
       render :new
     end
   end

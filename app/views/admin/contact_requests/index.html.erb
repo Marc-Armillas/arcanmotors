@@ -11,35 +11,38 @@
               <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
               <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
               <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Teléfono</th>
-              <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Asunto</th>
-              <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Mensaje</th>
+<!--              <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Asunto</th>-->
               <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Coche (ID)</th>
+              <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Revisado?</th>
               <th scope="col" class="relative px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
             </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-            <% @contact_requests.each do |request| %>
-              <tr>
-                <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900"><%= request.name %></td>
-                <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500"><%= request.email %></td>
-                <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500"><%= request.phone %></td>
-                <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500"><%= request.subject %></td>
-                <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500"><%= request.message %></td>
-                <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500"><%= request.car_id %></td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <div class="grid grid-cols-5 items-center">
-                    <div></div>
-                    <div class="flex justify-center"> <!-- Posición 2: Primer icono -->
-                      <%= link_to '👁️', admin_contact_request_path(request) %>
+              <% @contact_requests.each do |contact_request| %>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900"><%= contact_request.name %></td>
+                  <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500"><%= contact_request.email %></td>
+                  <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500"><%= contact_request.phone %></td>
+<!--                  <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500"><%#= contact_request.subject %></td>-->
+                  <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
+                    <% if contact_request.car_id.present? %>
+                      <%= link_to contact_request.car&.name, admin_car_path(contact_request.car_id) %>
+                    <% else %>
+                      Sin coche asociado
+                    <% end %>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500"><%= contact_request.viewed ? '✅' : '❌' %></td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <div class="grid grid-cols-2 items-center">
+                      <button class="flex justify-center py-2 px-4" data-modal-id="modal-<%= contact_request.id %>">👁</button>
+                      <div class="flex justify-center">
+                        <%= link_to '🗑️', admin_contact_request_path(contact_request), method: :delete, data: { confirm: '¿Estás seguro de que deseas eliminar esta solicitud de contacto?' } %>
+                      </div>
                     </div>
-                    <div></div>
-                    <div class="flex justify-center"> <!-- Posición 4: Segundo icono -->
-                      <%= link_to '🗑️', admin_contact_request_path(request), method: :delete, data: { confirm: '¿Estás seguro de que deseas eliminar esta solicitud de contacto?' } %>
-                    </div>
-                    <div></div>
-                  </div>
-                </td>
-              </tr>
+                  </td>
+                </tr>
+
+              <%= render partial: 'admin/contact_requests/modal', locals: { contact_request: contact_request } %>
             <% end %>
             </tbody>
           </table>
@@ -48,3 +51,26 @@
     </div>
   </div>
 </div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll("[data-modal-id]").forEach(button => {
+      button.addEventListener("click", function() {
+        const modalId = this.getAttribute("data-modal-id");
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          modal.classList.remove("hidden");
+        }
+      });
+    });
+
+    document.querySelectorAll(".close-modal").forEach(button => {
+      button.addEventListener("click", function() {
+        const modalId = this.getAttribute("data-modal-id");
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          modal.classList.add("hidden");
+        }
+      });
+    });
+  });
+</script>
