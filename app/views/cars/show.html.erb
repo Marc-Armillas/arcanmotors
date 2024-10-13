@@ -1,0 +1,66 @@
+<!-- app/views/cars/show.html.erb -->
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Título de la página con el nombre del coche -->
+  <h1 class="text-center text-3xl font-bold mb-8"><%= @car.name %></h1>
+
+  <!-- Sección principal de información del coche -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <!-- Imagen destacada -->
+    <div>
+      <img src="<%= url_for(@car.images.first) %>" alt="<%= @car.name %>" class="w-full h-auto object-cover rounded-lg shadow-md">
+      <!-- Añadir un slider si tiene más imágenes -->
+      <div class="flex justify-center space-x-2 mt-4">
+        <% @car.images.each_with_index do |image, index| %>
+          <img src="<%= url_for(image) %>" alt="<%= @car.name %> imagen <%= index + 1 %>" class="w-20 h-20 object-cover cursor-pointer hover:opacity-75" onclick="document.querySelector('#main-image').src='<%= url_for(image) %>'">
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Información detallada del coche -->
+    <div>
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-semibold mb-4">Detalles del coche</h2>
+        <dl class="space-y-2">
+          <div class="flex justify-between">
+            <dt class="font-medium text-gray-500">Precio</dt>
+            <dd class="text-lg text-gray-900"><%= number_to_currency(@car.price, unit: "€") %></dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="font-medium text-gray-500">Año</dt>
+            <dd class="text-lg text-gray-900"><%= @car.year %></dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="font-medium text-gray-500">Kilómetros</dt>
+            <dd class="text-lg text-gray-900"><%= @car.kilometers %> km</dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="font-medium text-gray-500">Marca</dt>
+            <dd class="text-lg text-gray-900"><%= @car.make.name if @car.make %></dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="font-medium text-gray-500">Categoría</dt>
+            <dd class="text-lg text-gray-900"><%= @car.category.name if @car.category %></dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="font-medium text-gray-500">País de origen</dt>
+            <dd class="text-lg text-gray-900"><%= @car.origin_country.name if @car.origin_country %></dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Botón de contacto o compra -->
+      <div class="mt-8">
+        <%= link_to 'Contactar sobre este coche',
+                    contacto_path(car_id: @car.id),
+                    class: 'inline-block w-full text-center px-6 py-3 bg-indigo-600 text-white text-lg font-medium rounded-md hover:bg-indigo-700'
+        %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Descripción larga del coche -->
+  <div class="mt-12 bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-2xl font-semibold mb-4">Descripción</h2>
+    <p class="text-gray-700 leading-relaxed"><%= @car.description %></p>
+  </div>
+</div>
