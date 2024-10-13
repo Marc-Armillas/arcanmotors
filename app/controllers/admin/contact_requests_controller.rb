@@ -15,6 +15,17 @@ module Admin
       redirect_to admin_contact_requests_path
     end
 
+    def destroy
+      contact_request = ContactRequest.find(params[:id])
+      if contact_request.destroy
+        flash[:success] = "Solicitud eliminada correctamente"
+      else
+        flash[:error] = "Error al eliminar la solicitud"
+      end
+
+      redirect_to admin_contact_requests_path
+    end
+
     private
 
     def contact_request_params
