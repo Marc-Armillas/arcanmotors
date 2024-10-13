@@ -54,10 +54,11 @@ Arcan Motors is a web application built with Ruby on Rails. It provides a platfo
 
 1. Start the Rails server:
     ```sh
-    rails server
+    rails s
     ```
-
-2. Open your browser and navigate to `http://localhost:3000`.
+2. Start the webpack server:
+   ```sh ./bin/webpack-dev-server ```
+3. Open your browser and navigate to `http://localhost:3000`.
 
 ## Testing
 
