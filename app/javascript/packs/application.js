@@ -26,15 +26,7 @@ import "../stylesheets/application.scss";
 
 import './mobile_menu';
 import './car_card';
-
-document.addEventListener("turbolinks:load", function() {
-  const flashMessage = document.querySelector('.flash-message');
-  if (flashMessage) {
-    setTimeout(() => {
-      flashMessage.style.display = 'none';
-    }, 5000); // Los mensajes desaparecerán después de 5 segundos
-  }
-});
+import './flash_messages'
 
 Rails.start()
 Turbolinks.start();
