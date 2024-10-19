@@ -71,31 +71,5 @@ rails test
 
 # Deployment
 
-### Heroku
+### AWS EC2
 
-1. Install the Heroku CLI:
-    ```sh
-    brew tap heroku/brew && brew install heroku
-    ```
-
-2. Log in to Heroku:
-    ```sh
-    heroku login
-    ```
-
-3. Create a new Heroku app:
-    ```sh
-    heroku create arcan-motors
-    ```
-
-4. Set up the database:
-    ```sh
-    heroku addons:create heroku-postgresql:hobby-dev
-    ```
-
-5. Deploy the application:
-    ```sh
-    git push heroku main
-    heroku run rails db:migrate
-    heroku run rails db:seed
-    ```
