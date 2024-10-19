@@ -36,9 +36,11 @@ module Admin
     def create
       @car = Car.new(car_params)
       if @car.save
+        flash[:success] = "Coche creado correctamente."
         redirect_to admin_car_path(@car)
       else
-        render "new"
+        flash[:error] = "Error al crear el coche."
+        redirect_to new_admin_car_path(car_params)
       end
     end
 
