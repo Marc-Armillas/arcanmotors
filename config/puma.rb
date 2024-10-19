@@ -27,7 +27,9 @@ threads threads_count, threads_count
 port ENV.fetch("PORT", 3000)
 
 # Redirigir stdout y stderr a log/production.log
-stdout_redirect 'log/production.log', 'log/production.log', true
+if ENV['RAILS_ENV'] == 'production'
+  stdout_redirect 'log/production.log', 'log/production.log', true
+end
 
 # Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart
