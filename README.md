@@ -4,7 +4,7 @@ Arcan Motors is a web application built with Ruby on Rails. It provides a platfo
 
 ## Prerequisites
 
-- Ruby 3.3.0
+- Ruby 3.3.5
 - Rails 7.2.1
 - PostgreSQL
 - Node.js
