@@ -31,7 +31,7 @@
                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500"><%= car.kilometers %> km</td>
                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500"><%= car.category.name if car.category %></td>
                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500"><%= car.make.name if car.make %></td>
-                <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500"><%= car.origin_country.name if car.origin_country %></td>
+<!--                <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500"><%#= car.origin_country.name if car.origin_country %></td>-->
                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                   <div class="grid grid-cols-3 items-center">
                     <div class="flex justify-center"> <!-- Posición 2: Primer icono -->
@@ -41,7 +41,7 @@
                       <%= link_to '✏️', edit_admin_car_path(car) %>
                     </div>
                     <div class="flex justify-center"> <!-- Posición 4: Segundo icono -->
-                      <%= link_to '🗑️', edit_admin_car_path(car), method: :delete, data: { confirm: '¿Estás seguro de que deseas eliminar este coche?' } %>
+                      <%= link_to '🗑️', admin_car_path(car), method: :delete, data: { confirm: '¿Estás seguro de que deseas eliminar este coche?' } %>
                     </div>
                   </div>
                 </td>

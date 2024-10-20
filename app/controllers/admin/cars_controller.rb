@@ -11,12 +11,14 @@ module Admin
 
     def edit
       all_select_options
+      default_form_field_values
 
       @car = Car.find(params[:id])
     end
 
     def new
       all_select_options
+      default_form_field_values
     end
 
     def update
@@ -39,6 +41,7 @@ module Admin
         flash[:success] = "Coche creado correctamente."
         redirect_to admin_car_path(@car)
       else
+        binding.pry
         flash[:error] = "Error al crear el coche."
         redirect_to new_admin_car_path(car_params)
       end
@@ -71,6 +74,7 @@ module Admin
         p[:gearbox] = p[:gearbox].to_i if p[:gearbox].present?
         p[:transmission] = p[:transmission].to_i if p[:transmission].present?
         p[:fuel] = p[:fuel].to_i if p[:fuel].present?
+        p[:vin] = p[:vin].present? ? p[:vin] : nil
       end
     end
 
@@ -79,10 +83,18 @@ module Admin
       @categories = Category.all.order(:name)
       @makes = Make.all.order(:name)
       @emission_stickers = EmissionSticker.all.order(:name)
+      @countries = Country.all.order(:name)
+
       @conditions = Car.conditions.sort_by { |key, _| key.to_s }.to_h
       @fuels = Car.fuels.sort_by { |key, _| key.to_s }.to_h
       @transmissions = Car.transmissions.sort_by { |key, _| key.to_s }.to_h
       @gearboxes = Car.gearboxes.sort_by { |key, _| key.to_s }.to_h
+    end
+
+    def default_form_field_values
+      @default_make_id = Make.find_by(name: "Porsche").id
+      @default_country_id = Country.find_by(name: "Spain").id
+      @default_category_id = Category.find_by(name: "SUV").id
     end
   end
 end

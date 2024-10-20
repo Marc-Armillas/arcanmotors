@@ -35,13 +35,13 @@
           <!-- Categoría -->
           <div class="mb-4">
             <%= form.label :category_id, "Categoría", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.collection_select :category_id, @categories, :id, :name, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+            <%= form.collection_select :category_id, @categories, :id, :name, { selected: @default_category_id }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
           <!-- Marca (Make) -->
           <div class="mb-4">
             <%= form.label :make_id, "Marca", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.collection_select :make_id, @makes, :id, :name, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+            <%= form.collection_select :make_id, @makes, :id, :name, { selected: @default_make_id }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
           <!-- Emisión -->
@@ -170,6 +170,12 @@
             <%= form.number_field :consumption_combined, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
+          <!-- País -->
+          <div class="mb-4">
+            <%= form.label :origin_country_id, "País de origen", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.collection_select :origin_country_id, @countries, :id, :name, { selected: @default_country_id }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+
           <!-- Precio base -->
           <div class="mb-4">
             <%= form.label :base_price, "Precio Base (€)", class: "block text-gray-700 text-sm font-bold mb-2" %>
@@ -182,22 +188,10 @@
             <%= form.number_field :tax, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
-          <!-- Precio total -->
-          <div class="mb-4">
-            <%= form.label :total_price, "Precio Total (€)", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.number_field :total_price, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- País -->
-<!--          <div class="mb-4">-->
-            <%#= form.label :origin_country_id, "País de origen", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%#= form.select :origin_country_id, Country.all.map {|c| [c.name, c.id]}, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-<!--          </div>-->
-
           <!-- Mostrar en página principal -->
           <div class="mb-4">
             <%= form.label :in_home_page, "Mostrar en Página Principal", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.select :in_home_page, options_for_select([['No', false], ['Sí', true]]), {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+            <%= form.select :in_home_page, options_for_select([['No', false], ['Sí', true]], @car.in_home_page), {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
           <!-- Descripción del Coche con editor -->
@@ -234,9 +228,14 @@
           <div id="file-list" class="mt-4 text-gray-600"></div>
         </div>
 
-        <!-- Botón para enviar -->
         <div class="text-xl text-center mt-10">
-          <%= form.submit "Guardar Coche", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+          <div class="flex justify-center space-x-4">
+            <%= form.submit "Guardar Coche", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+
+            <% if @car.persisted? %>
+              <%= link_to 'Eliminar Coche', admin_car_path(@car), method: :delete, data: { confirm: '¿Estás seguro de que deseas eliminar este coche?' }, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+            <% end %>
+          </div>
         </div>
       </div>
   </div>
