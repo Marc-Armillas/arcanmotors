@@ -57,8 +57,9 @@
             Contactar sobre este coche (Deshabilitado en Admin)
           </a>
         <% else %>
-          <%= link_to 'Contactar sobre este coche', contacto_path(car_id: @car.id), class: 'inline-block w-full text-center px-6 py-3 bg-indigo-600 text-white text-lg font-medium rounded-md hover:bg-indigo-700' %>
-        <% end %>
+          <%#= link_to 'Contactar sobre este coche', contacto_path(car_id: @car.id), class: 'inline-block w-full text-center px-6 py-3 bg-indigo-600 text-white text-lg font-medium rounded-md hover:bg-indigo-700' %>
+          <%= link_to 'Contactar sobre este coche', "https://wa.me/#{Rails.application.credentials.dig(:whatsapp, :phone_number)}?text=Estoy%20interesado%20en%20el%20coche%20#{@car.name}%20-%20#{car_url(@car)}%0A", class: 'inline-block w-full text-center px-6 py-3 bg-indigo-600 text-white text-lg font-medium rounded-md hover:bg-indigo-700', target: '_blank', rel: 'noopener' %>
+      <% end %>
       </div>
     </div>
   </div>
