@@ -9,19 +9,40 @@
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
   <h1 class="text-center text-3xl font-bold mb-8"><%= @car.name %></h1>
 
+
   <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
     <div>
-      <img src="<%= url_for(@car.images.first) %>" alt="<%= @car.name %>" class="w-full h-auto object-cover rounded-lg shadow-md">
-      <!-- Añadir un slider si tiene más imágenes -->
-      <div class="flex justify-center space-x-2 mt-4">
-        <% @car.images.each_with_index do |image, index| %>
-          <img src="<%= url_for(image) %>" alt="<%= @car.name %> imagen <%= index + 1 %>" class="w-20 h-20 object-cover cursor-pointer hover:opacity-75" onclick="document.querySelector('#main-image').src='<%= url_for(image) %>'">
-        <% end %>
+      <!-- Imagen principal con un contenedor fijo y object-cover para mantener proporción -->
+      <div class="w-full h-96 bg-gray-200 rounded-lg overflow-hidden">
+        <img id="main-image" src="<%= url_for(@car.images.first) %>" alt="<%= @car.name %>" class="w-full h-full object-cover">
+      </div>
+
+      <!-- Contenedor para las flechas y las miniaturas -->
+      <div class="relative mt-4">
+        <!-- Flecha izquierda (siempre visible pero deshabilitada si no hace nada) -->
+        <button id="prev-btn" class="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed" style="transform: translate(-50%, -50%);" onclick="moveSlide(-1)" disabled>
+          &#10094;
+        </button>
+
+        <!-- Contenedor de miniaturas -->
+        <div class="flex justify-center space-x-2 overflow-hidden mx-12" id="thumbnails-wrapper">
+          <% @car.images.each_with_index do |image, index| %>
+            <div class="thumbnail" data-index="<%= index %>">
+              <img src="<%= url_for(image) %>" alt="<%= @car.name %> imagen <%= index + 1 %>" class="w-20 h-20 object-cover cursor-pointer hover:opacity-75" onclick="document.getElementById('main-image').src='<%= url_for(image) %>'">
+            </div>
+          <% end %>
+        </div>
+
+        <!-- Flecha derecha (siempre visible pero deshabilitada si no hace nada) -->
+        <button id="next-btn" class="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed" style="transform: translate(50%, -50%);" onclick="moveSlide(1)">
+          &#10095;
+        </button>
       </div>
     </div>
 
+
     <div>
-      <div class="bg-white p-6 rounded-lg shadow-md">
+      <div class="bg-white p-5 rounded-lg shadow-md">
         <h2 class="text-2xl font-semibold mb-4">Detalles del coche</h2>
         <dl class="space-y-2">
           <div class="flex justify-between">
@@ -40,10 +61,10 @@
             <dt class="font-medium text-gray-500">Marca</dt>
             <dd class="text-lg text-gray-900"><%= @car.make.name if @car.make %></dd>
           </div>
-<!--          <div class="flex justify-between">-->
-<!--            <dt class="font-medium text-gray-500">Categoría</dt>-->
-<!--            <dd class="text-lg text-gray-900"><%#= @car.category.name if @car.category %></dd>-->
-<!--          </div>-->
+          <div class="flex justify-between">
+            <dt class="font-medium text-gray-500">Categoría</dt>
+            <dd class="text-lg text-gray-900"><%= @car.category.name if @car.category %></dd>
+          </div>
 <!--          <div class="flex justify-between">-->
 <!--            <dt class="font-medium text-gray-500">País de origen</dt>-->
 <!--            <dd class="text-lg text-gray-900"><%#= @car.origin_country.name if @car.origin_country %></dd>-->
@@ -53,9 +74,9 @@
 
       <div class="mt-8">
         <% if in_admin_controller? %>
-          <a href="javascript:void(0);" class="inline-block w-full text-center px-6 py-3 bg-gray-400 text-white text-lg font-medium rounded-md cursor-not-allowed" aria-disabled="true">
-            Contactar sobre este coche (Deshabilitado en Admin)
-          </a>
+<!--          <a href="javascript:void(0);" class="inline-block w-full text-center px-6 py-3 bg-gray-400 text-white text-lg font-medium rounded-md cursor-not-allowed" aria-disabled="true">-->
+<!--            Contactar sobre este coche (Deshabilitado en Admin)-->
+<!--          </a>-->
         <% else %>
           <%#= link_to 'Contactar sobre este coche', contacto_path(car_id: @car.id), class: 'inline-block w-full text-center px-6 py-3 bg-indigo-600 text-white text-lg font-medium rounded-md hover:bg-indigo-700' %>
           <%= link_to 'Contactar sobre este coche', "https://wa.me/#{Rails.application.credentials.dig(:whatsapp, :phone_number)}?text=Estoy%20interesado%20en%20el%20coche%20#{@car.name}%20-%20#{car_url(@car)}%0A", class: 'inline-block w-full text-center px-6 py-3 bg-indigo-600 text-white text-lg font-medium rounded-md hover:bg-indigo-700', target: '_blank', rel: 'noopener' %>
@@ -70,3 +91,45 @@
     <p class="text-gray-700 leading-relaxed"><%= @car.model_description %></p>
   </div>
 </div>
+
+
+
+<script>
+  const thumbnailsWrapper = document.getElementById('thumbnails-wrapper');
+  const thumbnails = thumbnailsWrapper.querySelectorAll('.thumbnail');
+  let currentStartIndex = 0;
+  const visibleThumbnails = 7; // Número de miniaturas visibles
+  const moveBy = 2; // Número de miniaturas que avanzas con cada click (puedes cambiar esto a 1 si prefieres)
+
+  function updateThumbnailsVisibility() {
+    thumbnails.forEach((thumbnail, index) => {
+      if (index >= currentStartIndex && index < currentStartIndex + visibleThumbnails) {
+        thumbnail.style.display = 'inline-block';
+      } else {
+        thumbnail.style.display = 'none';
+      }
+    });
+
+    // Habilitar/deshabilitar flechas dependiendo del estado
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    prevBtn.disabled = currentStartIndex === 0;
+    nextBtn.disabled = currentStartIndex + visibleThumbnails >= thumbnails.length;
+  }
+
+  function moveSlide(direction) {
+    // Cambia la posición del índice solo en 1 o 2 miniaturas
+    currentStartIndex += direction * moveBy;
+
+    // Asegurar que el índice no salga de los límites
+    currentStartIndex = Math.max(0, Math.min(currentStartIndex, thumbnails.length - visibleThumbnails));
+
+    // Actualizar la visibilidad de las miniaturas
+    updateThumbnailsVisibility();
+  }
+
+  // Inicializar visibilidad de miniaturas
+  updateThumbnailsVisibility();
+</script>
+
