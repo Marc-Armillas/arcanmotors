@@ -1,0 +1,33 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches: [ "production" ]
+
+jobs:
+  deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Add SSH key
+      uses: webfactory/ssh-agent@v0.8.1
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Deploy to EC2
+      run: |
+        ssh -o StrictHostKeyChecking=no ubuntu@13.37.206.190 << 'EOF'
+          cd /home/ubuntu/arcanmotors
+          git stash
+          git pull origin production
+          bundle install --deployment --without development test
+          yarn install --production
+          RAILS_ENV=production rails assets:precompile
+          RAILS_ENV=production rails db:migrate
+          sudo systemctl restart arcanmotors.service 
+          # sudo systemctl restart nginx.service
+        EOF
