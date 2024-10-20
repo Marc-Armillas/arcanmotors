@@ -229,14 +229,18 @@
         </div>
 
         <div class="text-xl text-center mt-10">
-          <div class="flex justify-center space-x-4">
-            <%= form.submit "Guardar Coche", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
-
-            <% if @car.persisted? %>
-              <%= link_to 'Eliminar Coche', admin_car_path(@car), method: :delete, data: { confirm: '¿Estás seguro de que deseas eliminar este coche?' }, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
-            <% end %>
-          </div>
+          <%= form.submit "Guardar Coche", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
         </div>
+
+<!--        <div class="text-xl text-center mt-10">-->
+<!--          <div class="flex justify-center space-x-4">-->
+            <%#= form.submit "Guardar Coche", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+
+            <%# if @car.persisted? %>
+              <%#= link_to 'Eliminar Coche', admin_car_path(@car), method: :delete, data: { confirm: '¿Estás seguro de que deseas eliminar este coche?' }, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+            <%# end %>
+<!--          </div>-->
+<!--        </div>-->
       </div>
   </div>
 <% end %>
