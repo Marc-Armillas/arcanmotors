@@ -8,7 +8,7 @@ class Users::SessionsController < Devise::SessionsController
 
   def after_sign_in_path_for(resource)
     if current_user.admin?
-      admin_cars_path
+      admin_path
     else
       root_path
     end
