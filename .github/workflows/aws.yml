@@ -1,9 +1,9 @@
 name: Deploy to EC2
 
 on:
-  push:
-    branches: [ "production" ]
-
+  workflow_dispatch:
+  # push:
+    # branches: [ "production" ]
 jobs:
   deploy:
     name: Deploy to EC2
@@ -27,7 +27,7 @@ jobs:
           bundle install --deployment --without development test
           yarn install --production
           RAILS_ENV=production rails assets:precompile
-          RAILS_ENV=production rails db:migrate
+          # RAILS_ENV=production rails db:migrate
           sudo systemctl restart arcanmotors.service 
           # sudo systemctl restart nginx.service
         EOF
