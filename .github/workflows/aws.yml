@@ -24,10 +24,11 @@ jobs:
           cd /home/ubuntu/arcanmotors
           git stash
           git pull origin production
-          bundle install --deployment --without development test
+          bundle install
           yarn install --production
+          git stash pop stash@{0}
           RAILS_ENV=production rails assets:precompile
-          # RAILS_ENV=production rails db:migrate
+          RAILS_ENV=production rails db:migrate
           sudo systemctl restart arcanmotors.service 
           # sudo systemctl restart nginx.service
         EOF
