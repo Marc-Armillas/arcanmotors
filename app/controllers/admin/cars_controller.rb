@@ -5,7 +5,7 @@ module Admin
     end
 
     def show
-      @car = Car.find(params[:id])
+      @car = Car.find(get_car_id)
       render template: "cars/show"
     end
 
@@ -13,7 +13,7 @@ module Admin
       all_select_options
       default_form_field_values
 
-      @car = Car.find(params[:id])
+      @car = Car.find(get_car_id)
     end
 
     def new
@@ -22,7 +22,7 @@ module Admin
     end
 
     def update
-      @car = Car.find(params[:id])
+      @car = Car.find(get_car_id)
 
       if car_params[:images].present?
         @car.images.attach(car_params[:images])
@@ -48,15 +48,17 @@ module Admin
     end
 
     def destroy
-      @car = Car.find(params[:id])
+      @car = Car.find(get_car_id)
       @car.destroy
+
       redirect_to admin_cars_path
     end
 
     def remove_image
-      @car = Car.find(params[:id])
-      image = @car.images.find(params[:image_id])  # Busca la imagen por el ID
+      @car = Car.find(get_car_id)
+      image = @car.images.find(params[:image_id])
       image.purge  # Elimina la imagen
+
       redirect_to edit_admin_car_path(@car), notice: "Imagen eliminada con éxito."
     end
 
@@ -74,7 +76,7 @@ module Admin
         p[:gearbox] = p[:gearbox].to_i if p[:gearbox].present?
         p[:transmission] = p[:transmission].to_i if p[:transmission].present?
         p[:fuel] = p[:fuel].to_i if p[:fuel].present?
-        p[:vin] = p[:vin].present? ? p[:vin] : nil
+        p[:vin] = p[:vin].presence
       end
     end
 
