@@ -22,11 +22,9 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no ubuntu@13.37.206.190 << 'EOF'
           cd /home/ubuntu/arcanmotors
-          git stash
           git pull origin production
           bundle install
           yarn install --production
-          git stash pop stash@{0}
           RAILS_ENV=production rails assets:precompile
           RAILS_ENV=production rails db:migrate
           sudo systemctl restart arcanmotors.service 
