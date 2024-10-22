@@ -16,8 +16,12 @@ class Car < ApplicationRecord
   enum :transmission, { front_wheel_drive: 0, rear_wheel_drive: 1, four_wheel_drive: 2 }
   enum :fuel, { diesel: 0, petrol: 1, electric: 2, hybrid_petrol: 3, hybrid_diesel: 4, lpg: 5, cng: 6, other: 7 }
 
+  def to_param
+    "#{self.name.parameterize}-#{self.id}"
+  end
+
   def image_urls
-    images.map { |image| Rails.application.routes.url_helpers.url_for(image) }
+    self.images.map { |image| Rails.application.routes.url_helpers.url_for(image) }
   end
 
   def medium_image(image)
