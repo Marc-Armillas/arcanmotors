@@ -5,6 +5,10 @@ document.addEventListener("turbolinks:load", function() {
   fileInput.addEventListener("change", function() {
     fileList.innerHTML = "";
 
+    if (fileInput === null) {
+      return;
+    }
+
     if (fileInput.files.length > 0) {
       let fileNames = [];
       for (let i = 0; i < fileInput.files.length; i++) {
