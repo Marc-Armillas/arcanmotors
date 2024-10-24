@@ -22,6 +22,7 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no ubuntu@13.37.206.190 << 'EOF'
           cd /home/ubuntu/arcanmotors
+          rm public/sitemap.xml.gz
           git pull origin production
           bundle install
           yarn install --production
