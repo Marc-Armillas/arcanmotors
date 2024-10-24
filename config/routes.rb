@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { sessions: 'users/sessions' }
+  devise_for :users, controllers: { sessions: "users/sessions" }
 
-  resources :cars, only: [:index, :show], defaults: { format: :html }, path: 'coches'
-  # get 'admin22', to: 'admin#index'
+  resources :cars, only: [:index, :show], defaults: { format: :html }, path: "coches"
+  # get "admin22", to: "admin#index"
   devise_scope :user do
-    get '/admin22', to: 'users/sessions#new'
+    get "/admin22", to: "users/sessions#new"
   end
 
   get "admin", to: "admin#index"
