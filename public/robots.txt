@@ -1,7 +1,8 @@
 User-agent: *
 Disallow: /bin/
 Disallow: /admin/
+Disallow: /admin/
 
 Allow: /
 
-Sitemap: https://arcanmotors.com/sitemap.xml
+Sitemap: https://arcanmotors.es/sitemap.xml.gz
