@@ -36,7 +36,8 @@ Arcan Motors is a web application built with Ruby on Rails. It provides a platfo
 
 4. Set up credentials:
     ```sh
-    EDITOR="vim" bin/rails credentials:edit
+     # EDITOR="vim" bin/rails credentials:edit
+     EDITOR='vi' RAILS_ENV=production rails credentials:edit
     ```
 
     Add your WhatsApp phone number under `whatsapp`:
