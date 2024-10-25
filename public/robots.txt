@@ -1,7 +1,6 @@
 User-agent: *
 Disallow: /bin/
 Disallow: /admin/
-Disallow: /admin/
 
 Allow: /
 
