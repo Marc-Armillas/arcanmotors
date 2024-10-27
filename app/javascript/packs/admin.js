@@ -5,6 +5,7 @@ import "../stylesheets/application.scss";
 // Application JS FILES
 import './mobile_menu';
 import './flash_messages'
+import './car_swiper';
 
 // Admin JS FILES
 import './admin/contact_request_modal';
