@@ -25,8 +25,9 @@ import Turbolinks from "turbolinks";
 import "../stylesheets/application.scss";
 
 import './mobile_menu';
-import './car_card';
+// import './car_card';
 import './flash_messages'
+import './car_swiper';
 
 Rails.start()
 Turbolinks.start();
