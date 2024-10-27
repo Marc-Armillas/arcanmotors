@@ -25,7 +25,7 @@ jobs:
           rm public/sitemap.xml.gz
           git pull origin production
           bundle install
-          yarn install --production
+          # yarn install --production
           RAILS_ENV=production rails assets:precompile
           RAILS_ENV=production rake sitemap:refresh
           RAILS_ENV=production rails db:migrate
