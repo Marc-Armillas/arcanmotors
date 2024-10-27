@@ -44,6 +44,10 @@ class Car < ApplicationRecord
     # image.variant(resize_to_limit: [30, 30], format: :jpg).processed
   end
 
+  def get_full_name
+    "#{self.make.name} #{self.name}"
+  end
+
   private
 
   def image_count_within_limit
