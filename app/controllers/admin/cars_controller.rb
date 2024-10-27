@@ -87,8 +87,9 @@ module Admin
       @emission_stickers = EmissionSticker.all.order(:name)
       @countries = Country.all.order(:name)
 
-      @conditions = Car.conditions.sort_by { |key, _| key.to_s }.to_h
-      @fuels = Car.fuels.sort_by { |key, _| key.to_s }.to_h
+      fuels_desired_order = %w[petrol diesel electric hybrid_petrol hybrid_diesel other]
+      @fuels = Car.fuels.sort_by { |key, _| fuels_desired_order.index(key.to_s) || fuels_desired_order.size }
+      @conditions = Car.conditions.sort_by { |key, _| key.to_s }.reverse.to_h
       @transmissions = Car.transmissions.sort_by { |key, _| key.to_s }.to_h
       @gearboxes = Car.gearboxes.sort_by { |key, _| key.to_s }.to_h
     end

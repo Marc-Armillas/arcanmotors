@@ -17,7 +17,7 @@
           <!-- Precio del coche -->
           <div class="mb-4">
             <%= form.label :price, "Precio", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.number_field :price, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+            <%= form.number_field :price, step: 0.01, required: true, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
           <!-- Año del coche -->
@@ -29,7 +29,7 @@
           <!-- Kilómetros del coche -->
           <div class="mb-4">
             <%= form.label :kilometers, "Kilómetros", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.number_field :kilometers, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+            <%= form.number_field :kilometers, required: true, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
           <!-- Categoría -->
@@ -101,13 +101,13 @@
           <!-- Número de puertas -->
           <div class="mb-4">
             <%= form.label :doors, "Número de puertas", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.select :doors, options_for_select((1..5).map { |n| [n, n] }), {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+            <%= form.select :doors, options_for_select((1..5).map { |n| [n, n] }, selected: 5), {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
           <!-- Número de asientos -->
           <div class="mb-4">
             <%= form.label :seats, "Número de asientos", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.select :seats, options_for_select((1..9).map { |n| [n, n] }), {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+            <%= form.select :seats, options_for_select((1..9).map { |n| [n, n] }, selected: 5), {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
           <!-- Color del interior -->
@@ -152,12 +152,6 @@
             <%= form.number_field :consumption_city, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
 
-          <!-- Consumo en suburbano -->
-          <div class="mb-4">
-            <%= form.label :consumption_suburban, "Consumo en Suburbano (l/100km)", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.number_field :consumption_suburban, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
           <!-- Consumo en carretera -->
           <div class="mb-4">
             <%= form.label :consumption_highway, "Consumo en Carretera (l/100km)", class: "block text-gray-700 text-sm font-bold mb-2" %>
@@ -177,16 +171,16 @@
           </div>
 
           <!-- Precio base -->
-          <div class="mb-4">
-            <%= form.label :base_price, "Precio Base (€)", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.number_field :base_price, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
+<!--          <div class="mb-4">-->
+            <%#= form.label :base_price, "Precio Base (€)", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%#= form.number_field :base_price, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+<!--          </div>-->
 
           <!-- Impuesto -->
-          <div class="mb-4">
-            <%= form.label :tax, "Impuesto (€)", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.number_field :tax, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
+<!--          <div class="mb-4">-->
+            <%#= form.label :tax, "Impuesto (€)", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%#= form.number_field :tax, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+<!--          </div>-->
 
           <!-- Mostrar en página principal -->
           <div class="mb-4">
