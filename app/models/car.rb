@@ -16,6 +16,8 @@ class Car < ApplicationRecord
   enum :transmission, { front_wheel_drive: 0, rear_wheel_drive: 1, four_wheel_drive: 2 }
   enum :fuel, { diesel: 0, petrol: 1, electric: 2, hybrid_petrol: 3, hybrid_diesel: 4, lpg: 5, cng: 6, other: 7 }
 
+  before_save :set_vat_price_fields
+
   def to_param
     "#{self.name.parameterize}-#{self.id}"
   end
@@ -53,6 +55,15 @@ class Car < ApplicationRecord
   def image_count_within_limit
     if images.count < 1
       errors.add(:images, "must have at least one image")
+    end
+  end
+
+  def set_vat_price_fields
+    if self.new_record? || self.price_changed?
+      tax = self.price * 1.21
+
+      self.tax = tax.round(2)
+      self.base_price = (self.price - tax).round(2)
     end
   end
 end
