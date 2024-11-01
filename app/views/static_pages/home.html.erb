@@ -10,27 +10,27 @@
 <div class="pb-12">
   <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Nuestros coches destacados</h2>
 
-  <!-- Carrusel de coches -->
   <div class="relative">
-    <!-- Flecha izquierda -->
-    <button class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full prev-btn">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-      </svg>
-    </button>
+    <% if @cars.count >= 3 %>
+      <button class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full prev-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+    <% end %>
 
-    <!-- Cards de coches -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 car-slider">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-<%= @cars.count >= 3 ? 3 : @cars.count %> gap-8 car-slider">
       <% @cars.first(3).each_with_index do |car| %>
         <%= render partial: 'components/car_card', locals: { car: car } %>
       <% end %>
     </div>
 
-    <!-- Flecha derecha -->
-    <button class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full next-btn">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-      </svg>
-    </button>
+    <% if @cars.count >= 3 %>
+      <button class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full next-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    <% end %>
   </div>
 </div>
