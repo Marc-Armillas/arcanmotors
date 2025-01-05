@@ -72,5 +72,5 @@ rails test
 
 # Deployment
 
-### AWS EC2
+### Run "Deploy to EC2" GitHub action
 
