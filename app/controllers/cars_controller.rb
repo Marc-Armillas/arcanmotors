@@ -1,6 +1,6 @@
 class CarsController < ApplicationController
   def index
-    @cars = Car.with_attached_images
+    @cars = Car.where.not(status: :sold)
   end
 
   def show
