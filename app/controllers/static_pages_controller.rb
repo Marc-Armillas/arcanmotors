@@ -1,6 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
-    @cars = Car.where(in_home_page: true).with_attached_images.last(15)
+    @cars = Car.where(in_home_page: true).last(15)
   end
 
   def legal

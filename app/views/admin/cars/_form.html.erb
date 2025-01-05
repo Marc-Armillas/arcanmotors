@@ -1,240 +1,216 @@
+<% common_input_classes = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+<% common_label_classes = "block text-gray-700 text-sm font-bold mb-2" %>
+<% h3_classes = "text-xl font-bold text-gray-800 mt-12 mb-2" %>
+<% common_labels_div_classes =  "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" %>
+
 <%= form_with model: [:admin, @car], local: true, html: { multipart: true } do |form| %>
   <div class="container mx-auto">
-      <!-- Título del formulario -->
-      <h1 class="text-3xl font-bold text-gray-800 text-center mt-12 mb-7">
-        Crear o Editar Coche
-      </h1>
+    <h1 class="text-3xl font-bold text-gray-800 text-center mt-12 mb-7">Crear o Editar Coche</h1>
 
-      <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <!-- Contenedor de dos columnas -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- Nombre del coche -->
-          <div class="mb-4">
-            <%= form.label :name, "Nombre del Coche", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Precio del coche -->
-          <div class="mb-4">
-            <%= form.label :price, "Precio", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.number_field :price, step: 0.01, required: true, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Año del coche -->
-          <div class="mb-4">
-            <%= form.label :year, "Año", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.select :year, options_for_select((1910..2024).to_a.reverse), {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Kilómetros del coche -->
-          <div class="mb-4">
-            <%= form.label :kilometers, "Kilómetros", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.number_field :kilometers, required: true, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Categoría -->
-          <div class="mb-4">
-            <%= form.label :category_id, "Categoría", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.collection_select :category_id, @categories, :id, :name, { selected: @default_category_id }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Marca (Make) -->
-          <div class="mb-4">
-            <%= form.label :make_id, "Marca", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.collection_select :make_id, @makes, :id, :name, { selected: @default_make_id }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Emisión -->
-          <div class="mb-4">
-            <%= form.label :emission_sticker_id, "Etiqueta de Emisión", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.collection_select :emission_sticker_id, @emission_stickers, :id, :name, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Condición -->
-          <div class="mb-4">
-            <%= form.label :condition, "Condición", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.select :condition, @conditions.map { |k, v| [k.humanize, v] }, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Primera Matriculación -->
-          <div class="mb-4">
-            <%= form.label :first_registration, "Primera Matriculación", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.date_field :first_registration, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Siguiente Revisión -->
-          <div class="mb-4">
-            <%= form.label :next_inspection, "Próxima revisión", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.date_field :next_inspection, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Tipo de Tracción -->
-          <div class="mb-4">
-            <%= form.label :transmission, "Caja de cambios", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.select :transmission, @gearboxes.map { |k, v| [k.humanize, v] }, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Combustible -->
-          <div class="mb-4">
-            <%= form.label :fuel, "Tipo de Combustible", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.select :fuel, @fuels.map { |k, v| [k.humanize, v] }, {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Modelo -->
-          <div class="mb-4">
-            <%= form.label :model, "Modelo", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.text_field :model, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Color Exterior -->
-          <div class="mb-4">
-            <%= form.label :exterior_color, "Color Exterior", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.text_field :exterior_color, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Referencia color fabricante -->
-          <div class="mb-4">
-            <%= form.label :manufacturer_color_name, "Referencia color fabricante", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.text_field :manufacturer_color_name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Número de puertas -->
-          <div class="mb-4">
-            <%= form.label :doors, "Número de puertas", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.select :doors, options_for_select((1..5).map { |n| [n, n] }, selected: 5), {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Número de asientos -->
-          <div class="mb-4">
-            <%= form.label :seats, "Número de asientos", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.select :seats, options_for_select((1..9).map { |n| [n, n] }, selected: 5), {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Color del interior -->
-          <div class="mb-4">
-            <%= form.label :interior_color, "Color del interior", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.text_field :interior_color, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Material del interior -->
-          <div class="mb-4">
-            <%= form.label :interior_material, "Material del interior", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.text_field :interior_material, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Código VIN -->
-          <div class="mb-4">
-            <%= form.label :vin, "Código VIN", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.text_field :vin, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Capacidad Cilíndrica -->
-          <div class="mb-4">
-            <%= form.label :cubic_capacity, "Capacidad Cilíndrica", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.number_field :cubic_capacity, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Potencia -->
-          <div class="mb-4">
-            <%= form.label :power, "Potencia (CV)", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.number_field :power, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Dueños Previos -->
-          <div class="mb-4">
-            <%= form.label :previous_owners, "Número de Dueños Previos", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.number_field :previous_owners, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Consumo en ciudad -->
-          <div class="mb-4">
-            <%= form.label :consumption_city, "Consumo en Ciudad (l/100km)", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.number_field :consumption_city, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Consumo en carretera -->
-          <div class="mb-4">
-            <%= form.label :consumption_highway, "Consumo en Carretera (l/100km)", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.number_field :consumption_highway, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Consumo combinado -->
-          <div class="mb-4">
-            <%= form.label :consumption_combined, "Consumo Combinado (l/100km)", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.number_field :consumption_combined, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- País -->
-          <div class="mb-4">
-            <%= form.label :origin_country_id, "País de origen", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.collection_select :origin_country_id, @countries, :id, :name, { selected: @default_country_id }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Precio base -->
-<!--          <div class="mb-4">-->
-            <%#= form.label :base_price, "Precio Base (€)", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%#= form.number_field :base_price, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-<!--          </div>-->
-
-          <!-- Impuesto -->
-<!--          <div class="mb-4">-->
-            <%#= form.label :tax, "Impuesto (€)", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%#= form.number_field :tax, step: 0.01, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-<!--          </div>-->
-
-          <!-- Mostrar en página principal -->
-          <div class="mb-4">
-            <%= form.label :in_home_page, "Mostrar en Página Principal", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.select :in_home_page, options_for_select([['No', false], ['Sí', true]], @car.in_home_page), {}, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-          </div>
-
-          <!-- Descripción del Coche con editor -->
-          <div class="mb-4 col-span-2">
-            <%= form.label :model_description, "Descripción del Coche", class: "block text-gray-700 text-sm font-bold mb-2" %>
-            <%= form.text_area :model_description, rows: 5, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline wysiwyg" %>
-          </div>
+    <!-- Información Básica -->
+    <h3 class="<%= h3_classes %>">Información Básica</h3>
+    <div class="<%= common_labels_div_classes %>">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="mb-4">
+          <%= form.label :name, "Nombre del Coche", class: common_label_classes %>
+          <%= form.text_field :name, class: common_input_classes %>
         </div>
-
-        <!-- Mostrar imágenes existentes -->
-        <% if @car.images.any? %>
-          <div class="mb-4 mt-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2">Imágenes existentes</label>
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-              <% @car.images.each do |image| %>
-                <div class="relative">
-                  <%= image_tag url_for(@car.medium_image(image)), alt: "Imagen del Coche", class: "w-full h-auto rounded" %>
-                  <!-- Botón para eliminar imagen -->
-                  <%= link_to 'Eliminar', remove_image_admin_car_path(@car, image.id), method: :delete, data: { confirm: '¿Estás seguro de eliminar esta imagen?' }, class: "absolute top-2 right-2 text-red-500 hover:text-red-700" %>
-                </div>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
-
-        <!-- Adjuntar múltiples imágenes con dropbox -->
-        <div class="mb-4 mt-6 relative">
-          <%= form.label :images, "Subir Imágenes del Coche", class: "block text-gray-700 text-sm font-bold mb-2" %>
-          <div id="dropbox" class="w-full p-4 border-2 border-dashed border-gray-300 rounded-md text-center cursor-pointer" style="min-height: 10em; border-color: yellowgreen; position: relative;">
-            <%= form.file_field :images, multiple: true, class: "absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer", id: "image_input" %>
-            <small class="text-gray-600">Arrastra y suelta archivos o haz clic para seleccionar múltiples imágenes.</small>
-          </div>
-
-          <div id="file-list" class="mt-4 text-gray-600"></div>
+        <div class="mb-4">
+          <%= form.label :price, "Precio", class: common_label_classes %>
+          <%= form.number_field :price, step: 0.01, required: true, class: common_input_classes %>
         </div>
-
-        <div class="text-xl text-center mt-10">
-          <%= form.submit "Guardar Coche", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+        <div class="mb-4">
+          <%= form.label :status, "Estado venta", class: common_label_classes %>
+          <%= form.select :status, @statuses.map { |k, v| [k.humanize, v] }, { selected: @car.status_before_type_cast }, class: common_input_classes %>
         </div>
-
-<!--        <div class="text-xl text-center mt-10">-->
-<!--          <div class="flex justify-center space-x-4">-->
-            <%#= form.submit "Guardar Coche", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
-
-            <%# if @car.persisted? %>
-              <%#= link_to 'Eliminar Coche', admin_car_path(@car), method: :delete, data: { confirm: '¿Estás seguro de que deseas eliminar este coche?' }, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
-            <%# end %>
-<!--          </div>-->
-<!--        </div>-->
+        <div class="mb-4">
+          <%= form.label :condition, "Condición", class: common_label_classes %>
+          <%= form.select :condition, @conditions.map { |k, v| [k.humanize, v] }, { selected: @car.condition_before_type_cast }, class: common_input_classes %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :make_id, "Marca", class: common_label_classes %>
+          <%= form.collection_select :make_id, @makes, :id, :name, { selected: @car.make_id || @default_make_id }, class: common_input_classes %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :model, "Modelo", class: common_label_classes %>
+          <%= form.text_field :model, class: common_input_classes %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :kilometers, "Kilómetros", class: common_label_classes %>
+          <%= form.number_field :kilometers, required: true, class: common_input_classes %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :year, "Año", class: common_label_classes %>
+          <%= form.select :year, options_for_select((1910..2024).to_a.reverse, @car.year) %>
+        </div>
       </div>
+    </div>
+
+    <!-- Descripción -->
+    <h3 class="<%= h3_classes %>">Descripción</h3>
+    <div class="<%= common_labels_div_classes %>">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="mb-4 col-span-2">
+          <%= form.label :model_description, "Descripción del Coche", class: common_label_classes %>
+          <%= form.text_area :model_description, rows: 5, class: common_input_classes %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Información Adicional -->
+    <h3 class="<%= h3_classes %>">Información Adicional</h3>
+    <div class="<%= common_labels_div_classes %>">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="mb-4">
+          <%= form.label :previous_owners, "Número de Dueños Previos", class: common_label_classes %>
+          <%= form.number_field :previous_owners, class: common_input_classes %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :next_inspection, "Próxima revisión", class: common_label_classes %>
+          <%= form.date_field :next_inspection, class: common_input_classes %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :first_registration, "Primera Matriculación", class: common_label_classes %>
+          <%= form.date_field :first_registration, class: common_input_classes %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :fuel, "Tipo de Combustible", class: common_label_classes %>
+          <%= form.select :fuel, @fuels.map { |k, v| [k.humanize, v] }, { selected: @car.fuel_before_type_cast }, class: common_input_classes %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :category_id, "Categoría", class: common_label_classes %>
+          <%= form.collection_select :category_id, @categories, :id, :name, { selected: @car.category_id || @default_category_id }, class: common_input_classes %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :origin_country_id, "País de origen", class: common_label_classes %>
+          <%= form.collection_select :origin_country_id, @countries, :id, :name, { selected: @car.origin_country_id || @default_origin_country_id }, class: common_input_classes %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :vin, "Código VIN", class: common_label_classes %>
+          <%= form.text_field :vin, class: common_input_classes %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Motor -->
+    <h3 class="<%= h3_classes %>">Motor</h3>
+    <div class="<%= common_labels_div_classes %>">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="mb-4">
+          <%= form.label :cubic_capacity, "CC", class: common_label_classes %>
+          <%= form.number_field :cubic_capacity, step: 0.01, class: common_input_classes %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :power, "Potencia (CV)", class: common_label_classes %>
+          <%= form.number_field :power, class: common_input_classes %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :transmission, "Transmisión", class: common_label_classes %>
+          <%= form.select :transmission, @transmissions.map { |k, v| [k.humanize, v] }, { selected: @car.transmission_before_type_cast }, class: common_input_classes %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :gearbox, "Caja de cambios", class: common_label_classes %>
+          <%= form.select :gearbox, @gearboxes.map { |k, v| [k.humanize, v] }, { selected: @car.gearbox_before_type_cast }, class: common_input_classes %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Consumos y Emisiones -->
+    <h3 class="<%= h3_classes %>">Consumos y Emisiones</h3>
+    <div class="<%= common_labels_div_classes %>">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="mb-4">
+          <%= form.label :emission_sticker_id, "Etiqueta de Emisión", class: common_label_classes %>
+          <%= form.collection_select :emission_sticker_id, @emission_stickers, :id, :name, {}, class: common_input_classes %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :consumption_city, "Consumo en Ciudad (l/100km)", class: common_label_classes %>
+          <%= form.number_field :consumption_city, step: 0.01, class: common_input_classes %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :consumption_highway, "Consumo en Carretera (l/100km)", class: common_label_classes %>
+          <%= form.number_field :consumption_highway, step: 0.01, class: common_input_classes %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :consumption_combined, "Consumo Combinado (l/100km)", class: common_label_classes %>
+          <%= form.number_field :consumption_combined, step: 0.01, class: common_input_classes %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exterior e Interior -->
+    <h3 class="<%= h3_classes %>">Exterior e Interior</h3>
+    <div class="<%= common_labels_div_classes %>">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="mb-4">
+          <%= form.label :doors, "Número de puertas", class: common_label_classes %>
+          <%= form.select :doors, options_for_select((1..5).map { |n| [n, n] }, selected: @car.doors || 5), {}, class: common_input_classes %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :exterior_color, "Color Exterior", class: common_label_classes %>
+          <%= form.text_field :exterior_color, class: common_input_classes %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :seats, "Número de asientos", class: common_label_classes %>
+          <%= form.select :seats, options_for_select((1..9).map { |n| [n, n] }, selected: @car.seats || 5), {}, class: common_input_classes %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :interior_color, "Color del interior", class: common_label_classes %>
+          <%= form.text_field :interior_color, class: common_input_classes %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :interior_material, "Material del interior", class: common_label_classes %>
+          <%= form.text_field :interior_material, class: common_input_classes %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visibilidad Web -->
+    <h3 class="<%= h3_classes %>">Visibilidad Web</h3>
+    <div class="<%= common_labels_div_classes %>">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="mb-4">
+          <%= form.label :in_home_page, "Mostrar en Página Principal", class: common_label_classes %>
+          <%= form.select :in_home_page, options_for_select([['Si', true], ['No', false]], @car.in_home_page), {}, class: common_input_classes %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :is_public, "Mostrar en la web de cliente?", class: common_label_classes %>
+          <%= form.select :is_public, options_for_select([['Si', true], ['No', false]], @car.is_public), {}, class: common_input_classes %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Imagenes -->
+    <h3 class="<%= h3_classes %>">Imagenes</h3>
+    <div class="<%= common_labels_div_classes %>">
+      <% if @car.images.any? %>
+        <div class="mb-4 mt-6">
+          <label class="<%= common_label_classes %>">Imágenes existentes</label>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <% @car.images.each do |image| %>
+              <div class="relative">
+                <%= image_tag url_for(@car.medium_image(image)), alt: "Imagen del Coche", class: "w-full h-auto rounded" %>
+                <!-- Botón para eliminar imagen -->
+                <%= link_to 'Eliminar', remove_image_admin_car_path(@car, image.id), method: :delete, data: { confirm: '¿Estás seguro de eliminar esta imagen?' }, class: "absolute top-2 right-2 text-red-500 hover:text-red-700" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <div class="mb-4 mt-6 relative">
+        <%= form.label :images, "Subir Imágenes del Coche", class: common_label_classes %>
+        <div id="dropbox" class="w-full p-4 border-2 border-dashed border-gray-300 rounded-md text-center cursor-pointer" style="min-height: 10em; border-color: yellowgreen; position: relative;">
+          <%= form.file_field :images, multiple: true, class: "absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer", id: "image_input" %>
+          <small class="text-gray-600">Arrastra y suelta archivos o haz clic para seleccionar múltiples imágenes.</small>
+        </div>
+
+        <div id="file-list" class="mt-4 text-gray-600"></div>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="text-xl text-center mt-10 mb-10">
+      <%= form.submit "Guardar Coche", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+    </div>
   </div>
 <% end %>
