@@ -26,6 +26,7 @@ jobs:
           git pull origin production
           bundle install
           # yarn install --production
+          RAILS_ENV=production bin/webpack
           RAILS_ENV=production rails assets:precompile
           RAILS_ENV=production rake sitemap:refresh
           RAILS_ENV=production rails db:migrate
