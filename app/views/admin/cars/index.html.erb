@@ -13,6 +13,7 @@
             <thead class="bg-gray-50">
             <tr>
               <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
+              <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
               <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Precio</th>
               <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Año</th>
               <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Kilómetros</th>
@@ -26,6 +27,7 @@
             <% @cars.each do |car| %>
               <tr>
                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900"><%= car.name %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900"><%= car.status.humanize %></td>
                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500"><%= number_to_currency(car.price, unit: "€") %></td>
                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500"><%= car.year %></td>
                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500"><%= car.kilometers %> km</td>
