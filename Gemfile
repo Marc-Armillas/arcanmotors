@@ -27,24 +27,20 @@ gem "jbuilder"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
-# Reduces boot times through caching; required in config/boot.rb
-gem "bootsnap", require: false
-
+gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb
 
 gem "devise"
-gem "pry"
-gem "pry-byebug"
-gem "awesome_print", require: "ap"
-gem "webpacker"
-gem "aws-sdk-s3", require: false
-gem "aws-sdk", "~> 3"
-
-# install in the server for img processing
-# brew install vips -> local
-# heroku buildpacks:add --index 1 https://github.com/brandoncc/heroku-buildpack-vips.git -> prod
-gem "image_processing", "~> 1.2"
-
 gem "sitemap_generator"
+
+# gem "aws-sdk-s3", require: false
+# gem "aws-sdk-ec2", require: false
+# gem "aws-sdk", "~> 3"
+
+gem "image_processing", "~> 1.2" # needs VIPS installed # brew install vips
+
+group :development, :test do
+  # gem "debug", platforms: %i[ mri windows ], require: "debug/prelude" # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "brakeman", require: false # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
