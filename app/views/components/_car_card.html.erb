@@ -1,23 +1,23 @@
-<%# locals: car, featured (optional), heading (optional, default :h3) %>
-<% featured = local_assigns.fetch(:featured, false) %>
-<article class="car-card <%= "car-card--featured" if featured %>">
+<%# locals: car, heading (optional, default :h3), eager (optional) %>
+<article class="car-card">
   <a href="<%= car_path(car) %>" class="car-card__link">
     <div class="car-card__media">
       <% if (image = car.images.first) %>
         <img src="<%= car_image_url(image, :card) %>" alt="<%= car_image_alt(car) %>" width="960" height="720"
-             loading="<%= featured ? "eager" : "lazy" %>" decoding="async">
+             loading="<%= local_assigns[:eager] ? "eager" : "lazy" %>" decoding="async">
       <% end %>
       <% if car.reserved? %>
-        <span class="badge badge--yellow">Reservado</span>
+        <span class="badge">Reservado</span>
       <% end %>
     </div>
     <div class="car-card__body">
+      <p class="car-card__make"><%= car.make&.name %></p>
       <%= content_tag local_assigns.fetch(:heading, :h3), car.name, class: "car-card__title" %>
-      <dl class="spec-row">
-        <% if car.year %><div><dt>Año</dt><dd><%= car.year %></dd></div><% end %>
-        <% if car.kilometers %><div><dt>Kilómetros</dt><dd><%= number_with_delimiter(car.kilometers, delimiter: ".") %></dd></div><% end %>
-        <% if car.cv %><div><dt>Potencia</dt><dd><%= car.cv %> CV</dd></div><% end %>
-      </dl>
+      <p class="car-card__specs">
+        <% if car.year %><span><%= car.year %></span><% end %>
+        <% if car.kilometers %><span><%= car_km(car) %></span><% end %>
+        <% if car.cv %><span><%= car.cv %> CV</span><% end %>
+      </p>
       <p class="car-card__price"><%= car_price(car) %></p>
     </div>
   </a>

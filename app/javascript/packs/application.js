@@ -28,6 +28,7 @@ import './mobile_menu';
 // import './car_card';
 import './flash_messages'
 import './car_swiper';
+import './rail';
 
 Rails.start()
 Turbolinks.start();

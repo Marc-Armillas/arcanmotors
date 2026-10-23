@@ -19,8 +19,8 @@
 
 <% if in_admin_controller? %>
   <div class="admin-bar wrap">
-    <%= link_to "Volver al listado", "javascript:history.back()", class: "btn btn--ghost" %>
-    <%= link_to "Editar este coche", edit_admin_car_path(@car), class: "btn btn--red" %>
+    <%= link_to "Volver al listado", "javascript:history.back()", class: "btn btn--outline" %>
+    <%= link_to "Editar este coche", edit_admin_car_path(@car), class: "btn btn--dark" %>
   </div>
 <% end %>
 
@@ -67,11 +67,11 @@
     <p class="vehicle__make"><%= @car.make&.name %></p>
     <h1 class="vehicle__title"><%= @car.name %></h1>
     <% unless @car.on_sale? %>
-      <span class="badge <%= @car.reserved? ? "badge--yellow" : "badge--dark" %>"><%= car_status_label(@car) %></span>
+      <span class="badge <%= "badge--sold" if @car.sold? %>"><%= car_status_label(@car) %></span>
     <% end %>
     <p class="vehicle__price"><%= car_price(@car) %></p>
 
-    <dl class="spec-row spec-row--panel">
+    <dl class="vehicle__keyspecs">
       <% if @car.year %><div><dt>Año</dt><dd><%= @car.year %></dd></div><% end %>
       <% if @car.kilometers %><div><dt>Kilómetros</dt><dd><%= number_with_delimiter(@car.kilometers, delimiter: ".") %></dd></div><% end %>
       <% if @car.cv %><div><dt>Potencia</dt><dd><%= @car.cv %> CV</dd></div><% end %>
@@ -80,34 +80,36 @@
 
     <% unless in_admin_controller? || @car.sold? %>
       <div class="vehicle__actions">
-        <a href="<%= car_whatsapp_url(@car) %>" class="btn btn--red btn--large btn--block" target="_blank" rel="noopener">Preguntar por este coche</a>
+        <a href="<%= car_whatsapp_url(@car) %>" class="btn btn--dark btn--large btn--block" target="_blank" rel="noopener">Preguntar por este coche</a>
         <% if whatsapp_phone.present? %>
-          <a href="tel:+<%= whatsapp_phone %>" class="btn btn--ghost btn--large btn--block">Llamar al <%= whatsapp_phone_display %></a>
+          <a href="tel:+<%= whatsapp_phone %>" class="btn btn--outline btn--large btn--block">Llamar al <%= whatsapp_phone_display %></a>
         <% end %>
       </div>
-      <p class="vehicle__note">Te respondemos por WhatsApp con más fotos, historial de mantenimiento o para concertar una visita.</p>
+      <p class="vehicle__note">Te enviamos más fotos, el historial de mantenimiento o te enseñamos el coche en persona.</p>
     <% end %>
   </aside>
+</article>
 
-  <div class="vehicle__details">
+<section class="section section--gray" aria-label="Detalles del coche">
+  <div class="wrap vehicle-details <%= "vehicle-details--split" if description.any? %>">
     <% if description.any? %>
-      <section class="vehicle__section" aria-labelledby="descripcion">
+      <div class="vehicle-details__card">
         <h2 id="descripcion" class="display-3">Descripción</h2>
         <div class="prose">
           <% description.each do |text| %>
             <%= simple_format(text) %>
           <% end %>
         </div>
-      </section>
+      </div>
     <% end %>
 
-    <section class="vehicle__section" aria-labelledby="ficha">
+    <div class="vehicle-details__card">
       <h2 id="ficha" class="display-3">Ficha técnica</h2>
       <dl class="spec-table">
         <% specs.each do |label, value| %>
           <div><dt><%= label %></dt><dd><%= value %></dd></div>
         <% end %>
       </dl>
-    </section>
+    </div>
   </div>
-</article>
+</section>

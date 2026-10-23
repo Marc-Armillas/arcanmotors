@@ -1,44 +1,50 @@
 <% seo title: "Sobre nosotros: especialistas en Porsche",
        description: "ArCan Motors es un concesionario especializado en Porsche de ocasión. Experiencia de taller desde el año 2000 y asesoramiento personal en cada compra." %>
 
-<header class="page-head wrap">
-  <h1 class="display-1">Solo Porsche, desde el taller.</h1>
+<header class="page-head wrap center">
+  <h1 class="display-1">Solo Porsche.<br>Desde el taller.</h1>
   <p class="lead">
-    ArCan Motors es un concesionario especializado en Porsche. Nuestra forma de trabajar viene del taller: conocemos estos coches por dentro, y eso es lo que nos permite elegir bien los que vendemos.
+    Conocemos estos coches por dentro, y eso es lo que nos permite elegir bien los que vendemos.
   </p>
 </header>
 
-<div class="pepita pepita--thin" aria-hidden="true"></div>
-
-<section class="section wrap about">
-  <div class="about__story prose">
-    <h2 class="display-3">Nuestra historia</h2>
+<section class="section section--tight wrap about-intro">
+  <h2 class="display-2">Veinte años de taller detrás de cada venta.</h2>
+  <div class="prose">
     <p>Desde el año 2000 nos dedicamos a la reparación, preparación y optimización de vehículos. En 2010 nació ArCan Motors para centrar toda esa experiencia en una sola marca: Porsche.</p>
     <p>Cada coche que entra pasa por nuestro taller antes de salir a la venta. Queremos que quien compra aquí sepa exactamente qué se lleva, y que vuelva cuando busque el siguiente.</p>
   </div>
-
-  <dl class="values">
-    <div>
-      <dt>Experiencia</dt>
-      <dd>Un equipo que conoce la mecánica Porsche y te asesora de forma personal, sin guiones de venta.</dd>
-    </div>
-    <div>
-      <dt>Transparencia</dt>
-      <dd>Te contamos el estado real de cada coche y su historial. Preferimos perder una venta a perder tu confianza.</dd>
-    </div>
-    <div>
-      <dt>Pasión por la marca</dt>
-      <dd>Compartimos la afición de nuestros clientes y cuidamos cada coche como si fuera a quedarse en nuestro garaje.</dd>
-    </div>
-  </dl>
 </section>
 
-<section class="cta-band" aria-labelledby="cta-title">
-  <div class="wrap cta-band__inner">
-    <div>
-      <h2 id="cta-title" class="display-2">Ven a ver los coches</h2>
-      <p class="lead">Escríbenos para concertar una visita o pedir más información sobre cualquier coche del stock.</p>
+<section class="section section--gray" aria-labelledby="values-title">
+  <div class="wrap">
+    <div class="section__head">
+      <h2 id="values-title" class="display-2">Cómo trabajamos.</h2>
     </div>
-    <a href="<%= whatsapp_url("Hola, me gustaría concertar una visita.") %>" class="btn btn--red btn--large" target="_blank" rel="noopener">Concertar una visita</a>
+    <div class="bento bento--three">
+      <article class="tile tile--dark">
+        <h3 class="display-3">Experiencia.</h3>
+        <p>Un equipo que conoce la mecánica Porsche y te asesora de forma personal, sin guiones de venta.</p>
+      </article>
+      <article class="tile">
+        <h3 class="display-3">Transparencia.</h3>
+        <p>Te contamos el estado real de cada coche y su historial. Preferimos perder una venta a perder tu confianza.</p>
+      </article>
+      <article class="tile">
+        <h3 class="display-3">Pasión por la marca.</h3>
+        <p>Compartimos la afición de nuestros clientes y cuidamos cada coche como si fuera a quedarse en nuestro garaje.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section cta" aria-labelledby="cta-title">
+  <div class="wrap">
+    <h2 id="cta-title" class="display-1">Ven a ver los coches.</h2>
+    <p class="lead">Escríbenos para concertar una visita o pedir más información sobre cualquier coche del stock.</p>
+    <div class="cta__actions">
+      <a href="<%= whatsapp_url("Hola, me gustaría concertar una visita.") %>" class="btn btn--dark btn--large" target="_blank" rel="noopener">Concertar una visita</a>
+      <a href="<%= cars_path %>" class="chevron-link">Ver el stock</a>
+    </div>
   </div>
 </section>

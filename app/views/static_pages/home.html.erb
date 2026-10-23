@@ -1,80 +1,104 @@
-<% content_for :header_overlay, true %>
+<% content_for :header_dark, true %>
 <% content_for :head do %>
   <link rel="preload" as="image" type="image/webp"
         imagesrcset="<%= image_path("porsche_banner_960.webp") %> 960w, <%= image_path("porsche_banner.webp") %> 1920w" imagesizes="100vw">
 <% end %>
 
 <section class="hero" aria-labelledby="hero-title">
-  <picture>
-    <source type="image/webp" srcset="<%= image_path("porsche_banner_960.webp") %> 960w, <%= image_path("porsche_banner.webp") %> 1920w" sizes="100vw">
-    <img class="hero__image" src="<%= image_path("porsche_banner.jpg") %>"
-         srcset="<%= image_path("porsche_banner_960.jpg") %> 960w, <%= image_path("porsche_banner.jpg") %> 1920w" sizes="100vw"
-         alt="Porsche 718 Cayman GT4 RS blanco en una nave industrial" width="1920" height="1080" fetchpriority="high">
-  </picture>
   <div class="hero__content wrap">
-    <h1 id="hero-title" class="hero__title">Porsche de ocasión, revisados en nuestro taller.</h1>
+    <h1 id="hero-title" class="display-hero hero__title">Tu próximo Porsche,<br>revisado a fondo.</h1>
     <p class="hero__lead">
-      Solo trabajamos con Porsche. Elegimos cada coche por su historial, lo preparamos en el taller y te contamos su estado real antes de que decidas.
+      Elegimos cada coche por su historial y lo preparamos en nuestro taller antes de ponerlo a la venta. Solo Porsche, desde el año 2000.
     </p>
     <div class="hero__actions">
-      <a href="<%= cars_path %>" class="btn btn--red btn--large">
+      <a href="<%= cars_path %>" class="btn btn--light btn--large">
         <%= @stock_count.positive? ? "Ver los #{@stock_count} coches en stock" : "Ver coches en stock" %>
       </a>
-      <a href="<%= whatsapp_url("Hola, estoy buscando un Porsche.") %>" class="btn btn--light btn--large" target="_blank" rel="noopener">Preguntar por WhatsApp</a>
+      <a href="<%= whatsapp_url("Hola, estoy buscando un Porsche.") %>" class="chevron-link chevron-link--dark" target="_blank" rel="noopener">Hablar por WhatsApp</a>
     </div>
   </div>
+  <div class="hero__stage">
+    <picture>
+      <source type="image/webp" srcset="<%= image_path("porsche_banner_960.webp") %> 960w, <%= image_path("porsche_banner.webp") %> 1920w" sizes="100vw">
+      <img class="hero__image" src="<%= image_path("porsche_banner.jpg") %>"
+           srcset="<%= image_path("porsche_banner_960.jpg") %> 960w, <%= image_path("porsche_banner.jpg") %> 1920w" sizes="100vw"
+           alt="Porsche 718 Cayman GT4 RS blanco en una nave industrial" width="1920" height="1080" fetchpriority="high">
+    </picture>
+  </div>
 </section>
-<div class="pepita" aria-hidden="true"></div>
 
-<section class="section wrap" aria-labelledby="stock-title">
-  <div class="section__head">
-    <h2 id="stock-title" class="display-2">En stock ahora</h2>
-    <a href="<%= cars_path %>" class="text-link">Ver todo el stock</a>
+<section class="section js-rail" aria-labelledby="stock-title">
+  <div class="wrap section__head">
+    <h2 id="stock-title" class="display-2">Recién llegados.</h2>
+    <a href="<%= cars_path %>" class="chevron-link">Ver todo el stock</a>
   </div>
 
   <% if @cars.any? %>
-    <div class="car-grid car-grid--home">
-      <% @cars.each_with_index do |car, index| %>
-        <%= render "components/car_card", car: car, featured: index.zero? %>
+    <div class="rail" tabindex="0" aria-label="Coches en stock, desplázate en horizontal">
+      <% @cars.each do |car| %>
+        <%= render "components/car_card", car: car %>
       <% end %>
     </div>
+    <div class="wrap rail__controls">
+      <button type="button" class="rail__button js-rail-prev" aria-label="Coches anteriores">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10.5 2.5 5 8l5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="rail__button js-rail-next" aria-label="Más coches">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 2.5 11 8l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
   <% else %>
-    <div class="empty-state">
-      <p>Ahora mismo estamos preparando los próximos coches. Cuéntanos qué Porsche buscas y te avisamos cuando entre.</p>
-      <a href="<%= whatsapp_url("Hola, estoy buscando un Porsche.") %>" class="btn btn--red" target="_blank" rel="noopener">Contarnos qué buscas</a>
+    <div class="wrap">
+      <div class="empty-state">
+        <p>Estamos preparando los próximos coches. Cuéntanos qué Porsche buscas y te avisamos cuando entre.</p>
+        <a href="<%= whatsapp_url("Hola, estoy buscando un Porsche.") %>" class="btn btn--dark" target="_blank" rel="noopener">Contarnos qué buscas</a>
+      </div>
     </div>
   <% end %>
 </section>
 
-<section class="section section--rule wrap" aria-labelledby="process-title">
-  <div class="process">
-    <div class="process__intro">
-      <h2 id="process-title" class="display-2">Así llega cada coche a la exposición</h2>
-      <p class="lead">Llevamos desde el año 2000 reparando, preparando y optimizando coches. Esa experiencia de taller es la que aplicamos antes de poner un Porsche a la venta.</p>
+<section class="section section--gray" aria-labelledby="why-title">
+  <div class="wrap">
+    <div class="section__head">
+      <h2 id="why-title" class="display-2">Por qué comprar aquí.</h2>
     </div>
-    <ol class="process__steps">
-      <li>
-        <h3>Lo elegimos</h3>
-        <p>Buscamos unidades con historial de mantenimiento claro y kilometraje verificable. Si algo no cuadra, no lo compramos.</p>
-      </li>
-      <li>
-        <h3>Lo revisamos en el taller</h3>
+    <div class="bento">
+      <article class="tile tile--photo">
+        <% photo = @cars.second&.images&.first || @cars.first&.images&.first %>
+        <% if photo %>
+          <img src="<%= car_image_url(photo, :gallery) %>" alt="" loading="lazy" decoding="async">
+        <% end %>
+        <h3 class="display-2">Pasa por el taller antes que por la exposición.</h3>
         <p>Mecánica, electrónica, frenos y carrocería. Lo que necesita atención se repara antes de la venta, no después.</p>
-      </li>
-      <li>
-        <h3>Te lo enseñamos tal cual es</h3>
-        <p>Fotos reales, ficha completa y respuestas directas por WhatsApp o en persona. Sin letra pequeña.</p>
-      </li>
-    </ol>
+      </article>
+      <article class="tile">
+        <h3 class="display-3">Historial claro.</h3>
+        <p>Solo compramos coches con mantenimiento documentado y kilometraje verificable. Si algo no cuadra, no entra.</p>
+      </article>
+      <article class="tile tile--dark">
+        <h3 class="display-3">Desde el año 2000.</h3>
+        <p>Más de veinte años reparando y preparando coches. Esa experiencia es la que aplicamos a cada Porsche.</p>
+        <p class="tile__figure">20+</p>
+      </article>
+      <article class="tile">
+        <h3 class="display-3">Lo que ves es lo que hay.</h3>
+        <p>Fotos reales, ficha técnica completa y el estado del coche contado sin rodeos.</p>
+      </article>
+      <article class="tile">
+        <h3 class="display-3">Trato directo.</h3>
+        <p>Hablas con quien conoce el coche. Te mandamos más fotos o vídeos por WhatsApp y te enseñamos el coche cuando quieras.</p>
+      </article>
+    </div>
   </div>
 </section>
 
-<section class="cta-band" aria-labelledby="cta-title">
-  <div class="wrap cta-band__inner">
-    <div>
-      <h2 id="cta-title" class="display-2">¿Buscas un Porsche concreto?</h2>
-      <p class="lead">Dinos modelo, año y presupuesto. Si no lo tenemos, te avisamos cuando entre uno que encaje.</p>
+<section class="section cta" aria-labelledby="cta-title">
+  <div class="wrap">
+    <h2 id="cta-title" class="display-1">¿Buscas un Porsche concreto?</h2>
+    <p class="lead">Dinos modelo, año y presupuesto. Si no lo tenemos, te avisamos cuando entre uno que encaje.</p>
+    <div class="cta__actions">
+      <a href="<%= whatsapp_url("Hola, busco un Porsche: ") %>" class="btn btn--dark btn--large" target="_blank" rel="noopener">Contarnos qué buscas</a>
+      <a href="<%= cars_path %>" class="chevron-link">Ver el stock</a>
     </div>
-    <a href="<%= whatsapp_url("Hola, busco un Porsche: ") %>" class="btn btn--red btn--large" target="_blank" rel="noopener">Contarnos qué buscas</a>
   </div>
 </section>

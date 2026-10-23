@@ -2,8 +2,8 @@ class StaticPagesController < ApplicationController
   def home
     published = Car.published.with_attached_images.includes(:make)
     @stock_count = published.count
-    @cars = published.where(in_home_page: true).order(id: :desc).limit(6).to_a
-    @cars = published.order(id: :desc).limit(6).to_a if @cars.empty?
+    @cars = published.where(in_home_page: true).order(id: :desc).limit(10).to_a
+    @cars = published.order(id: :desc).limit(10).to_a if @cars.empty?
   end
 
   def legal
