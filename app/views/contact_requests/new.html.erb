@@ -1,42 +1,35 @@
-<!-- app/views/contact/new.html.erb -->
-<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-  <h1 class="text-center text-3xl font-bold mb-8">Contáctanos</h1>
+<% seo title: "Contacto", description: "Escríbenos para preguntar por cualquier Porsche del stock o contarnos qué coche buscas." %>
 
-  <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
-    <%= form_with model: @contact_request, url: contact_request_path, method: :post, local: true, class: "space-y-6" do |f| %>
-      <div>
-        <%= f.label :name, "Nombre", class: "block text-sm font-medium text-gray-700" %>
-        <div class="mt-1">
-          <%= f.text_field :name, class: "w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm", required: true %>
-        </div>
+<header class="page-head wrap">
+  <h1 class="display-1">Contacto</h1>
+  <p class="lead">Pregunta por un coche concreto o cuéntanos qué Porsche buscas. Te respondemos lo antes posible.</p>
+</header>
+
+<div class="wrap">
+  <%= form_with model: @contact_request, url: contact_request_path, method: :post, local: true, class: "form" do |f| %>
+    <%= f.hidden_field :car_id %>
+    <div class="form__row">
+      <div class="field">
+        <%= f.label :name, "Nombre" %>
+        <%= f.text_field :name, required: true, autocomplete: "name" %>
       </div>
-      <div>
-        <%= f.label :email, "Correo Electrónico", class: "block text-sm font-medium text-gray-700" %>
-        <div class="mt-1">
-          <%= f.email_field :email, class: "w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm", required: true %>
-        </div>
+      <div class="field">
+        <%= f.label :phone, "Teléfono (opcional)" %>
+        <%= f.telephone_field :phone, autocomplete: "tel" %>
       </div>
-      <div>
-        <%= f.label :phone, "Teléfono", class: "block text-sm font-medium text-gray-700" %>
-        <div class="mt-1">
-          <%= f.telephone_field :phone, class: "w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
-        </div>
-      </div>
-      <div>
-        <%= f.label :subject, "Asunto", class: "block text-sm font-medium text-gray-700" %>
-        <div class="mt-1">
-          <%= f.text_field :subject, class: "w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm", required: true %>
-        </div>
-      </div>
-      <div>
-        <%= f.label :message, "Mensaje", class: "block text-sm font-medium text-gray-700" %>
-        <div class="mt-1">
-          <%= f.text_area :message, rows: 6, class: "w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm", required: true %>
-        </div>
-      </div>
-      <div class="flex justify-center">
-        <%= f.submit "Enviar mensaje", class: "inline-block w-full sm:w-auto bg-indigo-600 text-white text-lg font-medium px-6 py-3 rounded-md hover:bg-indigo-700" %>
-      </div>
-    <% end %>
-  </div>
+    </div>
+    <div class="field">
+      <%= f.label :email, "Correo electrónico" %>
+      <%= f.email_field :email, required: true, autocomplete: "email" %>
+    </div>
+    <div class="field">
+      <%= f.label :subject, "Asunto" %>
+      <%= f.text_field :subject, required: true %>
+    </div>
+    <div class="field">
+      <%= f.label :message, "Mensaje" %>
+      <%= f.text_area :message, rows: 6, required: true %>
+    </div>
+    <%= f.submit "Enviar mensaje", class: "btn btn--red btn--large" %>
+  <% end %>
 </div>

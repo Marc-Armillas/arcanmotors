@@ -1,63 +1,113 @@
-<!-- app/views/cars/show.html.erb -->
+<%
+  first_image = @car.images.first
+  description = [@car.model_description, @car.description].compact_blank.uniq
+  specs = car_specs(@car)
+  seo title: "#{@car.get_full_name} #{@car.year} de ocasión",
+      description: "#{@car.get_full_name} del #{@car.year}#{", #{car_km(@car)}" if @car.kilometers}#{", #{@car.cv} CV" if @car.cv}. " \
+                   "Precio: #{car_price(@car)}. Revisado en nuestro taller. #{description.first}",
+      image: first_image ? polymorphic_url(first_image.variant(resize_to_fill: [1200, 630], format: :jpg)) : nil,
+      canonical: "#{site_base_url}#{car_path(@car)}",
+      noindex: in_admin_controller? || @car.sold? || !@car.is_public,
+      type: "product"
+%>
+<% content_for :head do %>
+  <% unless in_admin_controller? %>
+    <%= car_json_ld(@car) %>
+    <%= breadcrumbs_json_ld([["Inicio", "#{site_base_url}/"], ["Coches en stock", "#{site_base_url}#{cars_path}"], [@car.get_full_name, "#{site_base_url}#{car_path(@car)}"]]) %>
+  <% end %>
+<% end %>
+
 <% if in_admin_controller? %>
-  <div class="mt-8 flex justify-between">
-    <%= link_to 'Volver al listado anterior', 'javascript:history.back()', class: 'inline-block px-6 py-3 bg-gray-600 text-white text-lg font-medium rounded-md hover:bg-gray-700' %>
-    <%= link_to 'Editar este coche', edit_admin_car_path(@car), class: 'inline-block px-6 py-3 bg-indigo-600 text-white text-lg font-medium rounded-md hover:bg-indigo-700' %>
+  <div class="admin-bar wrap">
+    <%= link_to "Volver al listado", "javascript:history.back()", class: "btn btn--ghost" %>
+    <%= link_to "Editar este coche", edit_admin_car_path(@car), class: "btn btn--red" %>
   </div>
 <% end %>
 
-<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-  <h1 class="text-center text-3xl font-bold mb-8"><%= @car.get_full_name %></h1>
+<nav class="breadcrumbs wrap" aria-label="Migas de pan">
+  <ol>
+    <li><a href="<%= root_path %>">Inicio</a></li>
+    <li><a href="<%= cars_path %>">Coches en stock</a></li>
+    <li aria-current="page"><%= @car.name %></li>
+  </ol>
+</nav>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-    <%= render partial: "components/car_swiper", locals: { car: @car } %>
-    <div>
-      <div class="bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-4">Detalles del coche</h2>
-        <dl class="space-y-2">
-          <div class="flex justify-between">
-            <dt class="font-medium text-gray-500">Precio</dt>
-            <dd class="text-lg text-gray-900"><%= number_to_currency(@car.price, unit: "€") %></dd>
+<article class="vehicle wrap">
+  <div class="vehicle__gallery js-gallery">
+    <div class="swiper gallery-main js-gallery-main">
+      <div class="swiper-wrapper">
+        <% @car.images.each_with_index do |image, index| %>
+          <div class="swiper-slide">
+            <img src="<%= car_image_url(image, :gallery) %>" alt="<%= car_image_alt(@car, index) %>" width="1800" height="1350"
+                 loading="<%= index.zero? ? "eager" : "lazy" %>" decoding="async" <%= 'fetchpriority="high"'.html_safe if index.zero? %>>
           </div>
-          <div class="flex justify-between">
-            <dt class="font-medium text-gray-500">Año</dt>
-            <dd class="text-lg text-gray-900"><%= @car.year %></dd>
-          </div>
-          <div class="flex justify-between">
-            <dt class="font-medium text-gray-500">Kilómetros</dt>
-            <dd class="text-lg text-gray-900"><%= @car.kilometers %> km</dd>
-          </div>
-          <div class="flex justify-between">
-            <dt class="font-medium text-gray-500">Marca</dt>
-            <dd class="text-lg text-gray-900"><%= @car.make.name if @car.make %></dd>
-          </div>
-          <div class="flex justify-between">
-            <dt class="font-medium text-gray-500">Categoría</dt>
-            <dd class="text-lg text-gray-900"><%= @car.category.name if @car.category %></dd>
-          </div>
-<!--          <div class="flex justify-between">-->
-<!--            <dt class="font-medium text-gray-500">País de origen</dt>-->
-<!--            <dd class="text-lg text-gray-900"><%#= @car.origin_country.name if @car.origin_country %></dd>-->
-<!--          </div>-->
-        </dl>
+        <% end %>
       </div>
-
-      <div class="mt-8">
-        <% if in_admin_controller? %>
-<!--          <a href="javascript:void(0);" class="inline-block w-full text-center px-6 py-3 bg-gray-400 text-white text-lg font-medium rounded-md cursor-not-allowed" aria-disabled="true">-->
-<!--            Contactar sobre este coche (Deshabilitado en Admin)-->
-<!--          </a>-->
-        <% else %>
-          <%#= link_to 'Contactar sobre este coche', contacto_path(car_id: @car.id), class: 'inline-block w-full text-center px-6 py-3 bg-indigo-600 text-white text-lg font-medium rounded-md hover:bg-indigo-700' %>
-          <%= link_to 'Contactar sobre este coche', "https://wa.me/#{Rails.application.credentials.dig(:whatsapp, :phone_number)}?text=Estoy%20interesado%20en%20el%20coche%20#{@car.name}%20-%20#{car_url(@car)}%0A", class: 'inline-block w-full text-center px-6 py-3 bg-indigo-600 text-white text-lg font-medium rounded-md hover:bg-indigo-700', target: '_blank', rel: 'noopener' %>
+      <% if @car.images.size > 1 %>
+        <div class="swiper-pagination gallery-main__count"></div>
+        <button type="button" class="swiper-button-prev gallery-main__nav" aria-label="Foto anterior"></button>
+        <button type="button" class="swiper-button-next gallery-main__nav" aria-label="Foto siguiente"></button>
       <% end %>
-      </div>
     </div>
+
+    <% if @car.images.size > 1 %>
+      <div class="swiper gallery-thumbs js-gallery-thumbs">
+        <div class="swiper-wrapper">
+          <% @car.images.each_with_index do |image, index| %>
+            <div class="swiper-slide">
+              <img src="<%= car_image_url(image, :thumb) %>" alt="" width="240" height="180" loading="lazy" decoding="async">
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
 
-  <!-- Descripción larga del coche -->
-  <div class="mt-12 bg-white p-6 rounded-lg shadow-md">
-    <h2 class="text-2xl font-semibold mb-4">Descripción</h2>
-    <p class="text-gray-700 leading-relaxed"><%= @car.model_description %></p>
+  <aside class="vehicle__panel" aria-label="Precio y contacto">
+    <p class="vehicle__make"><%= @car.make&.name %></p>
+    <h1 class="vehicle__title"><%= @car.name %></h1>
+    <% unless @car.on_sale? %>
+      <span class="badge <%= @car.reserved? ? "badge--yellow" : "badge--dark" %>"><%= car_status_label(@car) %></span>
+    <% end %>
+    <p class="vehicle__price"><%= car_price(@car) %></p>
+
+    <dl class="spec-row spec-row--panel">
+      <% if @car.year %><div><dt>Año</dt><dd><%= @car.year %></dd></div><% end %>
+      <% if @car.kilometers %><div><dt>Kilómetros</dt><dd><%= number_with_delimiter(@car.kilometers, delimiter: ".") %></dd></div><% end %>
+      <% if @car.cv %><div><dt>Potencia</dt><dd><%= @car.cv %> CV</dd></div><% end %>
+      <% if @car.gearbox %><div><dt>Cambio</dt><dd><%= CarsHelper::GEARBOX_LABELS[@car.gearbox] %></dd></div><% end %>
+    </dl>
+
+    <% unless in_admin_controller? || @car.sold? %>
+      <div class="vehicle__actions">
+        <a href="<%= car_whatsapp_url(@car) %>" class="btn btn--red btn--large btn--block" target="_blank" rel="noopener">Preguntar por este coche</a>
+        <% if whatsapp_phone.present? %>
+          <a href="tel:+<%= whatsapp_phone %>" class="btn btn--ghost btn--large btn--block">Llamar al <%= whatsapp_phone_display %></a>
+        <% end %>
+      </div>
+      <p class="vehicle__note">Te respondemos por WhatsApp con más fotos, historial de mantenimiento o para concertar una visita.</p>
+    <% end %>
+  </aside>
+
+  <div class="vehicle__details">
+    <% if description.any? %>
+      <section class="vehicle__section" aria-labelledby="descripcion">
+        <h2 id="descripcion" class="display-3">Descripción</h2>
+        <div class="prose">
+          <% description.each do |text| %>
+            <%= simple_format(text) %>
+          <% end %>
+        </div>
+      </section>
+    <% end %>
+
+    <section class="vehicle__section" aria-labelledby="ficha">
+      <h2 id="ficha" class="display-3">Ficha técnica</h2>
+      <dl class="spec-table">
+        <% specs.each do |label, value| %>
+          <div><dt><%= label %></dt><dd><%= value %></dd></div>
+        <% end %>
+      </dl>
+    </section>
   </div>
-</div>
+</article>

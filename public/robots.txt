@@ -1,7 +1,7 @@
 User-agent: *
-Disallow: /bin/
-Disallow: /admin/
-
-Allow: /
+Disallow: /admin
+Disallow: /admin22
+Disallow: /users/
+Disallow: /rails/active_storage/blobs/
 
 Sitemap: https://arcanmotors.es/sitemap.xml.gz

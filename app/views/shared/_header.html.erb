@@ -1,47 +1,30 @@
-<header class="bg-gray-900">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center py-6">
-      <div class="flex-shrink-0">
-        <a href="/">
-          <img class="h-10 w-auto" src='<%= asset_path("arcan_logo.png") %>' alt="ArCan Motors Logo">
-        </a>
-      </div>
+<% nav_links = [["Coches en stock", cars_path], ["Nosotros", about_us_path]] %>
+<header class="site-header <%= "site-header--overlay" if content_for?(:header_overlay) %>" id="site-header">
+  <div class="site-header__bar wrap">
+    <a href="<%= root_path %>" class="wordmark" aria-label="ArCan Motors, inicio">ArCan Motors</a>
 
-      <nav class="hidden md:flex space-x-10">
-        <a href="/" class="text-base font-medium text-white hover:text-gray-300">Inicio</a>
-        <a href="/coches" class="text-base font-medium text-white hover:text-gray-300">Coches</a>
-        <a href="/about_us" class="text-base font-medium text-white hover:text-gray-300">Sobre Nosotros</a>
-      </nav>
-
-      <% if user_signed_in? # && in_admin_controller? %>
-        <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure?" }, class: "ml-4 px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-600 hover:bg-red-700" %>
-      <% else %>
-        <div class="hidden md:flex items-center justify-end">
-          <a href="https://wa.me/<%= Rails.application.credentials.dig(:whatsapp, :phone_number) %>" class="ml-4 px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-600 hover:bg-red-700" target="_blank">Contáctanos</a>
-<!--          <a href="/contacto" class="ml-4 px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-600 hover:bg-red-700">Contáctanos</a>-->
-        </div>
+    <nav class="site-nav" aria-label="Principal">
+      <% nav_links.each do |label, path| %>
+        <a href="<%= path %>" class="site-nav__link" <%= 'aria-current="page"'.html_safe if current_page?(path) %>><%= label %></a>
       <% end %>
+    </nav>
 
+    <% if user_signed_in? %>
+      <%= link_to "Salir", destroy_user_session_path, method: :delete, data: { confirm: "¿Cerrar sesión?" }, class: "btn btn--ghost site-header__cta" %>
+    <% else %>
+      <a href="<%= whatsapp_url %>" class="btn btn--red site-header__cta" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+    <% end %>
 
-      <!-- Start of mobile menu -->
-      <div class="-mr-2 flex md:hidden">
-        <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-expanded="false">
-          <span class="sr-only">Open main menu</span>
-          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-      </div>
-    </div>
+    <button type="button" id="mobile-menu-button" class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu">
+      <span class="sr-only">Abrir menú</span>
+      <span class="menu-toggle__bars" aria-hidden="true"></span>
+    </button>
   </div>
 
-  <div id="mobile-menu" class="md:hidden hidden">
-    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-      <a href="/" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Inicio</a>
-      <a href="/coches" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Coches</a>
-      <a href="/about_us" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Sobre Nosotros</a>
-<!--      <a href="/contacto" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Contacto</a>-->
-    </div>
-  </div>
-  <!-- End of mobile menu -->
+  <nav id="mobile-menu" class="mobile-menu" aria-label="Menú móvil" hidden>
+    <% nav_links.each do |label, path| %>
+      <a href="<%= path %>" class="mobile-menu__link"><%= label %></a>
+    <% end %>
+    <a href="<%= whatsapp_url %>" class="btn btn--red mobile-menu__cta" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+  </nav>
 </header>

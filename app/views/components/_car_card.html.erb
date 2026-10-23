@@ -1,24 +1,24 @@
-<div class="bg-white shadow-lg rounded-lg overflow-hidden">
-  <!-- Contenedor de las imágenes con flechas -->
-  <div class="relative">
-    <%= render partial: "components/car_swiper", locals: { car: car } %>
-  </div>
-
-  <!-- Detalles del coche -->
-  <div class="p-6">
-    <h2 class="text-xl font-semibold text-gray-800">
-      <%= car.name %>
-    </h2>
-    <p class="text-gray-600 mt-2">
-      Año: <%= car.year %> | Kilómetros: <%= number_with_delimiter(car.kilometers) %> km
-    </p>
-    <p class="text-gray-800 font-bold mt-2">
-      Precio: <%= number_to_currency(car.price, unit: "€") %>
-    </p>
-
-    <!-- Enlace para ver detalles -->
-    <div class="mt-4">
-      <%= link_to 'Ver Detalles', car_path(car), class: "inline-block bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700" %>
+<%# locals: car, featured (optional), heading (optional, default :h3) %>
+<% featured = local_assigns.fetch(:featured, false) %>
+<article class="car-card <%= "car-card--featured" if featured %>">
+  <a href="<%= car_path(car) %>" class="car-card__link">
+    <div class="car-card__media">
+      <% if (image = car.images.first) %>
+        <img src="<%= car_image_url(image, :card) %>" alt="<%= car_image_alt(car) %>" width="960" height="720"
+             loading="<%= featured ? "eager" : "lazy" %>" decoding="async">
+      <% end %>
+      <% if car.reserved? %>
+        <span class="badge badge--yellow">Reservado</span>
+      <% end %>
     </div>
-  </div>
-</div>
+    <div class="car-card__body">
+      <%= content_tag local_assigns.fetch(:heading, :h3), car.name, class: "car-card__title" %>
+      <dl class="spec-row">
+        <% if car.year %><div><dt>Año</dt><dd><%= car.year %></dd></div><% end %>
+        <% if car.kilometers %><div><dt>Kilómetros</dt><dd><%= number_with_delimiter(car.kilometers, delimiter: ".") %></dd></div><% end %>
+        <% if car.cv %><div><dt>Potencia</dt><dd><%= car.cv %> CV</dd></div><% end %>
+      </dl>
+      <p class="car-card__price"><%= car_price(car) %></p>
+    </div>
+  </a>
+</article>

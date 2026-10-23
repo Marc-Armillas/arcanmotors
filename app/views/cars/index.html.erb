@@ -1,9 +1,40 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-  <h1 class="text-3xl font-bold text-gray-900 mb-8 text-center">Nuestros Coches</h1>
+<%
+  title = @current_category ? "Porsche #{@current_category.name} de ocasión en venta" : "Porsche de ocasión en venta"
+  seo title: title,
+      description: "#{@cars.size} Porsche de ocasión en stock#{" de la gama #{@current_category.name}" if @current_category}: precio, kilómetros y ficha completa de cada coche, revisado en nuestro taller.",
+      canonical: @current_category ? "#{site_base_url}#{cars_path(categoria: params[:categoria])}" : "#{site_base_url}#{cars_path}"
+%>
+<% content_for :head do %>
+  <%= breadcrumbs_json_ld([["Inicio", "#{site_base_url}/"], ["Coches en stock", "#{site_base_url}#{cars_path}"]]) %>
+<% end %>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
-    <% @cars.each do |car| %>
-      <%= render partial: 'components/car_card', locals: { car: car } %>
-    <% end %>
-  </div>
-</div>
+<header class="page-head wrap">
+  <h1 class="display-1"><%= title %></h1>
+  <p class="lead">
+    <%= pluralize(@cars.size, "coche disponible", plural: "coches disponibles") %>. Todos revisados en nuestro taller antes de salir a la venta.
+  </p>
+
+  <% if @categories.size > 1 %>
+    <nav class="filter-chips" aria-label="Filtrar por modelo">
+      <a href="<%= cars_path %>" class="chip" <%= 'aria-current="page"'.html_safe unless @current_category %>>Todos</a>
+      <% @categories.each do |category| %>
+        <a href="<%= cars_path(categoria: category.name.parameterize) %>" class="chip" <%= 'aria-current="page"'.html_safe if category == @current_category %>><%= category.name %></a>
+      <% end %>
+    </nav>
+  <% end %>
+</header>
+
+<section class="section section--tight wrap" aria-label="Listado de coches">
+  <% if @cars.any? %>
+    <div class="car-grid">
+      <% @cars.each do |car| %>
+        <%= render "components/car_card", car: car, heading: :h2 %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <p>No hay coches de esta gama en stock ahora mismo. Dinos qué buscas y te avisamos cuando entre uno.</p>
+      <a href="<%= whatsapp_url("Hola, busco un Porsche: ") %>" class="btn btn--red" target="_blank" rel="noopener">Contarnos qué buscas</a>
+    </div>
+  <% end %>
+</section>

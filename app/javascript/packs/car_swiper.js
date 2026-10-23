@@ -1,22 +1,24 @@
 document.addEventListener("turbolinks:load", function() {
-  const swiper = new Swiper('.swiper', {
-    direction: 'horizontal',
-    loop: true,
-    // effect: 'fade',
+  if (typeof Swiper === "undefined") return;
 
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
+  document.querySelectorAll(".js-gallery").forEach(function(gallery) {
+    const thumbsEl = gallery.querySelector(".js-gallery-thumbs");
+    const thumbs = thumbsEl && new Swiper(thumbsEl, {
+      slidesPerView: "auto",
+      spaceBetween: 8,
+      watchSlidesProgress: true,
+    });
 
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-
-    scrollbar: {
-      el: '.swiper-scrollbar',
-      draggable: true,
-    },
+    new Swiper(gallery.querySelector(".js-gallery-main"), {
+      loop: false,
+      keyboard: { enabled: true },
+      a11y: { prevSlideMessage: "Foto anterior", nextSlideMessage: "Foto siguiente" },
+      pagination: { el: gallery.querySelector(".swiper-pagination"), type: "fraction" },
+      navigation: {
+        nextEl: gallery.querySelector(".swiper-button-next"),
+        prevEl: gallery.querySelector(".swiper-button-prev"),
+      },
+      thumbs: thumbs ? { swiper: thumbs } : undefined,
+    });
   });
 });

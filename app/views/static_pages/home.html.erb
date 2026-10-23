@@ -1,36 +1,80 @@
-<!-- Sección de bienvenida -->
-<div class="py-12 text-center max-w-4xl mx-auto">
-  <h2 class="text-3xl font-bold text-gray-900 mb-4">Historia de ArCan Motors</h2>
-  <p class="text-lg leading-relaxed text-gray-700">
-    Fundada sobre una sólida trayectoria de más de 20 años en el sector automotriz, ArCan Motors nace con el compromiso de ofrecer vehículos de alta calidad, especializados en la marca Porsche. Desde el 2000, hemos acumulado una vasta experiencia en la reparación, preparación y optimización de vehículos, lo que nos permite seleccionar cuidadosamente cada coche, asegurando que se encuentre en las mejores condiciones antes de llegar a nuestros clientes.
-  </p>
-</div>
+<% content_for :header_overlay, true %>
+<% content_for :head do %>
+  <link rel="preload" as="image" type="image/webp"
+        imagesrcset="<%= image_path("porsche_banner_960.webp") %> 960w, <%= image_path("porsche_banner.webp") %> 1920w" imagesizes="100vw">
+<% end %>
 
-<!-- Sección de coches destacados -->
-<div class="pb-12">
-  <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Nuestros coches destacados</h2>
+<section class="hero" aria-labelledby="hero-title">
+  <picture>
+    <source type="image/webp" srcset="<%= image_path("porsche_banner_960.webp") %> 960w, <%= image_path("porsche_banner.webp") %> 1920w" sizes="100vw">
+    <img class="hero__image" src="<%= image_path("porsche_banner.jpg") %>"
+         srcset="<%= image_path("porsche_banner_960.jpg") %> 960w, <%= image_path("porsche_banner.jpg") %> 1920w" sizes="100vw"
+         alt="Porsche 718 Cayman GT4 RS blanco en una nave industrial" width="1920" height="1080" fetchpriority="high">
+  </picture>
+  <div class="hero__content wrap">
+    <h1 id="hero-title" class="hero__title">Porsche de ocasión, revisados en nuestro taller.</h1>
+    <p class="hero__lead">
+      Solo trabajamos con Porsche. Elegimos cada coche por su historial, lo preparamos en el taller y te contamos su estado real antes de que decidas.
+    </p>
+    <div class="hero__actions">
+      <a href="<%= cars_path %>" class="btn btn--red btn--large">
+        <%= @stock_count.positive? ? "Ver los #{@stock_count} coches en stock" : "Ver coches en stock" %>
+      </a>
+      <a href="<%= whatsapp_url("Hola, estoy buscando un Porsche.") %>" class="btn btn--light btn--large" target="_blank" rel="noopener">Preguntar por WhatsApp</a>
+    </div>
+  </div>
+</section>
+<div class="pepita" aria-hidden="true"></div>
 
-  <div class="relative">
-    <% if @cars.count > 3 %>
-      <button class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full prev-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-    <% end %>
+<section class="section wrap" aria-labelledby="stock-title">
+  <div class="section__head">
+    <h2 id="stock-title" class="display-2">En stock ahora</h2>
+    <a href="<%= cars_path %>" class="text-link">Ver todo el stock</a>
+  </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-<%= @cars.count > 3 ? 3 : @cars.count %> gap-8 car-slider">
-      <% @cars.first(3).each_with_index do |car| %>
-        <%= render partial: 'components/car_card', locals: { car: car } %>
+  <% if @cars.any? %>
+    <div class="car-grid car-grid--home">
+      <% @cars.each_with_index do |car, index| %>
+        <%= render "components/car_card", car: car, featured: index.zero? %>
       <% end %>
     </div>
+  <% else %>
+    <div class="empty-state">
+      <p>Ahora mismo estamos preparando los próximos coches. Cuéntanos qué Porsche buscas y te avisamos cuando entre.</p>
+      <a href="<%= whatsapp_url("Hola, estoy buscando un Porsche.") %>" class="btn btn--red" target="_blank" rel="noopener">Contarnos qué buscas</a>
+    </div>
+  <% end %>
+</section>
 
-    <% if @cars.count > 3 %>
-      <button class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full next-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-    <% end %>
+<section class="section section--rule wrap" aria-labelledby="process-title">
+  <div class="process">
+    <div class="process__intro">
+      <h2 id="process-title" class="display-2">Así llega cada coche a la exposición</h2>
+      <p class="lead">Llevamos desde el año 2000 reparando, preparando y optimizando coches. Esa experiencia de taller es la que aplicamos antes de poner un Porsche a la venta.</p>
+    </div>
+    <ol class="process__steps">
+      <li>
+        <h3>Lo elegimos</h3>
+        <p>Buscamos unidades con historial de mantenimiento claro y kilometraje verificable. Si algo no cuadra, no lo compramos.</p>
+      </li>
+      <li>
+        <h3>Lo revisamos en el taller</h3>
+        <p>Mecánica, electrónica, frenos y carrocería. Lo que necesita atención se repara antes de la venta, no después.</p>
+      </li>
+      <li>
+        <h3>Te lo enseñamos tal cual es</h3>
+        <p>Fotos reales, ficha completa y respuestas directas por WhatsApp o en persona. Sin letra pequeña.</p>
+      </li>
+    </ol>
   </div>
-</div>
+</section>
+
+<section class="cta-band" aria-labelledby="cta-title">
+  <div class="wrap cta-band__inner">
+    <div>
+      <h2 id="cta-title" class="display-2">¿Buscas un Porsche concreto?</h2>
+      <p class="lead">Dinos modelo, año y presupuesto. Si no lo tenemos, te avisamos cuando entre uno que encaje.</p>
+    </div>
+    <a href="<%= whatsapp_url("Hola, busco un Porsche: ") %>" class="btn btn--red btn--large" target="_blank" rel="noopener">Contarnos qué buscas</a>
+  </div>
+</section>
