@@ -32,8 +32,8 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  # config.active_storage.service = :local
-  config.active_storage.service = :amazon
+  # Use S3 when the AWS credentials are available (needs config/master.key), local disk otherwise
+  config.active_storage.service = Rails.application.credentials.dig(:aws, :bucket).present? ? :amazon : :local
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
