@@ -135,6 +135,10 @@ bin/rails runner 'User.find_by(email: "tu@email.com").update!(role: :admin)'
 | `app/helpers/cars_helper.rb` | Precios, traducción de enums, ficha técnica y variantes de imagen |
 | `app/javascript/packs/` | Menú móvil, galería (Swiper) y carrusel de la home |
 
+## Imágenes de la web pública
+
+Las fotos de la home y de "Nosotros" (`app/assets/images/hero_911_niebla*`, `taller_930*`, `nosotros_964*`, `nosotros_911*`) son de Unsplash, bajo la [Unsplash License](https://unsplash.com/license): uso comercial gratuito, sin atribución obligatoria. El identificador de cada foto está en un comentario en la vista que la usa. Si se sustituyen por fotos propias del concesionario, mantén los mismos nombres de archivo o actualiza las vistas.
+
 ## Tests y calidad
 
 ```sh

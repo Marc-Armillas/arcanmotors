@@ -32,7 +32,7 @@ module SeoHelper
   end
 
   def default_share_image
-    "#{site_base_url}#{image_path('porsche_banner.jpg')}"
+    "#{site_base_url}#{image_path('hero_911_niebla.jpg')}"
   end
 
   def site_base_url

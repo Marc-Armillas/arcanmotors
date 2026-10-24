@@ -7,7 +7,7 @@
     <meta name="description" content="<%= seo_description %>">
     <meta name="robots" content="<%= content_for?(:seo_robots) ? yield(:seo_robots) : "index, follow, max-image-preview:large" %>">
     <link rel="canonical" href="<%= seo_canonical %>">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#131413">
     <meta name="mobile-web-app-capable" content="yes">
 
     <meta property="og:site_name" content="<%= SeoHelper::SITE_NAME %>">
@@ -31,7 +31,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..600&amp;family=Geist:wght@400..600&amp;display=swap">
 
     <%= yield :head %>
 

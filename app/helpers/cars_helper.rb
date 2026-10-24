@@ -28,9 +28,9 @@ module CarsHelper
 
   def car_image_url(image, size)
     variant = case size
-    when :card then image.variant(resize_to_fill: [ 960, 720 ])
+    when :card then image.variant(resize_to_fill: [ 960, 640 ])
     when :gallery then image.variant(resize_to_limit: [ 1800, 1350 ])
-    when :thumb then image.variant(resize_to_fill: [ 240, 180 ])
+    when :thumb then image.variant(resize_to_fill: [ 240, 160 ])
     when :og then image.variant(resize_to_fill: [ 1200, 630 ], format: :jpg)
     end
     url_for(variant)

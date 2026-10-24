@@ -1,14 +1,20 @@
 <% seo title: "Sobre nosotros: especialistas en Porsche",
        description: "ArCan Motors es un concesionario especializado en Porsche de ocasión. Experiencia de taller desde el año 2000 y asesoramiento personal en cada compra." %>
+<% content_for :header_overlay, true %>
 
-<header class="page-head wrap center">
-  <h1 class="display-1">Solo Porsche.<br>Desde el taller.</h1>
-  <p class="lead">
-    Conocemos estos coches por dentro, y eso es lo que nos permite elegir bien los que vendemos.
-  </p>
-</header>
+<%# Photo: Unsplash License (images.unsplash.com photo-1748944187123) %>
+<section class="page-hero" aria-labelledby="about-title">
+  <picture>
+    <source type="image/webp" srcset="<%= image_path("nosotros_911.webp") %>">
+    <img src="<%= image_path("nosotros_911.jpg") %>" alt="Porsche 911 clásico gris aparcado frente a la entrada de un edificio" width="2200" height="1760" fetchpriority="high">
+  </picture>
+  <div class="wrap page-hero__content">
+    <h1 id="about-title" class="display-hero">Solo Porsche. Desde el taller.</h1>
+    <p class="lead">Conocemos estos coches por dentro, y eso es lo que nos permite elegir bien los que vendemos.</p>
+  </div>
+</section>
 
-<section class="section section--tight wrap about-intro">
+<section class="section wrap columns">
   <h2 class="display-2">Veinte años de taller detrás de cada venta.</h2>
   <div class="prose">
     <p>Desde el año 2000 nos dedicamos a la reparación, preparación y optimización de vehículos. En 2010 nació ArCan Motors para centrar toda esa experiencia en una sola marca: Porsche.</p>
@@ -16,35 +22,35 @@
   </div>
 </section>
 
-<section class="section section--gray" aria-labelledby="values-title">
+<section class="section section--surface" aria-labelledby="values-title">
   <div class="wrap">
     <div class="section__head">
-      <h2 id="values-title" class="display-2">Cómo trabajamos.</h2>
+      <h2 id="values-title" class="display-2">Cómo trabajamos</h2>
     </div>
-    <div class="bento bento--three">
-      <article class="tile tile--dark">
-        <h3 class="display-3">Experiencia.</h3>
-        <p>Un equipo que conoce la mecánica Porsche y te asesora de forma personal, sin guiones de venta.</p>
-      </article>
-      <article class="tile">
-        <h3 class="display-3">Transparencia.</h3>
-        <p>Te contamos el estado real de cada coche y su historial. Preferimos perder una venta a perder tu confianza.</p>
-      </article>
-      <article class="tile">
-        <h3 class="display-3">Pasión por la marca.</h3>
-        <p>Compartimos la afición de nuestros clientes y cuidamos cada coche como si fuera a quedarse en nuestro garaje.</p>
-      </article>
-    </div>
+    <dl class="values">
+      <div>
+        <dt>Experiencia</dt>
+        <dd>Un equipo que conoce la mecánica Porsche y te asesora de forma personal, sin guiones de venta.</dd>
+      </div>
+      <div>
+        <dt>Transparencia</dt>
+        <dd>Te contamos el estado real de cada coche y su historial. Preferimos perder una venta a perder tu confianza.</dd>
+      </div>
+      <div>
+        <dt>Pasión por la marca</dt>
+        <dd>Compartimos la afición de nuestros clientes y cuidamos cada coche como si fuera a quedarse en nuestro garaje.</dd>
+      </div>
+    </dl>
   </div>
 </section>
 
-<section class="section cta" aria-labelledby="cta-title">
+<section class="section statement" aria-labelledby="cta-title">
   <div class="wrap">
-    <h2 id="cta-title" class="display-1">Ven a ver los coches.</h2>
+    <h2 id="cta-title" class="statement__quote">Ven a ver los coches en persona.</h2>
     <p class="lead">Escríbenos para concertar una visita o pedir más información sobre cualquier coche del stock.</p>
-    <div class="cta__actions">
-      <a href="<%= whatsapp_url("Hola, me gustaría concertar una visita.") %>" class="btn btn--dark btn--large" target="_blank" rel="noopener">Concertar una visita</a>
-      <a href="<%= cars_path %>" class="chevron-link">Ver el stock</a>
+    <div class="photo-band__actions statement__actions">
+      <a href="<%= whatsapp_url("Hola, me gustaría concertar una visita.") %>" class="btn btn--red btn--large" target="_blank" rel="noopener">Concertar una visita</a>
+      <a href="<%= cars_path %>" class="btn btn--frame btn--large">Ver el stock</a>
     </div>
   </div>
 </section>

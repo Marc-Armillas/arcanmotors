@@ -1,19 +1,19 @@
-<% nav_links = [["Coches en stock", cars_path], ["Nosotros", about_us_path]] %>
-<header class="site-header <%= "site-header--dark" if content_for?(:header_dark) %>" id="site-header">
+<header class="site-header <%= "site-header--overlay" if content_for?(:header_overlay) %>" id="site-header">
   <div class="site-header__bar wrap">
-    <a href="<%= root_path %>" class="wordmark" aria-label="ArCan Motors, inicio">ArCan Motors</a>
-
     <nav class="site-nav" aria-label="Principal">
-      <% nav_links.each do |label, path| %>
-        <a href="<%= path %>" class="site-nav__link" <%= 'aria-current="page"'.html_safe if current_page?(path) %>><%= label %></a>
-      <% end %>
+      <a href="<%= cars_path %>" class="site-nav__link site-nav__link--framed" <%= 'aria-current="page"'.html_safe if current_page?(cars_path) %>>Coches en stock</a>
+      <a href="<%= about_us_path %>" class="site-nav__link" <%= 'aria-current="page"'.html_safe if current_page?(about_us_path) %>>Nosotros</a>
     </nav>
 
-    <% if user_signed_in? %>
-      <%= link_to "Salir", destroy_user_session_path, method: :delete, data: { confirm: "¿Cerrar sesión?" }, class: "btn btn--outline btn--small site-header__cta" %>
-    <% else %>
-      <a href="<%= whatsapp_url %>" class="btn btn--dark btn--small site-header__cta" target="_blank" rel="noopener">Contactar</a>
-    <% end %>
+    <a href="<%= root_path %>" class="wordmark" aria-label="ArCan Motors, inicio">ArCan Motors</a>
+
+    <div class="site-header__end">
+      <% if user_signed_in? %>
+        <%= link_to "Salir", destroy_user_session_path, method: :delete, data: { confirm: "¿Cerrar sesión?" }, class: "site-nav__link" %>
+      <% else %>
+        <a href="<%= whatsapp_url %>" class="site-nav__link" target="_blank" rel="noopener">Contacto</a>
+      <% end %>
+    </div>
 
     <button type="button" id="mobile-menu-button" class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu">
       <span class="sr-only">Abrir menú</span>
@@ -22,9 +22,8 @@
   </div>
 
   <nav id="mobile-menu" class="mobile-menu" aria-label="Menú móvil" hidden>
-    <% nav_links.each do |label, path| %>
-      <a href="<%= path %>" class="mobile-menu__link"><%= label %></a>
-    <% end %>
-    <a href="<%= whatsapp_url %>" class="btn btn--dark btn--large mobile-menu__cta" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+    <a href="<%= cars_path %>" class="mobile-menu__link">Coches en stock</a>
+    <a href="<%= about_us_path %>" class="mobile-menu__link">Nosotros</a>
+    <a href="<%= whatsapp_url %>" class="btn btn--red btn--large mobile-menu__cta" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
   </nav>
 </header>

@@ -8,17 +8,17 @@
   <%= breadcrumbs_json_ld([["Inicio", "#{site_base_url}/"], ["Coches en stock", "#{site_base_url}#{cars_path}"]]) %>
 <% end %>
 
-<header class="page-head wrap center">
-  <h1 class="display-1"><%= title %>.</h1>
+<header class="page-head wrap">
+  <h1 class="display-1"><%= title %></h1>
   <p class="lead">
     <%= pluralize(@cars.size, "coche disponible", plural: "coches disponibles") %>, todos revisados en nuestro taller antes de salir a la venta.
   </p>
 
   <% if @categories.size > 1 %>
-    <nav class="filter-chips" aria-label="Filtrar por carrocería">
-      <a href="<%= cars_path %>" class="chip" <%= 'aria-current="page"'.html_safe unless @current_category %>>Todos</a>
+    <nav class="tabs" aria-label="Filtrar por carrocería">
+      <a href="<%= cars_path %>" class="tab" <%= 'aria-current="page"'.html_safe unless @current_category %>>Todos</a>
       <% @categories.each do |category| %>
-        <a href="<%= cars_path(categoria: category.name.parameterize) %>" class="chip" <%= 'aria-current="page"'.html_safe if category == @current_category %>><%= category.name %></a>
+        <a href="<%= cars_path(categoria: category.name.parameterize) %>" class="tab" <%= 'aria-current="page"'.html_safe if category == @current_category %>><%= category.name %></a>
       <% end %>
     </nav>
   <% end %>
@@ -34,7 +34,7 @@
   <% else %>
     <div class="empty-state">
       <p>No hay coches de esta gama en stock ahora mismo. Dinos qué buscas y te avisamos cuando entre uno.</p>
-      <a href="<%= whatsapp_url("Hola, busco un Porsche: ") %>" class="btn btn--dark" target="_blank" rel="noopener">Contarnos qué buscas</a>
+      <a href="<%= whatsapp_url("Hola, busco un Porsche: ") %>" class="btn btn--frame" target="_blank" rel="noopener">Contarnos qué buscas</a>
     </div>
   <% end %>
 </section>
