@@ -1,0 +1,9 @@
+carrera_photo:
+  name: images
+  record: carrera (Car)
+  blob: carrera_photo
+
+macan_photo:
+  name: images
+  record: macan (Car)
+  blob: macan_photo
