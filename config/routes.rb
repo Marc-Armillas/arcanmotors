@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: "users/sessions" }
 
   resources :cars, only: [ :index, :show ], defaults: { format: :html }, path: "coches"
+  get "porsche-:slug-de-ocasion", to: "model_lines#show", as: :model_line, constraints: { slug: Regexp.union(ModelLine::SLUGS) }
   # get "admin22", to: "admin#index"
   devise_scope :user do
     get "/admin22", to: "users/sessions#new"

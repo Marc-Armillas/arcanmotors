@@ -15,6 +15,13 @@
       <a href="<%= about_us_path %>">Nosotros</a>
     </nav>
 
+    <nav class="site-footer__col" aria-label="Modelos">
+      <h2 class="site-footer__heading">Modelos</h2>
+      <% ModelLine::LINES.each do |line| %>
+        <a href="<%= model_line_path(slug: line.slug) %>">Porsche <%= line.name %></a>
+      <% end %>
+    </nav>
+
     <div class="site-footer__col">
       <h2 class="site-footer__heading">Contacto</h2>
       <a <%= track_contact("whatsapp", "pie") %> href="<%= whatsapp_url %>" target="_blank" rel="noopener">WhatsApp <%= whatsapp_phone_display %></a>

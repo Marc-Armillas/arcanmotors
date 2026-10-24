@@ -534,7 +534,7 @@
 .site-footer__small { position: relative; padding-top: 20px; padding-bottom: 88px; }
 .site-footer__small::before { content: ""; position: absolute; top: 0; left: var(--gutter); right: var(--gutter); border-top: 1px solid var(--line-dark); }
 @media (min-width: 900px) {
-  .site-footer__grid { grid-template-columns: 2fr 1fr 1.3fr 1.3fr; }
+  .site-footer__grid { grid-template-columns: 1.6fr 1fr 1.2fr 1.3fr 1.2fr; }
   .site-footer__small { padding-bottom: 28px; }
 }
 

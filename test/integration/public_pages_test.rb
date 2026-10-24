@@ -36,6 +36,34 @@ class PublicPagesTest < ActionDispatch::IntegrationTest
     assert_select "link[rel=canonical][href$='categoria=suv']"
   end
 
+  test "model page lists that range's cars with its own SEO" do
+    get model_line_path(slug: "911")
+    assert_response :success
+    assert_select "h1", "Porsche 911 de ocasión"
+    assert_select ".car-card__title", text: "911 Carrera 4S"
+    assert_select ".car-card__title", text: "Macan GTS", count: 0
+    assert_select "link[rel=canonical][href$='/porsche-911-de-ocasion']"
+    assert_select "script[type='application/ld+json']", /BreadcrumbList/
+  end
+
+  test "model page without stock invites the visitor to get in touch" do
+    get model_line_path(slug: "taycan")
+    assert_response :success
+    assert_select ".empty-state a[data-umami-event-lugar=modelo-sin-stock]"
+  end
+
+  test "unknown model slugs are not found" do
+    get "/porsche-carrera-gt-de-ocasion"
+    assert_response :not_found
+  end
+
+  test "stock page links to the model pages that have stock" do
+    get cars_path
+    assert_select ".filter a[href='/porsche-911-de-ocasion']"
+    assert_select ".filter a[href='/porsche-macan-de-ocasion']"
+    assert_select ".filter a[href='/porsche-taycan-de-ocasion']", count: 0
+  end
+
   test "car page renders details, gallery and structured data" do
     car = cars(:carrera)
     get car_path(car)

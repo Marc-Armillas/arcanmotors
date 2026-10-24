@@ -5,6 +5,7 @@ class CarsController < ApplicationController
     @current_category = @categories.find { |category| category.name.parameterize == params[:categoria] }
     cars = cars.where(category: @current_category) if @current_category
     @cars = cars.order(:status, created_at: :desc)
+    @model_lines = ModelLine.with_stock
   end
 
   def show

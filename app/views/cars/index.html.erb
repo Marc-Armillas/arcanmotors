@@ -14,11 +14,11 @@
     <%= pluralize(@cars.size, "coche disponible", plural: "coches disponibles") %>, todos revisados en nuestro taller antes de salir a la venta.
   </p>
 
-  <% if @categories.size > 1 %>
-    <nav class="filter" aria-label="Filtrar por carrocería">
-      <a href="<%= cars_path %>" class="filter__chip" <%= 'aria-current="page"'.html_safe unless @current_category %>>Todos</a>
-      <% @categories.each do |category| %>
-        <a href="<%= cars_path(categoria: category.name.parameterize) %>" class="filter__chip" <%= 'aria-current="page"'.html_safe if category == @current_category %>><%= category.name %></a>
+  <% if @model_lines.any? %>
+    <nav class="filter" aria-label="Ver por modelo">
+      <a href="<%= cars_path %>" class="filter__chip" aria-current="page">Todos</a>
+      <% @model_lines.each do |line| %>
+        <a href="<%= model_line_path(slug: line.slug) %>" class="filter__chip">Porsche <%= line.name %></a>
       <% end %>
     </nav>
   <% end %>

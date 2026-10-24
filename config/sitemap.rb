@@ -4,8 +4,8 @@ SitemapGenerator::Sitemap.create do
   add "/coches", changefreq: "daily", priority: 0.9
   add "/about_us", changefreq: "monthly", priority: 0.5
 
-  Category.where(id: Car.published.select(:category_id)).find_each do |category|
-    add cars_path(categoria: category.name.parameterize), changefreq: "daily", priority: 0.7
+  ModelLine::LINES.each do |line|
+    add model_line_path(slug: line.slug), changefreq: "daily", priority: 0.8
   end
 
   Car.published.with_attached_images.includes(:make).find_each do |car|

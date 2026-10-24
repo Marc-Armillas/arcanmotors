@@ -1,0 +1,61 @@
+<%
+  title = "Porsche #{@line.name} de ocasión"
+  seo title: "#{title} en venta",
+      description: "#{@cars.any? ? "#{pluralize(@cars.size, "Porsche #{@line.name}")} en stock" : "Porsche #{@line.name} de ocasión"}: " \
+                   "precio, kilómetros y ficha completa, revisados en nuestro taller. #{@line.tagline}",
+      canonical: "#{site_base_url}#{model_line_path(slug: @line.slug)}"
+%>
+<% content_for :head do %>
+  <%= breadcrumbs_json_ld([["Inicio", "#{site_base_url}/"], ["Coches en stock", "#{site_base_url}#{cars_path}"], [title, "#{site_base_url}#{model_line_path(slug: @line.slug)}"]]) %>
+<% end %>
+
+<nav class="breadcrumbs wrap" aria-label="Migas de pan">
+  <ol>
+    <li><a href="<%= root_path %>">Inicio</a></li>
+    <li><a href="<%= cars_path %>">Coches en stock</a></li>
+    <li aria-current="page">Porsche <%= @line.name %></li>
+  </ol>
+</nav>
+
+<header class="page-head page-head--model wrap">
+  <h1 class="display-1"><%= title %></h1>
+  <p class="lead"><%= @line.tagline %></p>
+</header>
+
+<section class="section section--tight wrap" aria-label="Porsche <%= @line.name %> en stock">
+  <% if @cars.any? %>
+    <div class="car-grid">
+      <% @cars.each_with_index do |car, index| %>
+        <%= render "components/car_card", car: car, heading: :h2, eager: index < 2 %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <p>Ahora mismo no tenemos ningún Porsche <%= @line.name %> en stock. Cuéntanos qué buscas y te avisamos cuando entre uno.</p>
+      <a <%= track_contact("whatsapp", "modelo-sin-stock") %> href="<%= whatsapp_url("Hola, busco un Porsche #{@line.name}: ") %>" class="btn btn--primary" target="_blank" rel="noopener">Contarnos qué buscas</a>
+    </div>
+  <% end %>
+</section>
+
+<section class="section section--grey" aria-labelledby="about-line">
+  <div class="wrap split">
+    <h2 id="about-line" class="heading-1">Comprar un Porsche <%= @line.name %> de ocasión</h2>
+    <div class="prose">
+      <p><%= @line.intro %></p>
+      <p>Cada coche que vendemos pasa antes por nuestro taller: revisamos mecánica, electrónica, frenos y carrocería, y te enseñamos el historial completo antes de que decidas.</p>
+    </div>
+  </div>
+</section>
+
+<% if @other_lines.any? %>
+  <section class="section" aria-labelledby="other-lines">
+    <div class="wrap">
+      <h2 id="other-lines" class="heading-2">Otros modelos en stock</h2>
+      <nav class="filter" aria-label="Otros modelos">
+        <% @other_lines.each do |line| %>
+          <a href="<%= model_line_path(slug: line.slug) %>" class="filter__chip">Porsche <%= line.name %></a>
+        <% end %>
+      </nav>
+    </div>
+  </section>
+<% end %>
