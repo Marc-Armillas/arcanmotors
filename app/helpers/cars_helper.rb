@@ -30,6 +30,7 @@ module CarsHelper
     variant = case size
     when :card then image.variant(resize_to_fill: [ 960, 640 ])
     when :gallery then image.variant(resize_to_limit: [ 1800, 1350 ])
+    when :full then image.variant(resize_to_limit: [ 2560, 1920 ])
     when :thumb then image.variant(resize_to_fill: [ 240, 160 ])
     when :og then image.variant(resize_to_fill: [ 1200, 630 ], format: :jpg)
     end
