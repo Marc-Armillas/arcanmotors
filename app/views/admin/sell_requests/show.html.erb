@@ -1,0 +1,36 @@
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-5xl">
+  <%= link_to "← Volver", admin_sell_requests_path, class: "text-indigo-700 underline" %>
+  <h1 class="text-2xl font-bold mt-4"><%= @sell_request.model %></h1>
+  <p class="text-gray-500">Recibido el <%= @sell_request.created_at.strftime("%d/%m/%Y a las %H:%M") %></p>
+
+  <dl class="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
+    <% { "Año" => @sell_request.year, "Kilómetros" => (@sell_request.kilometers && "#{number_with_delimiter(@sell_request.kilometers, delimiter: ".")} km"),
+         "Precio que pide" => (@sell_request.asking_price && number_to_currency(@sell_request.asking_price, unit: "€", format: "%n %u", precision: 0, delimiter: ".")),
+         "Nombre" => @sell_request.name }.each do |label, value| %>
+      <div class="bg-white shadow rounded-lg p-4"><dt class="text-xs text-gray-500"><%= label %></dt><dd class="font-medium"><%= value.presence || "—" %></dd></div>
+    <% end %>
+  </dl>
+
+  <div class="bg-white shadow rounded-lg p-4 mb-6">
+    <p class="text-sm text-gray-500 mb-1">Contacto</p>
+    <% if @sell_request.email.present? %><p><a class="underline" href="mailto:<%= @sell_request.email %>"><%= @sell_request.email %></a></p><% end %>
+    <% if @sell_request.whatsapp_number %>
+      <p><a class="text-green-700 underline" href="https://wa.me/<%= @sell_request.whatsapp_number %>?text=<%= ERB::Util.url_encode("Hola #{@sell_request.name}, te escribimos de ArCan Motors por tu #{@sell_request.model}.") %>" target="_blank" rel="noopener">WhatsApp <%= @sell_request.phone %></a></p>
+    <% elsif @sell_request.phone.present? %><p><%= @sell_request.phone %></p><% end %>
+    <% if @sell_request.notes.present? %><p class="mt-3 whitespace-pre-line"><%= @sell_request.notes %></p><% end %>
+  </div>
+
+  <% if @sell_request.photos.any? %>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <% @sell_request.photos.each do |photo| %>
+        <a href="<%= url_for(photo) %>" target="_blank" rel="noopener">
+          <% if photo.variable? %>
+            <%= image_tag photo.variant(resize_to_limit: [ 600, 450 ]), class: "rounded-lg w-full", alt: "Foto de #{@sell_request.model}" %>
+          <% else %>
+            <span class="underline"><%= photo.filename %></span>
+          <% end %>
+        </a>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -1,63 +1,128 @@
-<!-- app/views/cars/show.html.erb -->
+<%
+  first_image = @car.images.first
+  description = [@car.model_description, @car.description].compact_blank.uniq
+  specs = car_specs(@car)
+  seo title: "#{@car.get_full_name} #{@car.year} de ocasión",
+      description: "#{@car.get_full_name} del #{@car.year}#{", #{car_km(@car)}" if @car.kilometers}#{", #{@car.cv} CV" if @car.cv}. " \
+                   "Precio: #{car_price(@car)}. Revisado en nuestro taller. #{description.first}",
+      image: first_image ? polymorphic_url(first_image.variant(resize_to_fill: [1200, 630], format: :jpg)) : nil,
+      canonical: "#{site_base_url}#{car_path(@car)}",
+      noindex: in_admin_controller? || @car.sold? || !@car.is_public,
+      type: "product"
+%>
+<% content_for :head do %>
+  <% unless in_admin_controller? %>
+    <%= car_json_ld(@car) %>
+    <%= breadcrumbs_json_ld([["Inicio", "#{site_base_url}/"], ["Coches en stock", "#{site_base_url}#{cars_path}"], [@car.get_full_name, "#{site_base_url}#{car_path(@car)}"]]) %>
+  <% end %>
+<% end %>
+
 <% if in_admin_controller? %>
-  <div class="mt-8 flex justify-between">
-    <%= link_to 'Volver al listado anterior', 'javascript:history.back()', class: 'inline-block px-6 py-3 bg-gray-600 text-white text-lg font-medium rounded-md hover:bg-gray-700' %>
-    <%= link_to 'Editar este coche', edit_admin_car_path(@car), class: 'inline-block px-6 py-3 bg-indigo-600 text-white text-lg font-medium rounded-md hover:bg-indigo-700' %>
+  <div class="admin-bar wrap">
+    <%= link_to "Volver al listado", "javascript:history.back()", class: "btn btn--secondary" %>
+    <%= link_to "Editar este coche", edit_admin_car_path(@car), class: "btn btn--primary" %>
   </div>
 <% end %>
 
-<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-  <h1 class="text-center text-3xl font-bold mb-8"><%= @car.get_full_name %></h1>
+<nav class="breadcrumbs caps wrap" aria-label="Migas de pan">
+  <ol>
+    <li><a href="<%= root_path %>">Inicio</a></li>
+    <li><a href="<%= cars_path %>">Coches en stock</a></li>
+    <li aria-current="page"><%= @car.name %></li>
+  </ol>
+</nav>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-    <%= render partial: "components/car_swiper", locals: { car: @car } %>
-    <div>
-      <div class="bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-4">Detalles del coche</h2>
-        <dl class="space-y-2">
-          <div class="flex justify-between">
-            <dt class="font-medium text-gray-500">Precio</dt>
-            <dd class="text-lg text-gray-900"><%= number_to_currency(@car.price, unit: "€") %></dd>
-          </div>
-          <div class="flex justify-between">
-            <dt class="font-medium text-gray-500">Año</dt>
-            <dd class="text-lg text-gray-900"><%= @car.year %></dd>
-          </div>
-          <div class="flex justify-between">
-            <dt class="font-medium text-gray-500">Kilómetros</dt>
-            <dd class="text-lg text-gray-900"><%= @car.kilometers %> km</dd>
-          </div>
-          <div class="flex justify-between">
-            <dt class="font-medium text-gray-500">Marca</dt>
-            <dd class="text-lg text-gray-900"><%= @car.make.name if @car.make %></dd>
-          </div>
-          <div class="flex justify-between">
-            <dt class="font-medium text-gray-500">Categoría</dt>
-            <dd class="text-lg text-gray-900"><%= @car.category.name if @car.category %></dd>
-          </div>
-<!--          <div class="flex justify-between">-->
-<!--            <dt class="font-medium text-gray-500">País de origen</dt>-->
-<!--            <dd class="text-lg text-gray-900"><%#= @car.origin_country.name if @car.origin_country %></dd>-->
-<!--          </div>-->
-        </dl>
-      </div>
-
-      <div class="mt-8">
-        <% if in_admin_controller? %>
-<!--          <a href="javascript:void(0);" class="inline-block w-full text-center px-6 py-3 bg-gray-400 text-white text-lg font-medium rounded-md cursor-not-allowed" aria-disabled="true">-->
-<!--            Contactar sobre este coche (Deshabilitado en Admin)-->
-<!--          </a>-->
-        <% else %>
-          <%#= link_to 'Contactar sobre este coche', contacto_path(car_id: @car.id), class: 'inline-block w-full text-center px-6 py-3 bg-indigo-600 text-white text-lg font-medium rounded-md hover:bg-indigo-700' %>
-          <%= link_to 'Contactar sobre este coche', "https://wa.me/#{Rails.application.credentials.dig(:whatsapp, :phone_number)}?text=Estoy%20interesado%20en%20el%20coche%20#{@car.name}%20-%20#{car_url(@car)}%0A", class: 'inline-block w-full text-center px-6 py-3 bg-indigo-600 text-white text-lg font-medium rounded-md hover:bg-indigo-700', target: '_blank', rel: 'noopener' %>
-      <% end %>
+<div class="strip js-strip js-lightbox" aria-label="Fotos del coche">
+  <div class="strip__track" tabindex="0" role="region" aria-label="Galería, usa las flechas para ver más fotos">
+    <% @car.images.each_with_index do |image, index| %>
+      <figure class="strip__slide">
+        <button type="button" class="strip__open js-lightbox-open" data-index="<%= index %>"
+                data-full="<%= car_image_url(image, :full) %>" aria-label="Ver foto <%= index + 1 %> en grande">
+          <%= car_image_tag image, :gallery, alt: car_image_alt(@car, index), eager: index < 2, fetchpriority: (index.zero? ? "high" : nil),
+                            sizes: "(max-width: 640px) 84vw, 830px" %>
+        </button>
+      </figure>
+    <% end %>
+  </div>
+  <% if @car.images.size > 1 %>
+    <div class="strip__controls wrap">
+      <p class="strip__count caps js-strip-count">1 / <%= @car.images.size %></p>
+      <div class="strip__buttons">
+        <button type="button" class="strip__button js-strip-prev" aria-label="Foto anterior">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10.5 2.5 5 8l5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+        </button>
+        <button type="button" class="strip__button js-strip-next" aria-label="Foto siguiente">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 2.5 11 8l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+        </button>
       </div>
     </div>
-  </div>
+  <% end %>
 
-  <!-- Descripción larga del coche -->
-  <div class="mt-12 bg-white p-6 rounded-lg shadow-md">
-    <h2 class="text-2xl font-semibold mb-4">Descripción</h2>
-    <p class="text-gray-700 leading-relaxed"><%= @car.model_description %></p>
-  </div>
+  <dialog class="lightbox js-lightbox-dialog" aria-label="Fotos de <%= @car.get_full_name %> a pantalla completa">
+    <figure class="lightbox__figure">
+      <img class="lightbox__image js-lightbox-image" alt="">
+    </figure>
+    <p class="lightbox__count caps js-lightbox-count" aria-live="polite"></p>
+    <button type="button" class="lightbox__close js-lightbox-close" aria-label="Cerrar">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3 3 13" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+    </button>
+    <% if @car.images.size > 1 %>
+      <button type="button" class="lightbox__nav lightbox__nav--prev js-lightbox-prev" aria-label="Foto anterior">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10.5 2.5 5 8l5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+      </button>
+      <button type="button" class="lightbox__nav lightbox__nav--next js-lightbox-next" aria-label="Foto siguiente">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 2.5 11 8l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+      </button>
+    <% end %>
+  </dialog>
 </div>
+
+<article class="vehicle wrap">
+  <aside class="vehicle__panel" aria-label="Precio y contacto">
+    <p class="vehicle__make caps"><%= @car.make&.name %></p>
+    <h1 class="vehicle__title"><%= @car.name %></h1>
+    <% unless @car.on_sale? %>
+      <span class="badge <%= "badge--sold" if @car.sold? %>"><%= car_status_label(@car) %></span>
+    <% end %>
+    <p class="vehicle__price"><%= car_price(@car) %></p>
+
+    <dl class="vehicle__keyspecs">
+      <% if @car.year %><div><dt>Año</dt><dd><%= @car.year %></dd></div><% end %>
+      <% if @car.kilometers %><div><dt>Kilómetros</dt><dd><%= number_with_delimiter(@car.kilometers, delimiter: ".") %></dd></div><% end %>
+      <% if @car.cv %><div><dt>Potencia</dt><dd><%= @car.cv %> CV</dd></div><% end %>
+      <% if @car.gearbox %><div><dt>Cambio</dt><dd><%= CarsHelper::GEARBOX_LABELS[@car.gearbox] %></dd></div><% end %>
+    </dl>
+
+    <% unless in_admin_controller? || @car.sold? %>
+      <div class="vehicle__actions">
+        <a <%= track_contact("whatsapp", "ficha", @car) %> href="<%= car_whatsapp_url(@car) %>" class="btn btn--primary btn--large btn--block" target="_blank" rel="noopener">Preguntar por este coche</a>
+        <% if whatsapp_phone.present? %>
+          <a <%= track_contact("llamada", "ficha", @car) %> href="tel:+<%= whatsapp_phone %>" class="btn btn--secondary btn--large btn--block">Llamar al <%= whatsapp_phone_display %></a>
+        <% end %>
+      </div>
+      <p class="vehicle__note">Te enviamos más fotos, el historial de mantenimiento o te enseñamos el coche en persona.</p>
+    <% end %>
+  </aside>
+
+  <div class="vehicle__details">
+    <% if description.any? %>
+      <div class="vehicle-details__card">
+        <h2 id="descripcion" class="display-2">Descripción</h2>
+        <div class="prose">
+          <% description.each do |text| %>
+            <%= simple_format(text) %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="vehicle-details__card">
+      <h2 id="ficha" class="display-2">Ficha técnica</h2>
+      <dl class="spec-table">
+        <% specs.each do |label, value| %>
+          <div><dt><%= label %></dt><dd><%= value %></dd></div>
+        <% end %>
+      </dl>
+    </div>
+  </div>
+</article>

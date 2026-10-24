@@ -1,0 +1,80 @@
+<% seo title: "Vende tu Porsche",
+       description: "¿Quieres vender tu Porsche? Envíanos sus datos y fotos y te hacemos una propuesta. Especialistas en Porsche de ocasión." %>
+
+<header class="page-head wrap">
+  <h1 class="display-1">Vende tu Porsche</h1>
+  <p class="lead">Compramos Porsche en buen estado y con historial claro. Envíanos los datos y unas fotos y te contestamos con una propuesta, sin compromiso.</p>
+</header>
+
+<section class="section section--tight" aria-label="Cómo funciona">
+  <div class="wrap">
+    <ol class="steps steps--compact">
+      <li class="step">
+        <h3>Nos cuentas qué tienes</h3>
+        <p>Modelo, año, kilómetros y unas fotos. Si tienes el libro de mantenimiento, mejor.</p>
+      </li>
+      <li class="step">
+        <h3>Lo valoramos</h3>
+        <p>Revisamos los datos y, si encaja con lo que buscamos, te llamamos para verlo en persona.</p>
+      </li>
+      <li class="step">
+        <h3>Te hacemos una propuesta</h3>
+        <p>Una oferta clara tras revisar el coche en nuestro taller. Tú decides.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="section section--grey" aria-labelledby="sell-form-title">
+  <div class="wrap split">
+    <div>
+      <h2 id="sell-form-title" class="heading-1">Datos de tu coche</h2>
+      <p class="lead">Cuantos más detalles nos des, más ajustada será la propuesta.</p>
+    </div>
+    <%= form_with model: @sell_request, url: sell_requests_path, class: "form form--wide", multipart: true do |f| %>
+      <%= render "shared/form_errors", record: @sell_request %>
+      <div class="field">
+        <%= f.label :model, "Modelo y versión" %>
+        <%= f.text_field :model, required: true, placeholder: "Por ejemplo: 911 Carrera S (997)" %>
+      </div>
+      <div class="form__row form__row--3">
+        <div class="field">
+          <%= f.label :year, "Año" %>
+          <%= f.number_field :year, min: 1948, max: Date.current.year + 1, inputmode: "numeric" %>
+        </div>
+        <div class="field">
+          <%= f.label :kilometers, "Kilómetros" %>
+          <%= f.number_field :kilometers, min: 0, step: 1, inputmode: "numeric" %>
+        </div>
+        <div class="field">
+          <%= f.label :asking_price, "Precio que pides (€)" %>
+          <%= f.number_field :asking_price, min: 0, step: 500, inputmode: "numeric" %>
+        </div>
+      </div>
+      <div class="field">
+        <%= f.label :photos, "Fotos (hasta #{SellRequest::MAX_PHOTOS})" %>
+        <%= f.file_field :photos, multiple: true, accept: SellRequest::PHOTO_TYPES.join(",") %>
+      </div>
+      <div class="field">
+        <%= f.label :notes, "Historial, extras, estado… (opcional)" %>
+        <%= f.text_area :notes, rows: 4 %>
+      </div>
+      <div class="field">
+        <%= f.label :name, "Nombre" %>
+        <%= f.text_field :name, required: true, autocomplete: "name" %>
+      </div>
+      <div class="form__row">
+        <div class="field">
+          <%= f.label :email, "Email" %>
+          <%= f.email_field :email, autocomplete: "email" %>
+        </div>
+        <div class="field">
+          <%= f.label :phone, "Teléfono o WhatsApp" %>
+          <%= f.telephone_field :phone, autocomplete: "tel" %>
+        </div>
+      </div>
+      <%= render "shared/privacy_fields", f: f %>
+      <%= f.submit "Enviar datos del coche", class: "btn btn--primary btn--large" %>
+    <% end %>
+  </div>
+</section>

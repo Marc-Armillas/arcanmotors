@@ -14,6 +14,11 @@ module ApplicationHelper
     end
   end
 
+  def arrow_icon
+    tag.svg(tag.path(d: "M5 12h13M13 6l6 6-6 6", fill: "none", stroke: "currentColor", "stroke-width": "1.4"),
+            viewBox: "0 0 24 24", "aria-hidden": "true")
+  end
+
   def in_admin_controller?
     controller.class.name&.include?("Admin::")
   end

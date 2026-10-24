@@ -1,0 +1,2 @@
+carrera_photo: <%= ActiveStorage::FixtureSet.blob filename: "car.jpg", service_name: "test" %>
+macan_photo: <%= ActiveStorage::FixtureSet.blob filename: "car.jpg", service_name: "test" %>

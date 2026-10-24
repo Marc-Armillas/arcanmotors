@@ -1,6 +1,9 @@
 class StaticPagesController < ApplicationController
   def home
-    @cars = Car.where(in_home_page: true).last(15)
+    published = Car.published.with_attached_images.includes(:make)
+    @stock_count = published.count
+    @cars = published.where(in_home_page: true).order(id: :desc).limit(6).to_a
+    @cars = published.order(id: :desc).limit(6).to_a if @cars.empty?
   end
 
   def legal
@@ -10,6 +13,8 @@ class StaticPagesController < ApplicationController
   def about_us; end
 
   def cookies_policy; end
+
+  def privacy; end
 
   # Starts as a static page but if in the future we have more than 1 should create a db_table/model/controller
   def services; end

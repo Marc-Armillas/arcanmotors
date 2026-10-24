@@ -1,9 +1,42 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-  <h1 class="text-3xl font-bold text-gray-900 mb-8 text-center">Nuestros Coches</h1>
+<%
+  title = @current_category ? "Porsche #{@current_category.name} de ocasión en venta" : "Porsche de ocasión en venta"
+  seo title: title,
+      description: "#{@cars.size} Porsche de ocasión en stock#{" de la gama #{@current_category.name}" if @current_category}: precio, kilómetros y ficha completa de cada coche, revisado en nuestro taller.",
+      canonical: @current_category ? "#{site_base_url}#{cars_path(categoria: params[:categoria])}" : "#{site_base_url}#{cars_path}"
+%>
+<% content_for :head do %>
+  <%= breadcrumbs_json_ld([["Inicio", "#{site_base_url}/"], ["Coches en stock", "#{site_base_url}#{cars_path}"]]) %>
+<% end %>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
-    <% @cars.each do |car| %>
-      <%= render partial: 'components/car_card', locals: { car: car } %>
-    <% end %>
-  </div>
-</div>
+<header class="page-head wrap">
+  <h1 class="display-1"><%= title %></h1>
+  <p class="lead">
+    <%= pluralize(@cars.size, "coche disponible", plural: "coches disponibles") %>, todos revisados en nuestro taller antes de salir a la venta.
+  </p>
+
+  <% if @model_lines.any? %>
+    <nav class="filter" aria-label="Ver por modelo">
+      <a href="<%= cars_path %>" class="filter__chip" aria-current="page">Todos</a>
+      <% @model_lines.each do |line| %>
+        <a href="<%= model_line_path(slug: line.slug) %>" class="filter__chip">Porsche <%= line.name %></a>
+      <% end %>
+    </nav>
+  <% end %>
+</header>
+
+<section class="section section--tight wrap" aria-label="Listado de coches">
+  <% if @cars.any? %>
+    <div class="car-grid">
+      <% @cars.each_with_index do |car, index| %>
+        <%= render "components/car_card", car: car, heading: :h2, eager: index < 2 %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <p>No hay coches de esta gama en stock ahora mismo. Dinos qué buscas y te avisamos cuando entre uno.</p>
+      <a <%= track_contact("whatsapp", "listado-vacio") %> href="<%= whatsapp_url("Hola, busco un Porsche: ") %>" class="btn btn--primary" target="_blank" rel="noopener">Contarnos qué buscas</a>
+    </div>
+  <% end %>
+</section>
+
+<%= render "stock_alerts/section" %>

@@ -1,0 +1,28 @@
+<% seo title: "Guías para comprar un Porsche de ocasión",
+       description: "Qué revisar, cómo elegir generación y qué modelo encaja contigo: guías prácticas desde nuestro taller especializado en Porsche.",
+       noindex: @guides.none?(&:published) %>
+
+<header class="page-head wrap">
+  <h1 class="display-1">Guías de compra</h1>
+  <p class="lead">Lo que miramos en el taller antes de comprar un Porsche, para que tú también sepas qué preguntar.</p>
+</header>
+
+<section class="section section--tight wrap" aria-label="Guías">
+  <% if @guides.any? %>
+    <div class="guide-grid">
+      <% @guides.each do |guide| %>
+        <a href="<%= guide_path(slug: guide.slug) %>" class="guide-card">
+          <% unless guide.published %><span class="badge">Borrador: solo lo ve el admin</span><% end %>
+          <h2 class="guide-card__title"><%= guide.title %></h2>
+          <p><%= guide.description %></p>
+          <span class="link-arrow">Leer la guía <%= arrow_icon %></span>
+        </a>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <p>Estamos preparando nuestras primeras guías de compra. Mientras tanto, pregúntanos lo que quieras.</p>
+      <a <%= track_contact("whatsapp", "guias") %> href="<%= whatsapp_url("Hola, tengo una duda sobre un Porsche: ") %>" class="btn btn--primary" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+    </div>
+  <% end %>
+</section>

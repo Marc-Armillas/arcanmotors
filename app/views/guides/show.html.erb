@@ -1,0 +1,52 @@
+<%
+  seo title: @guide.title, description: @guide.description, type: "article",
+      canonical: "#{site_base_url}#{guide_path(slug: @guide.slug)}", noindex: !@guide.published
+%>
+<% content_for :head do %>
+  <%= json_ld_tag({ "@context": "https://schema.org", "@type": "Article", headline: @guide.title, description: @guide.description,
+                    dateModified: @guide.updated_on.iso8601, inLanguage: "es",
+                    mainEntityOfPage: "#{site_base_url}#{guide_path(slug: @guide.slug)}",
+                    author: { "@type": "Organization", name: SeoHelper::SITE_NAME, url: "#{site_base_url}/" },
+                    publisher: { "@type": "Organization", name: SeoHelper::SITE_NAME, url: "#{site_base_url}/" } }) %>
+  <%= breadcrumbs_json_ld([["Inicio", "#{site_base_url}/"], ["Guías", "#{site_base_url}#{guides_path}"], [@guide.title, "#{site_base_url}#{guide_path(slug: @guide.slug)}"]]) %>
+<% end %>
+
+<nav class="breadcrumbs wrap" aria-label="Migas de pan">
+  <ol>
+    <li><a href="<%= root_path %>">Inicio</a></li>
+    <li><a href="<%= guides_path %>">Guías</a></li>
+    <li aria-current="page"><%= @guide.title %></li>
+  </ol>
+</nav>
+
+<article class="wrap guide">
+  <header class="guide__head">
+    <% unless @guide.published %><span class="badge">Borrador: solo lo ve el admin y no se indexa</span><% end %>
+    <h1 class="display-1"><%= @guide.title %></h1>
+    <p class="lead"><%= @guide.description %></p>
+    <p class="caps">Actualizada el <%= @guide.updated_on.strftime("%d/%m/%Y") %> por el equipo de ArCan Motors</p>
+  </header>
+
+  <div class="guide__body prose">
+    <%= render "guides/articles/#{@guide.slug.underscore}" %>
+  </div>
+
+  <aside class="guide__aside" aria-label="Relacionado">
+    <div class="guide__box">
+      <h2 class="display-3"><%= @line ? "Porsche #{@line.name} en stock" : "Recién llegados" %></h2>
+      <div class="guide__cars">
+        <% @cars.each do |car| %>
+          <%= render "components/car_card", car: car %>
+        <% end %>
+      </div>
+      <a href="<%= @line ? model_line_path(slug: @line.slug) : cars_path %>" class="link-arrow">
+        <%= @line ? "Ver todos los Porsche #{@line.name}" : "Ver todo el stock" %> <%= arrow_icon %>
+      </a>
+    </div>
+    <div class="guide__box guide__box--dark">
+      <h2 class="display-3">¿Dudas con un coche concreto?</h2>
+      <p>Mándanos el anuncio o cuéntanos qué buscas y te decimos qué mirar.</p>
+      <a <%= track_contact("whatsapp", "guia") %> href="<%= whatsapp_url("Hola, he leído vuestra guía \"#{@guide.title}\" y tengo una duda: ") %>" class="btn btn--light btn--block" target="_blank" rel="noopener">Preguntar por WhatsApp</a>
+    </div>
+  </aside>
+</article>

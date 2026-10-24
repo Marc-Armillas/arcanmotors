@@ -6,6 +6,7 @@ import "../stylesheets/application.scss";
 import './mobile_menu';
 import './flash_messages'
 import './car_swiper';
+import './lightbox';
 
 // Admin JS FILES
 import './admin/contact_request_modal';

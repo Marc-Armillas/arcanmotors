@@ -2,14 +2,12 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
-@import "car_swiper";
 
+/* Admin flash messages (colours come from flash_class) */
 .flash-message {
   border-radius: 0.25rem;
   margin-bottom: 1rem;
   padding: 1rem;
 }
 
-.rotate-minus-90 {
-  transform: rotate(-90deg);
-}
+@import "site";

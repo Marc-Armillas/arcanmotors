@@ -17,11 +17,14 @@ class Car < ApplicationRecord
   enum :transmission, { front_wheel_drive: 0, rear_wheel_drive: 1, four_wheel_drive: 2 }
   enum :fuel, { diesel: 0, petrol: 1, electric: 2, hybrid_petrol: 3, hybrid_diesel: 4, lpg: 5, cng: 6, other: 7 }
 
+  scope :published, -> { where(is_public: true).where.not(status: :sold) }
+
   before_save :set_vat_price_fields
   before_save :hide_car_if_sold
 
   def to_param
-    "#{self.name.parameterize}-#{self.id}"
+    slug = [ make&.name, name, year ].compact_blank.join(" ").parameterize
+    "#{slug}-#{self.id}"
   end
 
   def image_urls
@@ -29,22 +32,22 @@ class Car < ApplicationRecord
   end
 
   def medium_image(image)
-    image.variant(resize_to_fill: [300, 200], format: :jpg).processed
+    image.variant(resize_to_fill: [ 300, 200 ], format: :jpg).processed
     # image.variant(resize_to_limit: [300, 200], format: :jpg).processed
   end
 
   def mediumbig_image(image)
-    image.variant(resize_to_fill: [300, 480], format: :jpg).processed
+    image.variant(resize_to_fill: [ 300, 480 ], format: :jpg).processed
     # image.variant(resize_to_limit: [300, 480], format: :jpg).processed
   end
 
   def big_image(image)
-    image.variant(resize_to_fill: [1000, 1000], format: :jpg).processed
+    image.variant(resize_to_fill: [ 1000, 1000 ], format: :jpg).processed
     # image.variant(resize_to_limit: [1000, 1000], format: :jpg).processed
   end
 
   def tiny_image(image)
-    image.variant(resize_to_fill: [30, 30], format: :jpg).processed
+    image.variant(resize_to_fill: [ 30, 30 ], format: :jpg).processed
     # image.variant(resize_to_limit: [30, 30], format: :jpg).processed
   end
 
