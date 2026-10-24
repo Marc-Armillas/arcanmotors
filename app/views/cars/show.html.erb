@@ -38,8 +38,8 @@
       <figure class="strip__slide">
         <button type="button" class="strip__open js-lightbox-open" data-index="<%= index %>"
                 data-full="<%= car_image_url(image, :full) %>" aria-label="Ver foto <%= index + 1 %> en grande">
-          <img src="<%= car_image_url(image, :gallery) %>" alt="<%= car_image_alt(@car, index) %>" width="1800" height="1350"
-               loading="<%= index < 2 ? "eager" : "lazy" %>" decoding="async" <%= 'fetchpriority="high"'.html_safe if index.zero? %>>
+          <%= car_image_tag image, :gallery, alt: car_image_alt(@car, index), eager: index < 2, fetchpriority: (index.zero? ? "high" : nil),
+                            sizes: "(max-width: 640px) 84vw, 830px" %>
         </button>
       </figure>
     <% end %>

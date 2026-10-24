@@ -26,15 +26,31 @@ module CarsHelper
     STATUS_LABELS[car.status]
   end
 
-  def car_image_url(image, size)
+  # Widths offered to the browser through srcset; cards are cropped to 4:3, gallery photos keep their ratio
+  IMAGE_WIDTHS = { card: [ 480, 800, 1200 ], gallery: [ 640, 960, 1400 ] }.freeze
+  WEBP = { format: :webp, saver: { quality: 78 } }.freeze
+
+  def car_image_url(image, size, width: nil)
     variant = case size
-    when :card then image.variant(resize_to_fill: [ 960, 640 ])
-    when :gallery then image.variant(resize_to_limit: [ 1800, 1350 ])
-    when :full then image.variant(resize_to_limit: [ 2560, 1920 ])
-    when :thumb then image.variant(resize_to_fill: [ 240, 160 ])
+    when :card
+      width ||= 800
+      image.variant(resize_to_fill: [ width, width * 3 / 4 ], **WEBP)
+    when :gallery
+      width ||= 960
+      image.variant(resize_to_limit: [ width, width * 3 / 4 ], **WEBP)
+    when :full then image.variant(resize_to_limit: [ 2560, 1920 ], **WEBP)
     when :og then image.variant(resize_to_fill: [ 1200, 630 ], format: :jpg)
     end
     url_for(variant)
+  end
+
+  # <img> with a srcset of WebP variants so each screen downloads only the size it needs
+  def car_image_tag(image, size, alt:, sizes:, eager: false, **options)
+    widths = IMAGE_WIDTHS.fetch(size)
+    tag.img(src: car_image_url(image, size, width: widths[1]),
+            srcset: widths.map { |w| "#{car_image_url(image, size, width: w)} #{w}w" }.join(", "),
+            sizes: sizes, alt: alt, width: widths[1], height: widths[1] * 3 / 4,
+            loading: eager ? "eager" : "lazy", decoding: "async", **options)
   end
 
   def car_image_alt(car, index = 0)

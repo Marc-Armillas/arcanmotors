@@ -2,8 +2,8 @@
 <article class="car-card">
   <a href="<%= car_path(car) %>" class="car-card__link">
     <% if (image = car.images.first) %>
-      <img class="car-card__image" src="<%= car_image_url(image, :gallery) %>" alt="<%= car_image_alt(car) %>" width="1800" height="1350"
-           loading="<%= local_assigns[:eager] ? "eager" : "lazy" %>" decoding="async">
+      <%= car_image_tag image, :card, alt: car_image_alt(car), class: "car-card__image", eager: local_assigns[:eager],
+                        sizes: "(min-width: 1440px) 680px, (min-width: 760px) 46vw, 100vw" %>
     <% end %>
     <%= content_tag local_assigns.fetch(:heading, :h3), car.name, class: "car-card__title" %>
     <div class="car-card__foot">

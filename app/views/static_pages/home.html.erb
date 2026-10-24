@@ -28,23 +28,23 @@
     <div class="teasers">
       <a href="<%= cars_path %>" class="teaser">
         <% if (car = @cars.first) && (image = car.images.first) %>
-          <img src="<%= car_image_url(image, :card) %>" alt="" loading="lazy" decoding="async">
+          <%= car_image_tag image, :card, alt: "", sizes: "(min-width: 760px) 340px, 100vw" %>
         <% end %>
         <span class="teaser__label">Coches en stock</span>
         <span class="arrow-button"><%= arrow_icon %></span>
       </a>
       <a href="<%= about_us_path %>" class="teaser">
         <picture>
-          <source type="image/webp" srcset="<%= image_path("taller_930.webp") %>">
-          <img src="<%= image_path("taller_930.jpg") %>" alt="" loading="lazy" decoding="async">
+          <source type="image/webp" srcset="<%= image_path("taller_930_600.webp") %> 600w, <%= image_path("taller_930_1200.webp") %> 1200w" sizes="(min-width: 760px) 340px, 100vw">
+          <img src="<%= image_path("taller_930_600.jpg") %>" srcset="<%= image_path("taller_930_600.jpg") %> 600w, <%= image_path("taller_930_1200.jpg") %> 1200w" sizes="(min-width: 760px) 340px, 100vw" alt="" loading="lazy" decoding="async">
         </picture>
         <span class="teaser__label">Nuestro taller</span>
         <span class="arrow-button"><%= arrow_icon %></span>
       </a>
       <a href="<%= whatsapp_url("Hola, estoy buscando un Porsche.") %>" class="teaser" target="_blank" rel="noopener">
         <picture>
-          <source type="image/webp" srcset="<%= image_path("nosotros_964.webp") %>">
-          <img src="<%= image_path("nosotros_964.jpg") %>" alt="" loading="lazy" decoding="async">
+          <source type="image/webp" srcset="<%= image_path("nosotros_964_600.webp") %> 600w, <%= image_path("nosotros_964_1200.webp") %> 1200w" sizes="(min-width: 760px) 340px, 100vw">
+          <img src="<%= image_path("nosotros_964_600.jpg") %>" srcset="<%= image_path("nosotros_964_600.jpg") %> 600w, <%= image_path("nosotros_964_1200.jpg") %> 1200w" sizes="(min-width: 760px) 340px, 100vw" alt="" loading="lazy" decoding="async">
         </picture>
         <span class="teaser__label">¿Buscas un modelo concreto?</span>
         <span class="arrow-button"><%= arrow_icon %></span>
@@ -77,8 +77,8 @@
 
 <section class="banner" aria-labelledby="workshop-title">
   <picture>
-    <source type="image/webp" srcset="<%= image_path("taller_930.webp") %>">
-    <img class="banner__image" src="<%= image_path("taller_930.jpg") %>" alt="Porsche 930 rojo en un taller con pósters de carreras" loading="lazy" decoding="async">
+    <source type="image/webp" srcset="<%= image_path("taller_930_1200.webp") %> 1200w, <%= image_path("taller_930.webp") %> 1600w" sizes="100vw">
+    <img class="banner__image" src="<%= image_path("taller_930_1200.jpg") %>" srcset="<%= image_path("taller_930_1200.jpg") %> 1200w, <%= image_path("taller_930.jpg") %> 1600w" sizes="100vw" alt="Porsche 930 rojo en un taller con pósters de carreras" loading="lazy" decoding="async">
   </picture>
   <div class="banner__content wrap">
     <h2 id="workshop-title" class="heading-1">Pasa por el taller antes que por la exposición.</h2>
