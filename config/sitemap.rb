@@ -3,6 +3,7 @@ SitemapGenerator::Sitemap.default_host = "https://arcanmotors.es"
 SitemapGenerator::Sitemap.create do
   add "/coches", changefreq: "daily", priority: 0.9
   add "/about_us", changefreq: "monthly", priority: 0.5
+  add "/vende-tu-porsche", changefreq: "monthly", priority: 0.6
 
   ModelLine::LINES.each do |line|
     add model_line_path(slug: line.slug), changefreq: "daily", priority: 0.8
