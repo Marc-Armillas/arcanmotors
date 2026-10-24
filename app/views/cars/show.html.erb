@@ -19,8 +19,8 @@
 
 <% if in_admin_controller? %>
   <div class="admin-bar wrap">
-    <%= link_to "Volver al listado", "javascript:history.back()", class: "btn btn--frame" %>
-    <%= link_to "Editar este coche", edit_admin_car_path(@car), class: "btn btn--red" %>
+    <%= link_to "Volver al listado", "javascript:history.back()", class: "btn btn--secondary" %>
+    <%= link_to "Editar este coche", edit_admin_car_path(@car), class: "btn btn--primary" %>
   </div>
 <% end %>
 
@@ -95,9 +95,9 @@
 
     <% unless in_admin_controller? || @car.sold? %>
       <div class="vehicle__actions">
-        <a href="<%= car_whatsapp_url(@car) %>" class="btn btn--red btn--large btn--block" target="_blank" rel="noopener">Preguntar por este coche</a>
+        <a href="<%= car_whatsapp_url(@car) %>" class="btn btn--primary btn--large btn--block" target="_blank" rel="noopener">Preguntar por este coche</a>
         <% if whatsapp_phone.present? %>
-          <a href="tel:+<%= whatsapp_phone %>" class="btn btn--frame btn--large btn--block">Llamar al <%= whatsapp_phone_display %></a>
+          <a href="tel:+<%= whatsapp_phone %>" class="btn btn--secondary btn--large btn--block">Llamar al <%= whatsapp_phone_display %></a>
         <% end %>
       </div>
       <p class="vehicle__note">Te enviamos más fotos, el historial de mantenimiento o te enseñamos el coche en persona.</p>

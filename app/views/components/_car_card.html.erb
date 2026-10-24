@@ -1,0 +1,23 @@
+<%# locals: car, heading (optional, default :h3), eager (optional) %>
+<article class="car-card">
+  <a href="<%= car_path(car) %>" class="car-card__link">
+    <% if (image = car.images.first) %>
+      <img class="car-card__image" src="<%= car_image_url(image, :gallery) %>" alt="<%= car_image_alt(car) %>" width="1800" height="1350"
+           loading="<%= local_assigns[:eager] ? "eager" : "lazy" %>" decoding="async">
+    <% end %>
+    <%= content_tag local_assigns.fetch(:heading, :h3), car.name, class: "car-card__title" %>
+    <div class="car-card__foot">
+      <div class="car-card__info">
+        <ul class="chips" aria-label="Datos principales">
+          <% if car.reserved? %><li class="chip chip--status">Reservado</li><% end %>
+          <% if car.year %><li class="chip"><%= car.year %></li><% end %>
+          <% if car.kilometers %><li class="chip"><%= car_km(car) %></li><% end %>
+          <% if car.cv %><li class="chip"><%= car.cv %> CV</li><% end %>
+          <% if (fuel = CarsHelper::FUEL_LABELS[car.fuel]) %><li class="chip"><%= fuel %></li><% end %>
+        </ul>
+        <p class="car-card__price"><%= car_price(car) %></p>
+      </div>
+      <span class="arrow-button"><%= arrow_icon %></span>
+    </div>
+  </a>
+</article>

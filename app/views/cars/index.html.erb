@@ -15,10 +15,10 @@
   </p>
 
   <% if @categories.size > 1 %>
-    <nav class="tabs" aria-label="Filtrar por carrocería">
-      <a href="<%= cars_path %>" class="tab" <%= 'aria-current="page"'.html_safe unless @current_category %>>Todos</a>
+    <nav class="filter" aria-label="Filtrar por carrocería">
+      <a href="<%= cars_path %>" class="filter__chip" <%= 'aria-current="page"'.html_safe unless @current_category %>>Todos</a>
       <% @categories.each do |category| %>
-        <a href="<%= cars_path(categoria: category.name.parameterize) %>" class="tab" <%= 'aria-current="page"'.html_safe if category == @current_category %>><%= category.name %></a>
+        <a href="<%= cars_path(categoria: category.name.parameterize) %>" class="filter__chip" <%= 'aria-current="page"'.html_safe if category == @current_category %>><%= category.name %></a>
       <% end %>
     </nav>
   <% end %>
@@ -26,18 +26,15 @@
 
 <section class="section section--tight wrap" aria-label="Listado de coches">
   <% if @cars.any? %>
-    <div class="catalog-head" aria-hidden="true">
-      <span>Lote</span><span></span><span>Modelo</span><span>Año</span><span>Kilómetros</span><span>Potencia</span><span>Precio</span>
-    </div>
-    <ol class="catalog">
+    <div class="car-grid">
       <% @cars.each_with_index do |car, index| %>
-        <%= render "components/car_row", car: car, index: index, eager: index < 3 %>
+        <%= render "components/car_card", car: car, heading: :h2, eager: index < 2 %>
       <% end %>
-    </ol>
+    </div>
   <% else %>
     <div class="empty-state">
       <p>No hay coches de esta gama en stock ahora mismo. Dinos qué buscas y te avisamos cuando entre uno.</p>
-      <a href="<%= whatsapp_url("Hola, busco un Porsche: ") %>" class="btn btn--frame" target="_blank" rel="noopener">Contarnos qué buscas</a>
+      <a href="<%= whatsapp_url("Hola, busco un Porsche: ") %>" class="btn btn--primary" target="_blank" rel="noopener">Contarnos qué buscas</a>
     </div>
   <% end %>
 </section>
