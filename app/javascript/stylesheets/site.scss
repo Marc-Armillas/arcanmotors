@@ -539,9 +539,14 @@
   color: var(--text);
   overflow: hidden;
 }
-.lightbox::backdrop { background: rgba(8, 9, 8, 0.97); }
+.lightbox::backdrop { background: transparent; }
 .lightbox[open] { display: grid; animation: lightbox-in 0.3s var(--ease); }
 .lightbox__figure { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; margin: 0; }
+.lightbox { touch-action: pinch-zoom; }
+.lightbox__count, .lightbox__close, .lightbox__nav { transition: opacity 0.2s var(--ease); }
+.lightbox--dragging .lightbox__count,
+.lightbox--dragging .lightbox__close,
+.lightbox--dragging .lightbox__nav { opacity: 0; }
 .lightbox__image { max-width: calc(100vw - 192px); max-height: calc(100svh - 144px); width: auto; height: auto; object-fit: contain; user-select: none; }
 .lightbox__count { position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); color: var(--muted); font-variant-numeric: tabular-nums; }
 .lightbox__close,
