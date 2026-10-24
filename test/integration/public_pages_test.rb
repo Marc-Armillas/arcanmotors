@@ -47,6 +47,12 @@ class PublicPagesTest < ActionDispatch::IntegrationTest
     assert_select "meta[name=robots][content^='index']"
   end
 
+  test "contact buttons are tracked in analytics with place and car" do
+    get car_path(cars(:carrera))
+    assert_select "a[data-umami-event=whatsapp][data-umami-event-lugar=ficha][data-umami-event-coche='Porsche 911 Carrera 4S']"
+    assert_select "a[data-umami-event=whatsapp][data-umami-event-lugar=boton-flotante]"
+  end
+
   test "old car URLs redirect permanently to the canonical slug" do
     car = cars(:carrera)
     get "/coches/#{car.id}"

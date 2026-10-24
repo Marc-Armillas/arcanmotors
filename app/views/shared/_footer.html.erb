@@ -17,9 +17,9 @@
 
     <div class="site-footer__col">
       <h2 class="site-footer__heading">Contacto</h2>
-      <a href="<%= whatsapp_url %>" target="_blank" rel="noopener">WhatsApp <%= whatsapp_phone_display %></a>
+      <a <%= track_contact("whatsapp", "pie") %> href="<%= whatsapp_url %>" target="_blank" rel="noopener">WhatsApp <%= whatsapp_phone_display %></a>
       <% if whatsapp_phone.present? %>
-        <a href="tel:+<%= whatsapp_phone %>">Llamar</a>
+        <a <%= track_contact("llamada", "pie") %> href="tel:+<%= whatsapp_phone %>">Llamar</a>
       <% end %>
       <a href="mailto:info@arcanemotors.com">info@arcanemotors.com</a>
     </div>

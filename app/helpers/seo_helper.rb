@@ -70,6 +70,14 @@ module SeoHelper
     )
   end
 
+  # Umami counts clicks on elements carrying data-umami-event; each data-umami-event-* attribute becomes
+  # an event property, so the dashboard shows contacts by channel, place on the site and car.
+  def track_contact(channel, place, car = nil)
+    attributes = { "data-umami-event" => channel, "data-umami-event-lugar" => place }
+    attributes["data-umami-event-coche"] = car.get_full_name if car
+    tag.attributes(attributes)
+  end
+
   def whatsapp_phone
     Rails.application.credentials.dig(:whatsapp, :phone_number).to_s.delete("^0-9")
   end

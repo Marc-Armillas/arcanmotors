@@ -10,11 +10,11 @@
 
     <div class="site-header__tools">
       <% if whatsapp_phone.present? %>
-        <a href="tel:+<%= whatsapp_phone %>" class="site-header__icon" aria-label="Llamar al <%= whatsapp_phone_display %>">
+        <a <%= track_contact("llamada", "cabecera") %> href="tel:+<%= whatsapp_phone %>" class="site-header__icon" aria-label="Llamar al <%= whatsapp_phone_display %>">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h2.6l1.4 4-1.8 1.3a11 11 0 0 0 6.4 6.4l1.3-1.8 4 1.4v2.6a1.6 1.6 0 0 1-1.7 1.6C10.4 18.4 5.6 13.6 5 5.2a1.6 1.6 0 0 1 1.6-1.7Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
         </a>
       <% end %>
-      <a href="<%= whatsapp_url %>" class="site-header__icon" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+      <a <%= track_contact("whatsapp", "cabecera") %> href="<%= whatsapp_url %>" class="site-header__icon" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 8.6c.2-.4.4-.4.7-.4h.5c.2 0 .4 0 .5.4l.6 1.5c.1.2 0 .4-.1.6l-.5.6c.6 1.1 1.5 2 2.6 2.6l.6-.5c.2-.1.4-.2.6-.1l1.5.6c.3.1.4.3.4.5v.5c0 .3 0 .5-.4.7-.5.3-1.3.5-2 .3a8 8 0 0 1-5.1-5.1c-.2-.7 0-1.5.3-2Z" fill="currentColor"/></svg>
       </a>
     </div>
@@ -38,9 +38,9 @@
         <% if user_signed_in? %>
           <%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete, data: { confirm: "¿Cerrar sesión?" }, class: "btn btn--secondary btn--block" %>
         <% end %>
-        <a href="<%= whatsapp_url %>" class="btn btn--primary btn--block" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+        <a <%= track_contact("whatsapp", "menu") %> href="<%= whatsapp_url %>" class="btn btn--primary btn--block" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
         <% if whatsapp_phone.present? %>
-          <a href="tel:+<%= whatsapp_phone %>" class="btn btn--secondary btn--block">Llamar al <%= whatsapp_phone_display %></a>
+          <a <%= track_contact("llamada", "menu") %> href="tel:+<%= whatsapp_phone %>" class="btn btn--secondary btn--block">Llamar al <%= whatsapp_phone_display %></a>
         <% end %>
       </div>
     </div>

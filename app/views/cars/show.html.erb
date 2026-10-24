@@ -95,9 +95,9 @@
 
     <% unless in_admin_controller? || @car.sold? %>
       <div class="vehicle__actions">
-        <a href="<%= car_whatsapp_url(@car) %>" class="btn btn--primary btn--large btn--block" target="_blank" rel="noopener">Preguntar por este coche</a>
+        <a <%= track_contact("whatsapp", "ficha", @car) %> href="<%= car_whatsapp_url(@car) %>" class="btn btn--primary btn--large btn--block" target="_blank" rel="noopener">Preguntar por este coche</a>
         <% if whatsapp_phone.present? %>
-          <a href="tel:+<%= whatsapp_phone %>" class="btn btn--secondary btn--large btn--block">Llamar al <%= whatsapp_phone_display %></a>
+          <a <%= track_contact("llamada", "ficha", @car) %> href="tel:+<%= whatsapp_phone %>" class="btn btn--secondary btn--large btn--block">Llamar al <%= whatsapp_phone_display %></a>
         <% end %>
       </div>
       <p class="vehicle__note">Te enviamos más fotos, el historial de mantenimiento o te enseñamos el coche en persona.</p>

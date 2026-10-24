@@ -34,7 +34,7 @@
   <% else %>
     <div class="empty-state">
       <p>No hay coches de esta gama en stock ahora mismo. Dinos qué buscas y te avisamos cuando entre uno.</p>
-      <a href="<%= whatsapp_url("Hola, busco un Porsche: ") %>" class="btn btn--primary" target="_blank" rel="noopener">Contarnos qué buscas</a>
+      <a <%= track_contact("whatsapp", "listado-vacio") %> href="<%= whatsapp_url("Hola, busco un Porsche: ") %>" class="btn btn--primary" target="_blank" rel="noopener">Contarnos qué buscas</a>
     </div>
   <% end %>
 </section>

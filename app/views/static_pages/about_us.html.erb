@@ -48,7 +48,7 @@
     <h2 id="cta-title" class="heading-1">Ven a ver los coches en persona.</h2>
     <p class="lead">Escríbenos para concertar una visita o pedir más información sobre cualquier coche del stock.</p>
     <div class="cta__actions">
-      <a href="<%= whatsapp_url("Hola, me gustaría concertar una visita.") %>" class="btn btn--light btn--large" target="_blank" rel="noopener">Concertar una visita</a>
+      <a <%= track_contact("whatsapp", "nosotros") %> href="<%= whatsapp_url("Hola, me gustaría concertar una visita.") %>" class="btn btn--light btn--large" target="_blank" rel="noopener">Concertar una visita</a>
       <a href="<%= cars_path %>" class="btn btn--glass btn--large">Ver el stock</a>
     </div>
   </div>
