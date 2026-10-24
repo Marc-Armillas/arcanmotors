@@ -60,7 +60,7 @@ document.addEventListener("turbolinks:load", function() {
       if (event.target === dialog || event.target.classList.contains("lightbox__figure")) close();
     });
 
-    // Touch: a horizontal swipe changes photo; dragging down pulls the photo away and, past a threshold
+    // Touch: a horizontal swipe changes photo; dragging up or down pulls the photo away and, past a threshold
     // (or with a quick flick), closes the viewer back to the car page. The first few pixels decide which.
     let touch = null;
     const resetDrag = (animate) => {
@@ -88,10 +88,10 @@ document.addEventListener("turbolinks:load", function() {
 
       event.preventDefault();
       dialog.classList.add("lightbox--dragging");
-      touch.dy = Math.max(0, dy);
+      touch.dy = dy;
       touch.samples.push({ dy: touch.dy, t: performance.now() });
       if (touch.samples.length > 8) touch.samples.shift();
-      const progress = Math.min(touch.dy / window.innerHeight, 1);
+      const progress = Math.min(Math.abs(touch.dy) / window.innerHeight, 1);
       image.style.transform = `translateY(${touch.dy}px) scale(${1 - progress * 0.25})`;
       dialog.style.backgroundColor = `rgba(8, 9, 8, ${0.97 * (1 - progress * 1.6)})`;
     }, { passive: false });
@@ -106,12 +106,13 @@ document.addEventListener("turbolinks:load", function() {
         const now = performance.now();
         const recent = samples.filter((sample) => now - sample.t < 100);
         const from = recent[0] || samples[samples.length - 1];
-        const speed = (dy - from.dy) / Math.max(now - from.t, 16);
-        const flick = dy > 40 && speed > 0.5;
-        if (dy > window.innerHeight * 0.18 || flick) {
+        const distance = Math.abs(dy);
+        const speed = Math.abs(dy - from.dy) / Math.max(now - from.t, 16);
+        const flick = distance > 40 && speed > 0.5 && Math.sign(dy - from.dy) === Math.sign(dy);
+        if (distance > window.innerHeight * 0.18 || flick) {
           image.style.transition = "transform 0.25s ease-in";
           dialog.style.transition = "background-color 0.25s ease-in";
-          image.style.transform = `translateY(${window.innerHeight}px) scale(0.75)`;
+          image.style.transform = `translateY(${Math.sign(dy) * window.innerHeight}px) scale(0.75)`;
           dialog.style.backgroundColor = "rgba(8, 9, 8, 0)";
           setTimeout(() => { close(); resetDrag(false); }, 250);
         } else {
