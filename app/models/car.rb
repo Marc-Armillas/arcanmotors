@@ -23,7 +23,7 @@ class Car < ApplicationRecord
   before_save :hide_car_if_sold
 
   def to_param
-    slug = [make&.name, name, year].compact_blank.join(" ").parameterize
+    slug = [ make&.name, name, year ].compact_blank.join(" ").parameterize
     "#{slug}-#{self.id}"
   end
 
