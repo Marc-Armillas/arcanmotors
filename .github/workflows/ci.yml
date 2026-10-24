@@ -25,8 +25,6 @@ jobs:
 
   scan_js:
     runs-on: ubuntu-24.04
-    # Informational until Webpacker 5 / webpack 4 are replaced: the current toolchain carries many known advisories
-    continue-on-error: true
 
     steps:
       - name: Checkout code
@@ -37,7 +35,10 @@ jobs:
         with:
           node-version: 18.20.4
 
+      # Informational until Webpacker 5 / webpack 4 are replaced: that toolchain carries ~300 known
+      # advisories (23 critical in October 2026), so the report is shown in the log without failing CI
       - name: Scan for security vulnerabilities in JavaScript dependencies
+        continue-on-error: true
         run: npx yarn@1.22.19 audit --groups dependencies --level high
 
   lint:
