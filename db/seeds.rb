@@ -36,7 +36,7 @@ if Country.find_by(code: 'AT').blank?
     "KR" => "South Korea",
     "CN" => "China",
     "IN" => "India",
-    "US" => "United States",
+    "US" => "United States"
   }.each { |code, name| Country.create(code: code, name: name, is_eu: false) }
 
   # Create Makes
@@ -110,7 +110,7 @@ if Country.find_by(code: 'AT').blank?
    "Chery" => Country.find_by(code: 'CN').id,
 
    "Tata" => Country.find_by(code: 'IN').id,
-   "Mahindra" => Country.find_by(code: 'IN').id,
+   "Mahindra" => Country.find_by(code: 'IN').id
   }.each { |make, country_id| Make.create(name: make, country_id: country_id) }
 
   # Create Categories
