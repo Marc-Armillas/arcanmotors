@@ -481,6 +481,31 @@
   .spec-table div:nth-last-child(2):nth-child(odd) { border-bottom: 0; }
 }
 
+/* ---------- Guides ---------- */
+
+.guide-grid { display: grid; gap: 16px; }
+@media (min-width: 760px) { .guide-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; } }
+@media (min-width: 1100px) { .guide-grid { grid-template-columns: repeat(3, 1fr); } }
+.guide-card { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; padding: 32px; border-radius: var(--radius-card); background: var(--grey); transition: background-color 0.25s var(--ease); }
+.guide-card:hover { background: var(--grey-2); }
+.guide-card__title { font-size: var(--fs-h3); font-weight: 400; line-height: 1.25; }
+.guide-card p { color: var(--ink-2); }
+.guide-card .link-arrow { margin-top: auto; padding-top: 8px; }
+
+.guide { display: grid; gap: 40px 64px; padding-bottom: clamp(64px, 8vw, 112px); grid-template-areas: "head" "body" "aside"; }
+.guide__head { grid-area: head; display: grid; gap: 16px; justify-items: start; padding-top: 24px; }
+.guide__body { grid-area: body; }
+.guide__body ul { margin-top: 1em; padding-left: 20px; list-style: disc; display: grid; gap: 8px; color: var(--ink-2); }
+.guide__aside { grid-area: aside; display: grid; gap: 16px; align-content: start; }
+.guide__box { display: grid; gap: 16px; padding: 24px; border-radius: var(--radius-card); background: var(--grey); }
+.guide__box--dark { background: var(--dark); color: var(--dark-text); }
+.guide__box--dark p { color: var(--dark-muted); }
+.guide__cars { display: grid; gap: 12px; }
+@media (min-width: 1100px) {
+  .guide { grid-template-columns: minmax(0, 1fr) 380px; grid-template-areas: "head aside" "body aside"; }
+  .guide__aside { position: sticky; top: calc(var(--header-h) + 24px); }
+}
+
 /* ---------- Legal & forms ---------- */
 
 .legal { display: grid; gap: 64px; padding-bottom: clamp(64px, 8vw, 112px); }

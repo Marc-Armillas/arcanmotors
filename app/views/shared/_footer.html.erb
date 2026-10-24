@@ -15,6 +15,7 @@
       <a href="<%= about_us_path %>">Nosotros</a>
       <a href="<%= new_sell_request_path %>">Vende tu Porsche</a>
       <a href="<%= new_stock_alert_path %>">Avísame cuando entre</a>
+      <% if Guide.visible.any? %><a href="<%= guides_path %>">Guías de compra</a><% end %>
     </nav>
 
     <nav class="site-footer__col" aria-label="Modelos">

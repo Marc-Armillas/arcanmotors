@@ -45,6 +45,9 @@
     <h2 id="about-line" class="heading-1">Comprar un Porsche <%= @line.name %> de ocasión</h2>
     <div class="prose">
       <p><%= @line.intro %></p>
+      <% Guide.for_line(@line.slug).each do |guide| %>
+        <p><a href="<%= guide_path(slug: guide.slug) %>"><%= guide.title %></a>: nuestra guía con lo que conviene revisar.</p>
+      <% end %>
       <p>Cada coche que vendemos pasa antes por nuestro taller: revisamos mecánica, electrónica, frenos y carrocería, y te enseñamos el historial completo antes de que decidas.</p>
     </div>
   </div>

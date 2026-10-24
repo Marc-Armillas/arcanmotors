@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   get "vende-tu-porsche", to: "sell_requests#new", as: :new_sell_request
   post "vende-tu-porsche", to: "sell_requests#create", as: :sell_requests
   get "privacidad", to: "static_pages#privacy", as: :privacy
+  get "guias", to: "guides#index", as: :guides
+  get "guias/:slug", to: "guides#show", as: :guide
   get "cookies_policy", to: "static_pages#cookies_policy"
   get "legal", to: "static_pages#legal"
   root "static_pages#home"
