@@ -17,7 +17,7 @@ module Arcanmotors
     config.autoload_lib(ignore: %w[assets tasks])
 
     console do
-      require 'pry'
+      require "pry"
       config.console = Pry
     end
 

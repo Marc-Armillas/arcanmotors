@@ -35,7 +35,6 @@
 /config/master.key
 /config/credentials/*
 /config/database.yml
-/db/schema.rb
 .idea/arcanmotors.iml
 
 /public/packs
