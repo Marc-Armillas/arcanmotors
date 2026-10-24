@@ -38,9 +38,6 @@
     <%= stylesheet_pack_tag "application", "data-turbolinks-track": "reload" %>
     <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
 
-    <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
     <%= organization_json_ld %>
 
     <!-- Umami Analytics -->
@@ -51,9 +48,10 @@
 
   <body class="site">
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <div class="shell">
     <%= render "shared/header" %>
 
-    <main id="contenido">
+    <main id="contenido" class="shell__main">
       <% if flash.any? %>
         <div class="flash-stack">
           <% flash.each do |type, message| %>
@@ -63,12 +61,11 @@
       <% end %>
 
       <%= yield %>
+
+      <%= render "shared/footer" %>
     </main>
+    </div>
 
     <%= render "shared/whatsapp_button" %>
-    <%= render "shared/footer" %>
-
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   </body>
 </html>

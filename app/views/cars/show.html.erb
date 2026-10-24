@@ -32,37 +32,31 @@
   </ol>
 </nav>
 
-<article class="vehicle wrap">
-  <div class="vehicle__gallery js-gallery">
-    <div class="swiper gallery-main js-gallery-main">
-      <div class="swiper-wrapper">
-        <% @car.images.each_with_index do |image, index| %>
-          <div class="swiper-slide">
-            <img src="<%= car_image_url(image, :gallery) %>" alt="<%= car_image_alt(@car, index) %>" width="1800" height="1350"
-                 loading="<%= index.zero? ? "eager" : "lazy" %>" decoding="async" <%= 'fetchpriority="high"'.html_safe if index.zero? %>>
-          </div>
-        <% end %>
-      </div>
-      <% if @car.images.size > 1 %>
-        <div class="swiper-pagination gallery-main__count"></div>
-        <button type="button" class="swiper-button-prev gallery-main__nav" aria-label="Foto anterior"></button>
-        <button type="button" class="swiper-button-next gallery-main__nav" aria-label="Foto siguiente"></button>
-      <% end %>
-    </div>
-
-    <% if @car.images.size > 1 %>
-      <div class="swiper gallery-thumbs js-gallery-thumbs">
-        <div class="swiper-wrapper">
-          <% @car.images.each_with_index do |image, index| %>
-            <div class="swiper-slide">
-              <img src="<%= car_image_url(image, :thumb) %>" alt="" width="240" height="180" loading="lazy" decoding="async">
-            </div>
-          <% end %>
-        </div>
-      </div>
+<div class="strip js-strip" aria-label="Fotos del coche">
+  <div class="strip__track" tabindex="0" role="region" aria-label="Galería, usa las flechas para ver más fotos">
+    <% @car.images.each_with_index do |image, index| %>
+      <figure class="strip__slide">
+        <img src="<%= car_image_url(image, :gallery) %>" alt="<%= car_image_alt(@car, index) %>" width="1800" height="1350"
+             loading="<%= index < 2 ? "eager" : "lazy" %>" decoding="async" <%= 'fetchpriority="high"'.html_safe if index.zero? %>>
+      </figure>
     <% end %>
   </div>
+  <% if @car.images.size > 1 %>
+    <div class="strip__controls wrap">
+      <p class="strip__count caps js-strip-count">1 / <%= @car.images.size %></p>
+      <div class="strip__buttons">
+        <button type="button" class="strip__button js-strip-prev" aria-label="Foto anterior">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10.5 2.5 5 8l5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+        </button>
+        <button type="button" class="strip__button js-strip-next" aria-label="Foto siguiente">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 2.5 11 8l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+        </button>
+      </div>
+    </div>
+  <% end %>
+</div>
 
+<article class="vehicle wrap">
   <aside class="vehicle__panel" aria-label="Precio y contacto">
     <p class="vehicle__make caps"><%= @car.make&.name %></p>
     <h1 class="vehicle__title"><%= @car.name %></h1>
@@ -88,10 +82,8 @@
       <p class="vehicle__note">Te enviamos más fotos, el historial de mantenimiento o te enseñamos el coche en persona.</p>
     <% end %>
   </aside>
-</article>
 
-<section class="section section--surface" aria-label="Detalles del coche">
-  <div class="wrap vehicle-details <%= "vehicle-details--split" if description.any? %>">
+  <div class="vehicle__details">
     <% if description.any? %>
       <div class="vehicle-details__card">
         <h2 id="descripcion" class="display-2">Descripción</h2>
@@ -112,4 +104,4 @@
       </dl>
     </div>
   </div>
-</section>
+</article>

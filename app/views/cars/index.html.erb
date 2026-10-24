@@ -26,11 +26,14 @@
 
 <section class="section section--tight wrap" aria-label="Listado de coches">
   <% if @cars.any? %>
-    <div class="car-grid">
-      <% @cars.each_with_index do |car, index| %>
-        <%= render "components/car_card", car: car, heading: :h2, eager: index < 3 %>
-      <% end %>
+    <div class="catalog-head" aria-hidden="true">
+      <span>Lote</span><span></span><span>Modelo</span><span>Año</span><span>Kilómetros</span><span>Potencia</span><span>Precio</span>
     </div>
+    <ol class="catalog">
+      <% @cars.each_with_index do |car, index| %>
+        <%= render "components/car_row", car: car, index: index, eager: index < 3 %>
+      <% end %>
+    </ol>
   <% else %>
     <div class="empty-state">
       <p>No hay coches de esta gama en stock ahora mismo. Dinos qué buscas y te avisamos cuando entre uno.</p>

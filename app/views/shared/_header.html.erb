@@ -1,29 +1,30 @@
-<header class="site-header <%= "site-header--overlay" if content_for?(:header_overlay) %>" id="site-header">
-  <div class="site-header__bar wrap">
-    <nav class="site-nav" aria-label="Principal">
-      <a href="<%= cars_path %>" class="site-nav__link site-nav__link--framed" <%= 'aria-current="page"'.html_safe if current_page?(cars_path) %>>Coches en stock</a>
-      <a href="<%= about_us_path %>" class="site-nav__link" <%= 'aria-current="page"'.html_safe if current_page?(about_us_path) %>>Nosotros</a>
-    </nav>
-
-    <a href="<%= root_path %>" class="wordmark" aria-label="ArCan Motors, inicio">ArCan Motors</a>
-
-    <div class="site-header__end">
-      <% if user_signed_in? %>
-        <%= link_to "Salir", destroy_user_session_path, method: :delete, data: { confirm: "¿Cerrar sesión?" }, class: "site-nav__link" %>
-      <% else %>
-        <a href="<%= whatsapp_url %>" class="site-nav__link" target="_blank" rel="noopener">Contacto</a>
-      <% end %>
-    </div>
-
+<% nav_links = [["Inicio", root_path], ["Coches en stock", cars_path], ["Nosotros", about_us_path]] %>
+<header class="sidebar" id="site-header">
+  <div class="sidebar__top">
+    <a href="<%= root_path %>" class="wordmark" aria-label="ArCan Motors, inicio">ArCan<br> Motors</a>
     <button type="button" id="mobile-menu-button" class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu">
       <span class="sr-only">Abrir menú</span>
       <span class="menu-toggle__bars" aria-hidden="true"></span>
     </button>
   </div>
 
-  <nav id="mobile-menu" class="mobile-menu" aria-label="Menú móvil" hidden>
-    <a href="<%= cars_path %>" class="mobile-menu__link">Coches en stock</a>
-    <a href="<%= about_us_path %>" class="mobile-menu__link">Nosotros</a>
-    <a href="<%= whatsapp_url %>" class="btn btn--red btn--large mobile-menu__cta" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
-  </nav>
+  <div class="sidebar__panel" id="mobile-menu">
+    <nav class="sidebar__nav" aria-label="Principal">
+      <% nav_links.each do |label, path| %>
+        <a href="<%= path %>" class="sidebar__link" <%= 'aria-current="page"'.html_safe if current_page?(path) %>><%= label %></a>
+      <% end %>
+    </nav>
+
+    <div class="sidebar__contact">
+      <p class="caps">Especialistas en Porsche desde 2000</p>
+      <% if user_signed_in? %>
+        <%= link_to "Salir", destroy_user_session_path, method: :delete, data: { confirm: "¿Cerrar sesión?" }, class: "btn btn--frame btn--block" %>
+      <% else %>
+        <a href="<%= whatsapp_url %>" class="btn btn--red btn--block" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+      <% end %>
+      <% if whatsapp_phone.present? %>
+        <a href="tel:+<%= whatsapp_phone %>" class="sidebar__phone"><%= whatsapp_phone_display %></a>
+      <% end %>
+    </div>
+  </div>
 </header>
