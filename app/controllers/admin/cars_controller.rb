@@ -68,7 +68,7 @@ module Admin
     def car_params
       params.require(:car).permit(
         :category_id, :make_id, :emission_sticker_id, :condition, :first_registration, :transmission, :gearbox, :fuel, :model,
-        :cubic_capacity, :power, :previous_owners, :origin_country_id,:model_description, :name, :price, :year, :kilometers,
+        :cubic_capacity, :power, :previous_owners, :origin_country_id, :model_description, :name, :price, :year, :kilometers,
         :description, :in_home_page, :is_public, :status, :next_inspection, :exterior_color, :manufacturer_color_name, :doors, :seats,
         :interior_color, :interior_material, :vin, :consumption_city, :consumption_suburban, :consumption_highway,
         :consumption_combined, :base_price, :tax, :total_price, images: []
