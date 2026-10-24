@@ -1,0 +1,22 @@
+# The app runs in the default :en locale; these Spanish attribute names make the public lead forms'
+# validation messages read naturally ("Nombre es obligatorio").
+en:
+  activerecord:
+    attributes:
+      stock_alert:
+        name: Nombre
+        email: Email
+        phone: Teléfono
+        model_line: Modelo
+        max_price: Presupuesto
+        privacy_accepted: La política de privacidad
+      sell_request:
+        name: Nombre
+        email: Email
+        phone: Teléfono
+        model: Modelo
+        year: Año
+        kilometers: Kilómetros
+        asking_price: Precio
+        photos: Fotos
+        privacy_accepted: La política de privacidad

@@ -32,12 +32,15 @@
   <% else %>
     <div class="empty-state">
       <p>Ahora mismo no tenemos ningún Porsche <%= @line.name %> en stock. Cuéntanos qué buscas y te avisamos cuando entre uno.</p>
-      <a <%= track_contact("whatsapp", "modelo-sin-stock") %> href="<%= whatsapp_url("Hola, busco un Porsche #{@line.name}: ") %>" class="btn btn--primary" target="_blank" rel="noopener">Contarnos qué buscas</a>
+      <div class="cta__actions">
+        <a href="#avisame" class="btn btn--primary">Avisarme cuando entre</a>
+        <a <%= track_contact("whatsapp", "modelo-sin-stock") %> href="<%= whatsapp_url("Hola, busco un Porsche #{@line.name}: ") %>" class="btn btn--secondary" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+      </div>
     </div>
   <% end %>
 </section>
 
-<section class="section section--grey" aria-labelledby="about-line">
+<section class="section" aria-labelledby="about-line">
   <div class="wrap split">
     <h2 id="about-line" class="heading-1">Comprar un Porsche <%= @line.name %> de ocasión</h2>
     <div class="prose">
@@ -46,6 +49,8 @@
     </div>
   </div>
 </section>
+
+<%= render "stock_alerts/section", model_line: @line.slug %>
 
 <% if @other_lines.any? %>
   <section class="section" aria-labelledby="other-lines">

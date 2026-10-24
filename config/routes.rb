@@ -12,6 +12,11 @@ Rails.application.routes.draw do
   get "about_us", to: "static_pages#about_us"
   get "contacto", to: "contact_requests#new", as: "contact_request"
   post "contacto", to: "contact_requests#create"
+  get "avisame", to: "stock_alerts#new", as: :new_stock_alert
+  post "avisame", to: "stock_alerts#create", as: :stock_alerts
+  get "vende-tu-porsche", to: "sell_requests#new", as: :new_sell_request
+  post "vende-tu-porsche", to: "sell_requests#create", as: :sell_requests
+  get "privacidad", to: "static_pages#privacy", as: :privacy
   get "cookies_policy", to: "static_pages#cookies_policy"
   get "legal", to: "static_pages#legal"
   root "static_pages#home"
@@ -24,6 +29,8 @@ Rails.application.routes.draw do
     end
 
     resources :contact_requests, only: [ :index, :update, :destroy ]
+    resources :stock_alerts, only: [ :index, :update, :destroy ]
+    resources :sell_requests, only: [ :index, :show, :update, :destroy ]
     resources :categories
     resources :category_types
   end

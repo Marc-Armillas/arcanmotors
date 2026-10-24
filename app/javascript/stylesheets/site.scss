@@ -493,6 +493,30 @@
 .field input, .field textarea { width: 100%; padding: 12px 14px; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-btn); font: inherit; color: var(--ink); }
 .field input:focus, .field textarea:focus { border-color: var(--ink); outline: none; }
 .form .btn { justify-self: start; }
+.form--wide { max-width: none; margin-bottom: 0; }
+.section--grey .form { background: var(--white); }
+.form__row--3 { grid-template-columns: 1fr; }
+@media (min-width: 640px) { .form__row--3 { grid-template-columns: repeat(3, 1fr); } }
+.field select {
+  width: 100%;
+  padding: 12px 40px 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-btn);
+  background: var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%23010205' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 12px center / 18px;
+  font: inherit;
+  color: var(--ink);
+  appearance: none;
+}
+.field select:focus { border-color: var(--ink); outline: none; }
+.field input[type="file"] { padding: 10px; background: var(--grey); border-style: dashed; cursor: pointer; }
+.field--check { grid-template-columns: auto 1fr; align-items: start; gap: 10px; }
+.field--check input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--ink); }
+.field--check label { color: var(--ink-2); }
+.field--check a { text-decoration: underline; }
+.form__trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.form__errors { padding: 16px 18px; border-radius: 12px; background: #fdecee; color: #8a0f1f; }
+.form__errors ul { margin-top: 6px; padding-left: 18px; list-style: disc; }
+.steps--compact { margin-top: 0; }
 
 /* ---------- Flash ---------- */
 

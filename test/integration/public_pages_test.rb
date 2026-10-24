@@ -95,7 +95,7 @@ class PublicPagesTest < ActionDispatch::IntegrationTest
   end
 
   test "static pages respond" do
-    [ about_us_path, legal_path, cookies_policy_path, contact_request_path ].each do |path|
+    [ about_us_path, legal_path, cookies_policy_path, privacy_path, contact_request_path, new_stock_alert_path, new_sell_request_path ].each do |path|
       get path
       assert_response :success, "#{path} should render"
     end

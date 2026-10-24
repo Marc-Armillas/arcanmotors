@@ -14,6 +14,8 @@ class StaticPagesController < ApplicationController
 
   def cookies_policy; end
 
+  def privacy; end
+
   # Starts as a static page but if in the future we have more than 1 should create a db_table/model/controller
   def services; end
 
