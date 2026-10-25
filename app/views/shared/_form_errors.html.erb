@@ -1,0 +1,11 @@
+<%# locals: record %>
+<% if record.errors.any? %>
+  <div class="form__errors" role="alert">
+    <p>Revisa estos datos para poder enviarlo:</p>
+    <ul>
+      <% record.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

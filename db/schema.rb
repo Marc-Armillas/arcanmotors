@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_04_184419) do
+ActiveRecord::Schema[7.2].define(version: 2026_10_24_190100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -128,6 +128,32 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_04_184419) do
     t.datetime "updated_at", null: false
     t.bigint "country_id", null: false
     t.index ["country_id"], name: "index_makes_on_country_id"
+  end
+
+  create_table "sell_requests", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email"
+    t.string "phone"
+    t.string "model", null: false
+    t.integer "year"
+    t.integer "kilometers"
+    t.integer "asking_price"
+    t.text "notes"
+    t.boolean "handled", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "stock_alerts", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email"
+    t.string "phone"
+    t.string "model_line"
+    t.integer "max_price"
+    t.text "notes"
+    t.boolean "handled", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

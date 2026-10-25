@@ -10,6 +10,7 @@ module ActiveSupport
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
 
-    # Add more helper methods to be used by all tests here...
+    # Fixture blobs (test/fixtures/active_storage) read their files from test/fixtures/files
+    ActiveStorage::FixtureSet.file_fixture_path = File.expand_path("fixtures/files", __dir__)
   end
 end

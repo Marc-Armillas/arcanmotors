@@ -1,0 +1,11 @@
+<%# locals: f — honeypot for bots plus the mandatory privacy consent %>
+<div class="form__trap" aria-hidden="true">
+  <%= f.label :website, "Deja este campo vacío" %>
+  <%= f.text_field :website, tabindex: -1, autocomplete: "off" %>
+</div>
+<div class="field field--check">
+  <%= f.check_box :privacy_accepted, { required: true }, "true", "false" %>
+  <%= f.label :privacy_accepted do %>
+    He leído y acepto la <a href="<%= privacy_path %>" target="_blank" rel="noopener">política de privacidad</a>.
+  <% end %>
+</div>

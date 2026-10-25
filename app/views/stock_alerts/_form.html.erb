@@ -1,0 +1,34 @@
+<%# locals: stock_alert %>
+<%= form_with model: stock_alert, url: stock_alerts_path, class: "form form--wide", id: "avisame-form" do |f| %>
+  <%= render "shared/form_errors", record: stock_alert %>
+  <div class="form__row">
+    <div class="field">
+      <%= f.label :model_line, "Modelo" %>
+      <%= f.select :model_line, ModelLine::LINES.map { |line| ["Porsche #{line.name}", line.slug] }, { include_blank: "Cualquier Porsche" } %>
+    </div>
+    <div class="field">
+      <%= f.label :max_price, "Presupuesto máximo (€, opcional)" %>
+      <%= f.number_field :max_price, min: 0, step: 1000, inputmode: "numeric" %>
+    </div>
+  </div>
+  <div class="field">
+    <%= f.label :name, "Nombre" %>
+    <%= f.text_field :name, required: true, autocomplete: "name" %>
+  </div>
+  <div class="form__row">
+    <div class="field">
+      <%= f.label :email, "Email" %>
+      <%= f.email_field :email, autocomplete: "email" %>
+    </div>
+    <div class="field">
+      <%= f.label :phone, "Teléfono o WhatsApp" %>
+      <%= f.telephone_field :phone, autocomplete: "tel" %>
+    </div>
+  </div>
+  <div class="field">
+    <%= f.label :notes, "¿Algo más? Versión, color, año… (opcional)" %>
+    <%= f.text_area :notes, rows: 3 %>
+  </div>
+  <%= render "shared/privacy_fields", f: f %>
+  <%= f.submit "Avisarme cuando entre", class: "btn btn--primary btn--large" %>
+<% end %>

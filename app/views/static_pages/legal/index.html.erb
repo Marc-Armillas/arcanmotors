@@ -1,11 +1,15 @@
-<div class="mx-auto px-4 py-8">
-  <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">Documentación Legal</h1>
+<% seo title: "Aviso legal y términos", noindex: true %>
 
-  <section id="terminos-condiciones" class="mb-16 container mx-auto my-12 p-6 bg-white shadow-md rounded-md">
-    <%= render partial: "static_pages/legal/terms_conditions" %>
+<header class="page-head wrap">
+  <h1 class="display-1">Documentación legal</h1>
+</header>
+
+<div class="wrap legal">
+  <section id="aviso-legal" class="prose">
+    <%= render partial: "static_pages/legal/legal_notice" %>
   </section>
 
-  <section id="aviso-legal" class="container mx-auto my-12 p-6 bg-white shadow-md rounded-md">
-    <%= render partial: "static_pages/legal/legal_notice" %>
+  <section id="terminos-condiciones" class="prose">
+    <%= render partial: "static_pages/legal/terms_conditions" %>
   </section>
 </div>

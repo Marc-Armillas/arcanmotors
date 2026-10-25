@@ -1,0 +1,10 @@
+<%# locals: model_line (optional slug to preselect) %>
+<section class="section section--grey" id="avisame" aria-labelledby="avisame-title">
+  <div class="wrap split">
+    <div>
+      <h2 id="avisame-title" class="heading-1">¿No encuentras el tuyo? Te avisamos cuando entre.</h2>
+      <p class="lead">Dinos qué Porsche buscas y tu presupuesto. Cuando entre uno que encaje, te escribimos antes de publicarlo.</p>
+    </div>
+    <%= render "stock_alerts/form", stock_alert: StockAlert.new(model_line: local_assigns[:model_line]) %>
+  </div>
+</section>

@@ -1,0 +1,52 @@
+carrera:
+  name: 911 Carrera 4S
+  make: porsche
+  category: coupe
+  year: 2021
+  kilometers: 28400
+  cv: 450
+  power: 331
+  price: 139900
+  gearbox: semi_automatic
+  fuel: petrol
+  transmission: four_wheel_drive
+  condition: used
+  status: on_sale
+  is_public: true
+  in_home_page: true
+  model_description: Carrera 4S con PDK y Sport Chrono.
+  description: Libro de mantenimiento completo.
+
+macan:
+  name: Macan GTS
+  make: porsche
+  category: suv
+  year: 2020
+  kilometers: 52300
+  cv: 380
+  price: 72500
+  gearbox: semi_automatic
+  fuel: petrol
+  status: reserved
+  is_public: true
+  in_home_page: true
+
+sold:
+  name: 718 Cayman Vendido
+  make: porsche
+  category: coupe
+  year: 2019
+  kilometers: 30000
+  price: 60000
+  status: sold
+  is_public: false
+
+hidden:
+  name: Boxster Oculto
+  make: porsche
+  category: coupe
+  year: 2018
+  kilometers: 40000
+  price: 50000
+  status: on_sale
+  is_public: false

@@ -1,8 +1,7 @@
 document.addEventListener("turbolinks:load", function() {
-  const flashMessage = document.querySelector('.flash-message');
-  if (flashMessage) {
+  document.querySelectorAll(".flash-message").forEach(function(flashMessage) {
     setTimeout(() => {
-      flashMessage.style.display = 'none';
-    }, 5000); // 5 seconds
-  }
+      flashMessage.style.display = "none";
+    }, 6000);
+  });
 });
