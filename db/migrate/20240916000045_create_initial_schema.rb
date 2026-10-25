@@ -3,7 +3,7 @@ class CreateInitialSchema < ActiveRecord::Migration[7.2]
     create_table "active_storage_variant_records", force: :cascade do |t|
       t.bigint "blob_id", null: false
       t.string "variation_digest", null: false
-      t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+      t.index [ "blob_id", "variation_digest" ], name: "index_active_storage_variant_records_uniqueness", unique: true
     end
 
     create_table "cars", force: :cascade do |t|
@@ -45,9 +45,9 @@ class CreateInitialSchema < ActiveRecord::Migration[7.2]
       t.decimal "tax"
       t.decimal "total_price"
       t.integer 'transmission'
-      t.index ["category_id"], name: "index_cars_on_category_id"
-      t.index ["emission_sticker_id"], name: "index_cars_on_emission_sticker"
-      t.index ["make_id"], name: "index_cars_on_make_id"
+      t.index [ "category_id" ], name: "index_cars_on_category_id"
+      t.index [ "emission_sticker_id" ], name: "index_cars_on_emission_sticker"
+      t.index [ "make_id" ], name: "index_cars_on_make_id"
       t.boolean 'in_home_page', default: false
     end
 
@@ -78,7 +78,7 @@ class CreateInitialSchema < ActiveRecord::Migration[7.2]
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
       t.bigint "country_id", null: false
-      t.index ["country_id"], name: "index_makes_on_country_id"
+      t.index [ "country_id" ], name: "index_makes_on_country_id"
     end
 
     add_foreign_key "cars", "categories"
