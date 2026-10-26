@@ -1836,7 +1836,7 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     semantic_range (3.0.0)
-    sitemap_generator (6.3.0)
+    sitemap_generator (7.1.1)
       builder (~> 3.0)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
